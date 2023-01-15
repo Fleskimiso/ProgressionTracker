@@ -1,0 +1,39 @@
+{
+  "name": "progressiontracker",
+  "version": "1.0.0",
+  "description": "A web application that allows for keeping track of progress in workout's",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:frontEndDevelopment": "webpack-dev-server --config webpack.config.js",
+    "start:backEndDevelopment": "nodemon src/backEnd/index.js",
+    "start": "concurrently npm:start:*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Fleskimiso/ProgressionTracker.git"
+  },
+  "author": "Fleskimiso",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/Fleskimiso/ProgressionTracker/issues"
+  },
+  "homepage": "https://github.com/Fleskimiso/ProgressionTracker#readme",
+  "dependencies": {
+    "@types/react": "^18.0.26",
+    "@types/react-dom": "^18.0.10",
+    "axios": "^1.2.2",
+    "concurrently": "^7.6.0",
+    "express": "^4.18.2",
+    "html-webpack-plugin": "^5.5.0",
+    "nodemon": "^2.0.20",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "ts-loader": "^9.4.2",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.4",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1",
+    "webpack-dev-server": "^4.11.1"
+  }
+}
