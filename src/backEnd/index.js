@@ -1,5 +1,15 @@
-const express = require("express")
+const express = require("express");
+const mongoose = require("mongoose");
 const app = express();
+
+mongoose.connect("mongodb://127.0.0.1:27017/progressiontracker", function(error) {
+  if(error){
+    console.log(error);
+    console.log("There has been an errro");
+  }else {
+    console.log("succesfully connected to the database")
+  }
+})
 
 app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
