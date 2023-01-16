@@ -3,16 +3,18 @@
       "jsx": "react",
       "target": "es5",
       "module": "commonjs",
-      "lib": ["es2015", "dom"],
+      "lib": ["es2015", "dom","ES6"],
+      "types": ["react", "react-dom"],
       "strict": true,
       "noImplicitAny": true,
       "strictNullChecks": true,
       "strictFunctionTypes": true,
       "strictPropertyInitialization": true,
-      "noImplicitThis": true
+      "noImplicitThis": true,
+      "esModuleInterop": true,
     },
     "include": [
-      "src/frontEnd"
+      "src/frontEnd",
     ]
   }
   
