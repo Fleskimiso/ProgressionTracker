@@ -15,7 +15,11 @@ module.exports = {
         test: /\.tsx?$/,
         use: "ts-loader",
         exclude: /node_modules/
-      }
+      },
+      {
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader"],
+      },
     ]
   },
   resolve: {
@@ -32,7 +36,10 @@ module.exports = {
         "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
         "Access-Control-Allow-Headers": "X-Requested-With, content-type, Authorization"
     },
-    historyApiFallback: true
+    historyApiFallback: true,
+    proxy: {
+      "/api": "http://localhost:3000" 
+    }
   },
   plugins: [
     new HtmlWebpackPlugin({

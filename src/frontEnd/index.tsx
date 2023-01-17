@@ -1,19 +1,27 @@
 import * as React from "react";
 import {createRoot} from "react-dom/client"
 import {BrowserRouter, Routes, Route} from "react-router-dom"
+import { Navbar } from "./components/Navbar";
 import { HomePage } from "./routes/HomePage";
 import {LoginPage} from "./routes/LoginPage"
+import { PlanPage } from "./routes/PlanPage";
+import { SignUpPage } from "./routes/SignUpPage";
+import { WorkoutPage } from "./routes/WorkoutPage";
  
 
 
 //main app 
-const App = (): JSX.Element =>{
+export const App = (): JSX.Element =>{
     return <div>
-        "there should be navbar"
+       
         <BrowserRouter>
+        <Navbar/>
             <Routes>
                 <Route  path="/" element={<HomePage/>} />
                 <Route path="/login" element={<LoginPage/>}/>
+                <Route path="/signup" element={<SignUpPage/>} />
+                <Route path="/workout" element={<WorkoutPage/>} />
+                <Route path="/plans" element={<PlanPage/>} />
             </Routes>
         </BrowserRouter>
     </div>

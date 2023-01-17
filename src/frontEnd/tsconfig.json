@@ -4,7 +4,7 @@
       "target": "es5",
       "module": "commonjs",
       "lib": ["es2015", "dom","ES6"],
-      "types": ["react", "react-dom"],
+      "types": ["react", "react-dom", "react-time-picker"],
       "strict": true,
       "noImplicitAny": true,
       "strictNullChecks": true,
@@ -12,9 +12,7 @@
       "strictPropertyInitialization": true,
       "noImplicitThis": true,
       "esModuleInterop": true,
+      "rootDir": ".",
     },
-    "include": [
-      "src/frontEnd",
-    ]
   }
   

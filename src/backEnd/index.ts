@@ -1,5 +1,6 @@
-import express = require("express");
+import express from "express";
 import mongoose from "mongoose";
+
 // import {  } from "./models/WorkoutModel";
 //  import {ExerciseModel }from "./models/ExerciseModel"
 const app = express();
@@ -12,6 +13,8 @@ mongoose.connect("mongodb://127.0.0.1:27017/progressiontracker", function(error)
     console.log("succesfully connected to the database")
   }
 })
+app.use(express.urlencoded({extended: true}))
+
 
 app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
@@ -27,6 +30,13 @@ app.get("/", (req,res) =>{
     //  const ste = new ExerciseModel()
     res.json({ flag: "Success"});
 })
+app.post("/api/login", (req,res) =>{
+  console.log(req.body);
+  res.status(200).json({
+    message: "Hello from the backend"
+  })
+})
+
 
 app.listen(3000,() =>{
     console.log("listening on port 3000");
