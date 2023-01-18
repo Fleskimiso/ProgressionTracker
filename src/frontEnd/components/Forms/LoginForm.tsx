@@ -1,6 +1,6 @@
 import axios from "axios"
 import React, {useState} from "react"
-import { ILoginResponse } from "../interfaces/interfaces"
+import { ILoginResponse } from "../../types/interfaces"
 
 //to do validation
 export const LoginForm = () => {

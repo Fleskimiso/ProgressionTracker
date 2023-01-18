@@ -1,11 +1,21 @@
 import axios from "axios"
-import React, { useState } from "react"
-import TimePicker from "react-time-picker";
+import type { RootState } from "../../store/store"
+import { useSelector, useDispatch } from "react-redux";
+import { workoutFormSlice } from "../../store/slices/WorkoutFormSlice"
+import React from "react"
+import TimePicker, { TimePickerProps, TimePickerValue } from "react-time-picker";
 // import timePicker from "react-time-picker"
 
 export const WorkoutForm = () =>{
 
-    const [startTime, setstartTime] = useState("10:00");
+    
+    const startTime = useSelector((state: RootState) => { return state.workoutForm.startTime});
+    const onstartTimeChange = (e: TimePickerValue) =>{
+        dispatch(workoutFormSlice.actions.changeStartTime(e.toString()))
+    }
+
+    const dispatch = useDispatch();
+
 
     return <div>
         <form action="">
@@ -17,7 +27,7 @@ export const WorkoutForm = () =>{
                <div>
                <label htmlFor="startTime">Workout start Time</label>
                 {/* <input value={startTime} type="time" name="startTime" id="startTime" /> */}
-                <TimePicker value={startTime}/>
+                <TimePicker onChange={onstartTimeChange} clearIcon={null} disableClock={true} clockIcon={null} locale="pl-pl" value={startTime}/>
                </div>
                 <div>
                 <label htmlFor="endTime">Workout end Time</label>

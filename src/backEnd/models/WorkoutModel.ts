@@ -2,8 +2,8 @@ import mongoose from "mongoose";
 
 
 interface IWorkout {
-    startTime: Date,
-    endTime: Date,
+    day: Date,
+    duration: String,
     izometricsExercises: [
         exercise: mongoose.Types.ObjectId,
         additionalWeight: number,
@@ -24,8 +24,8 @@ interface IWorkout {
  * Workout Schema TODO: describe it
  */
 const WorkoutSchema = new mongoose.Schema<IWorkout>({
-    startTime: Date,
-    endTime: Date,
+    day: Date,
+    duration: String,
     izometricsExercises: [
         {
             exercise: {

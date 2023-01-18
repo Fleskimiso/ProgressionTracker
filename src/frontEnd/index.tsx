@@ -1,6 +1,11 @@
 import * as React from "react";
 import {createRoot} from "react-dom/client"
 import {BrowserRouter, Routes, Route} from "react-router-dom"
+import { Provider } from "react-redux";
+
+import {store } from "./store/store";
+
+
 import { Navbar } from "./components/Navbar";
 import { HomePage } from "./routes/HomePage";
 import {LoginPage} from "./routes/LoginPage"
@@ -10,10 +15,12 @@ import { WorkoutPage } from "./routes/WorkoutPage";
  
 
 
+
+
 //main app 
 export const App = (): JSX.Element =>{
     return <div>
-       
+        <Provider store={store}>
         <BrowserRouter>
         <Navbar/>
             <Routes>
@@ -24,6 +31,7 @@ export const App = (): JSX.Element =>{
                 <Route path="/plans" element={<PlanPage/>} />
             </Routes>
         </BrowserRouter>
+        </Provider>
     </div>
 }
 const domNode = document.querySelector("#root");
