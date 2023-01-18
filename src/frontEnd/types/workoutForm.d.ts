@@ -11,7 +11,7 @@ interface IStandardExercise {
     }[]
 }
 interface IWorkoutForm {
-    day: Date,
+    day: number,
     startTime: string,
     endTime: string,
     izometricExercises: IIzometricExercise[],

@@ -8,6 +8,9 @@ interface IUser {
     ],
     plans: [
         mongoose.Types.ObjectId
+    ],
+    exercises: [
+        mongoose.Types.ObjectId
     ]
 }
 
