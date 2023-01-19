@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { workoutFormSlice } from "./slices/WorkoutFormSlice"
+import { exerciseListSlice } from './slices/ExerciseListSlice'
  
 export const store = configureStore({
     reducer: {
-        workoutForm : workoutFormSlice.reducer
+        workoutForm : workoutFormSlice.reducer,
+        exerciseList: exerciseListSlice.reducer
     },
   })
   

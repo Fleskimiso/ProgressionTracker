@@ -1,7 +1,7 @@
 import axios from "axios"
-import type { RootState } from "../../store/store"
+import { RootState, store } from "../../store/store"
 import { useSelector, useDispatch } from "react-redux";
-import { workoutFormSlice } from "../../store/slices/WorkoutFormSlice"
+import { asyncsubmitWorkout, workoutFormSlice } from "../../store/slices/WorkoutFormSlice"
 import React, { useEffect, useState } from "react"
 import TimePicker, { TimePickerProps, TimePickerValue } from "react-time-picker";
 import { ExerciseList } from "../ExerciseList";
@@ -48,7 +48,15 @@ export const WorkoutForm = () => {
     const onInputTypeChange = (e: React.ChangeEvent<HTMLInputElement>) =>{
         setinputType(e.target.value);
     }
-
+    /**
+     * dispatches `submitWorkout` action
+     */
+    const submitWorkout = () =>{
+        console.log("clcliking");
+        
+        //to do typed hooks
+        store.dispatch(asyncsubmitWorkout());
+    }
     //To do styling
     return <div>
         <form action="">
@@ -76,18 +84,17 @@ export const WorkoutForm = () => {
                     <input onChange={onInputTypeChange} value="izometric" type="radio" name="exerciseType" id="exerciseType2" />
                 </fieldset>
                 { inputType === "standard" &&
-                     <StandardExerciseInput/>
+                     <StandardExerciseInput exerciseType="standard"/>
                 }
                 { inputType === "izometric" &&
-                       <IzometricExerciseInput/>
+                       <IzometricExerciseInput exerciseType="izometric" />
                 }
-                <ExerciseList/>
+               
 
             </div>
         </form>
-        <div>
-
+        <ExerciseList/>
             {/* here will be displayed added exercises  */}
-        </div>
+        <button onClick={submitWorkout}>Submit Workout</button>
     </div>
 }
