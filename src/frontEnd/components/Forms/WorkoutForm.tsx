@@ -7,23 +7,33 @@ import TimePicker, { TimePickerProps, TimePickerValue } from "react-time-picker"
 import { ExerciseList } from "../ExerciseList";
 import { IzometricExerciseInput } from "./inputForms/IzometricExerciseInput";
 import { StandardExerciseInput } from "./inputForms/StandardExerciseInput";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { useNavigate } from "react-router-dom";
 // import timePicker from "react-time-picker"
 
 export const WorkoutForm = () => {
 
-    const dispatch = useDispatch();
-
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+    /*
+    *   Display Any errors that happened during making a form
+    */
+    const workoutError = useAppSelector((state: RootState) => {return state.workoutForm.error})
     //start Time of the Workout 
     const startTime = useSelector((state: RootState) => { return state.workoutForm.startTime });
     //update it on change 
     const onstartTimeChange = (e: TimePickerValue) => {
-        dispatch(workoutFormSlice.actions.changeStartTime(e.toString()))
+        if( e!== null){
+            dispatch(workoutFormSlice.actions.changeStartTime(e.toString()))
+        }
     }
     //end time of the workout
     const endTime = useSelector((state: RootState) => { return state.workoutForm.endTime });
     // update it on change
     const onendTimeChange = (e: TimePickerValue) => {
-        dispatch(workoutFormSlice.actions.changeEndTime(e.toString()))
+        if(e !== null){
+            dispatch(workoutFormSlice.actions.changeEndTime(e.toString()))
+        }
     }
     //day of the workout
     const day = useSelector((state: RootState) => {return state.workoutForm.day})
@@ -55,7 +65,12 @@ export const WorkoutForm = () => {
         console.log("clcliking");
         
         //to do typed hooks
-        store.dispatch(asyncsubmitWorkout());
+        dispatch(asyncsubmitWorkout()).then(resp =>{
+            if(resp.meta.requestStatus === "fulfilled") {
+              //  navigate("/")
+              //do not navigate for now
+            }
+        });
     }
     //To do styling
     return <div>
@@ -96,5 +111,9 @@ export const WorkoutForm = () => {
         <ExerciseList/>
             {/* here will be displayed added exercises  */}
         <button onClick={submitWorkout}>Submit Workout</button>
+        <div>
+            {/* display error */}
+            Error: {workoutError}
+        </div>
     </div>
 }

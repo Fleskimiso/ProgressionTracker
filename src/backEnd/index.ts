@@ -1,5 +1,6 @@
 import express from "express";
 import mongoose from "mongoose";
+import { IWorkoutRequest } from "./types/WorkoutResponse";
 
 // import {  } from "./models/WorkoutModel";
 //  import {ExerciseModel }from "./models/ExerciseModel"
@@ -13,7 +14,8 @@ mongoose.connect("mongodb://127.0.0.1:27017/progressiontracker", function(error)
     console.log("succesfully connected to the database")
   }
 })
-app.use(express.urlencoded({extended: true}))
+app.use(express.urlencoded({extended: true}));
+app.use(express.json());
 
 
 app.use((req, res, next) => {
@@ -36,7 +38,21 @@ app.post("/api/login", (req,res) =>{
     message: "Hello from the backend"
   })
 })
-
+app.post("/api/workouts", (req: Express.Request & {body: IWorkoutRequest},res) =>{
+  //console.log(req.headers)
+  console.log(req.body.day);
+  console.log(req.body.duration);
+  req.body.standardExercises.forEach(exercise =>{
+    console.log(exercise.name);
+    exercise.sets.forEach(set =>{
+      console.log(set.repetitions);
+    })
+    
+    
+  })
+  
+  res.status(200).send();
+})
 
 app.listen(3000,() =>{
     console.log("listening on port 3000");
