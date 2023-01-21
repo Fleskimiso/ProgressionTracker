@@ -1,21 +1,21 @@
-interface IIzometricExercise {
+export interface IIzometricExercise {
     name: string
     sets: IIzometricExerciseSet[]
 }
-interface IStandardExercise {
+export interface IStandardExercise {
     name: string
     sets: IStandardExerciseSet[]
 }
-interface IStandardExerciseSet {
+export interface IStandardExerciseSet {
     repetitions: number,
     weight: number,
 }
-interface IIzometricExerciseSet {
+export interface IIzometricExerciseSet {
     holdsTime: number[],
     weight: number
 }
 
-interface IWorkoutForm {
+export interface IWorkoutForm {
     day: number,
     startTime: string,
     endTime: string,
@@ -23,6 +23,7 @@ interface IWorkoutForm {
     standardExercises: IStandardExercise[],
     currentStandardExercise: IStandardExercise,
     currentIzometricExercise: IIzometricExercise,
-    error: string
+    error: string,
+    message: string
 }
-type WorkoutFormState = IWorkoutForm
+export type WorkoutFormState = IWorkoutForm

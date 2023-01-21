@@ -1,6 +1,4 @@
-import axios from "axios"
 import React, {useState} from "react"
-import { ILoginResponse } from "../../types/interfaces"
 
 //to do validation
 export const LoginForm = () => {
@@ -20,18 +18,18 @@ export const LoginForm = () => {
     const onFormSubmit = async (e: React.FormEvent<HTMLFormElement>) =>{
         e.preventDefault();
            
-        //make a request 
-            const response = await axios.post<ILoginResponse>("/api/login",  {
-                email,
-                password
-            }, {method: "post"})
-        // to do auth logic 
-        // to do routing to home page
-        // to do validation
-            if(response.status === 200){
-                console.log(response.data.message)
+        // //make a request 
+        //     const response = await axios.post<ILoginResponse>("/api/login",  {
+        //         email,
+        //         password
+        //     }, {method: "post"})
+        // // to do auth logic 
+        // // to do routing to home page
+        // // to do validation
+        //     if(response.status === 200){
+        //         console.log(response.data.message)
 
-            }
+        //     }
 
 
     }

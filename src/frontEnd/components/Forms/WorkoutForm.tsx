@@ -1,14 +1,14 @@
-import axios from "axios"
-import { RootState, store } from "../../store/store"
-import { useSelector, useDispatch } from "react-redux";
-import { asyncsubmitWorkout, workoutFormSlice } from "../../store/slices/WorkoutFormSlice"
-import React, { useEffect, useState } from "react"
-import TimePicker, { TimePickerProps, TimePickerValue } from "react-time-picker";
+import { RootState } from "../../store/store"
+import { useSelector } from "react-redux";
+import {  workoutFormSlice } from "../../store/slices/WorkoutFormSlice"
+import React, { useState } from "react"
+import TimePicker, { TimePickerValue } from "react-time-picker";
 import { ExerciseList } from "../ExerciseList";
 import { IzometricExerciseInput } from "./inputForms/IzometricExerciseInput";
 import { StandardExerciseInput } from "./inputForms/StandardExerciseInput";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { useNavigate } from "react-router-dom";
+import { submitWorkoutThunk } from "../../store/thunks/submitWorkoutThunk";
 // import timePicker from "react-time-picker"
 
 export const WorkoutForm = () => {
@@ -18,7 +18,9 @@ export const WorkoutForm = () => {
     /*
     *   Display Any errors that happened during making a form
     */
-    const workoutError = useAppSelector((state: RootState) => {return state.workoutForm.error})
+    
+    const message = useAppSelector((state: RootState) => {return state.workoutForm.message});
+    const workoutError = useAppSelector((state: RootState) => {return state.workoutForm.error});
     //start Time of the Workout 
     const startTime = useSelector((state: RootState) => { return state.workoutForm.startTime });
     //update it on change 
@@ -65,10 +67,9 @@ export const WorkoutForm = () => {
         console.log("clcliking");
         
         //to do typed hooks
-        dispatch(asyncsubmitWorkout()).then(resp =>{
+        dispatch(submitWorkoutThunk()).then(resp =>{
             if(resp.meta.requestStatus === "fulfilled") {
-              //  navigate("/")
-              //do not navigate for now
+                navigate("/")
             }
         });
     }
@@ -111,6 +112,9 @@ export const WorkoutForm = () => {
         <ExerciseList/>
             {/* here will be displayed added exercises  */}
         <button onClick={submitWorkout}>Submit Workout</button>
+        <div>
+            {message}
+        </div>
         <div>
             {/* display error */}
             Error: {workoutError}

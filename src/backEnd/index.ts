@@ -1,6 +1,6 @@
 import express from "express";
 import mongoose from "mongoose";
-import { IWorkoutRequest } from "./types/WorkoutResponse";
+import { IWorkoutRequest } from "../common/responseTypes/workout";
 
 // import {  } from "./models/WorkoutModel";
 //  import {ExerciseModel }from "./models/ExerciseModel"
@@ -38,7 +38,7 @@ app.post("/api/login", (req,res) =>{
     message: "Hello from the backend"
   })
 })
-app.post("/api/workouts", (req: Express.Request & {body: IWorkoutRequest},res) =>{
+app.post("/api/workout", (req: Express.Request & {body: IWorkoutRequest},res) =>{
   //console.log(req.headers)
   console.log(req.body.day);
   console.log(req.body.duration);

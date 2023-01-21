@@ -1,4 +1,4 @@
-export interface IWorkoutRequest {
+export interface IWorkoutRequest  {
     day: Number,
     duration: string,
     izometricsExercises: {
@@ -16,3 +16,4 @@ export interface IWorkoutRequest {
         }[]
     }[]
 }
+//change

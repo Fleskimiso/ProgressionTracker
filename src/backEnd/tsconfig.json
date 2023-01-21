@@ -25,5 +25,5 @@
     "rootDir": ".",
     "outDir": "../build",
   },
- 
+  "extends": "../common/tsconfig.json"
 }
