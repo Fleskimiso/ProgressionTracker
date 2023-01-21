@@ -6,7 +6,8 @@ module.exports = {
   entry: "./src/frontEnd/index.tsx",
   output: {
     path: path.resolve(__dirname, "src/frontEnd/dist"),
-    filename: "bundle.js"
+    filename: "bundle.js",
+    publicPath: "/"
   },
   module: {
     rules: [
@@ -14,7 +15,11 @@ module.exports = {
         test: /\.tsx?$/,
         use: "ts-loader",
         exclude: /node_modules/
-      }
+      },
+      {
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader"],
+      },
     ]
   },
   resolve: {
@@ -30,6 +35,10 @@ module.exports = {
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
         "Access-Control-Allow-Headers": "X-Requested-With, content-type, Authorization"
+    },
+    historyApiFallback: true,
+    proxy: {
+      "/api": "http://localhost:3000" 
     }
   },
   plugins: [
