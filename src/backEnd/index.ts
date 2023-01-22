@@ -1,12 +1,25 @@
 import express from "express";
 import mongoose from "mongoose";
+import session from "express-session";
+import dotenv from "dotenv"
+import MongoDBConnect from "connect-mongo";
+import cors from "cors";
 import { IWorkoutRequest } from "../common/responseTypes/workout";
+import {Authrouter} from "./routes/auth"
 
-// import {  } from "./models/WorkoutModel";
-//  import {ExerciseModel }from "./models/ExerciseModel"
+//import config values in deployment
+const isDevelopment = process.env.NODE_ENV !== "production";
+if (process.env.NODE_ENV !== "production") {
+  dotenv.config();
+}
+
+
 const app = express();
-
-mongoose.connect("mongodb://127.0.0.1:27017/progressiontracker", function(error) {
+//set secret
+const secret = process.env.SECRET as string;
+const dbUrl = "mongodb://127.0.0.1:27017/progressiontracker"
+//connect to db
+mongoose.connect(dbUrl, function(error) {
   if(error){
     console.log(error);
     console.log("There has been an error");
@@ -14,30 +27,58 @@ mongoose.connect("mongodb://127.0.0.1:27017/progressiontracker", function(error)
     console.log("succesfully connected to the database")
   }
 })
+//parse forms
 app.use(express.urlencoded({extended: true}));
+//parse json data
 app.use(express.json());
+//configure session store
+const sessionStore = MongoDBConnect.create({
+  mongoUrl: dbUrl,
+  touchAfter: 5*3600, //5 days
+  crypto: {
+    secret: secret
+  }
+})
 
+//configure the session 
+const sessionConfig: session.SessionOptions = {
+  secret: secret,
+  saveUninitialized: true, //true for now change later to false
+  store: sessionStore,
+  resave: true, // save the session even if there are no changes
+  cookie: {
+    maxAge: 1000*3600*24*7*2, // two weeks for cookie to expire
+    httpOnly: true,
+    secure: isDevelopment ? false: true,
+    sameSite: isDevelopment? "lax" : "strict",
+  },
+ 
+}
+
+app.use(session(sessionConfig))
 
 app.use((req, res, next) => {
+    res.setHeader("Access-Control-Allow-Credentials","true");
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader(
       "Access-Control-Allow-Methods",
       "OPTIONS, GET, POST, PUT, PATCH, DELETE"
     );
-    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    res.header("Access-Control-Allow-Headers",
+   "Origin, Content-Type");
     next();
   });
+
+
+
+app.use("/api", Authrouter);
+
+
 
 app.get("/", (req,res) =>{
     //  const ste = new ExerciseModel()
     res.json({ flag: "Success"});
-})
-app.post("/api/login", (req,res) =>{
-  console.log(req.body);
-  res.status(200).json({
-    message: "Hello from the backend"
-  })
-})
+});
 app.post("/api/workout", (req: Express.Request & {body: IWorkoutRequest},res) =>{
   //console.log(req.headers)
   console.log(req.body.day);

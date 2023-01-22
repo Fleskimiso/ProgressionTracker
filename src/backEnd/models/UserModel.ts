@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import passportLocalMongoose from "passport-local-mongoose";
 
 interface IUser {
     email: string
@@ -36,5 +37,6 @@ const UserSchema = new mongoose.Schema<IUser>({
         ref: "Plan"
     }]
 })
+UserSchema.plugin(passportLocalMongoose);
 
 export const UserModel = mongoose.model<IUser>("User", UserSchema);

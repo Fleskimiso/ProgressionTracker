@@ -4,9 +4,8 @@ import mongoose from "mongoose";
  * Interface for workout Plan Schema
  */
 interface IPlan {
-    isActive: boolean,
     currentDay: number,
-    workouts: [
+    workout: {
         day: number,
         exercises: [
             {
@@ -14,7 +13,7 @@ interface IPlan {
                 sets: number
             }
         ]
-    ]
+    }
 }
 
 /**
@@ -23,12 +22,11 @@ interface IPlan {
  * 
  */
 const PlanSchema = new mongoose.Schema<IPlan>({
-    isActive: Boolean,
     currentDay: {
         type: Number,
         min: 1
     },
-    workouts: [{
+    workout: {
         day: {
             type: Number,
             min: 1
@@ -43,7 +41,7 @@ const PlanSchema = new mongoose.Schema<IPlan>({
                 min: 1
             }
         }]
-    }]
+    }
 })
 
 export const PlanModel = mongoose.model<IPlan>("Plan", PlanSchema);

@@ -1,3 +1,4 @@
+import axios from "axios"
 import React, {useState} from "react"
 
 //to do validation
@@ -30,7 +31,11 @@ export const LoginForm = () => {
         //         console.log(response.data.message)
 
         //     }
-
+        const response = await axios.post(("/api/login"), {
+            email,
+            password
+        });
+        console.log(response);
 
     }
 
