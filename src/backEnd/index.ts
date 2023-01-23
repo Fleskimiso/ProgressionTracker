@@ -3,9 +3,13 @@ import mongoose from "mongoose";
 import session from "express-session";
 import dotenv from "dotenv"
 import MongoDBConnect from "connect-mongo";
-import cors from "cors";
-import { IWorkoutRequest } from "../common/responseTypes/workout";
+import passport from "passport";
+import * as passportLocal from "passport-local";
 import {Authrouter} from "./routes/auth"
+import { UserModel } from "./models/UserModel";
+import { isLoggedIn } from "./middleware";
+import { WorkoutRouter } from "./routes/workouts";
+import cookieParser from "cookie-parser";
 
 //import config values in deployment
 const isDevelopment = process.env.NODE_ENV !== "production";
@@ -31,6 +35,8 @@ mongoose.connect(dbUrl, function(error) {
 app.use(express.urlencoded({extended: true}));
 //parse json data
 app.use(express.json());
+//parse cookie
+app.use(cookieParser())
 //configure session store
 const sessionStore = MongoDBConnect.create({
   mongoUrl: dbUrl,
@@ -38,6 +44,11 @@ const sessionStore = MongoDBConnect.create({
   crypto: {
     secret: secret
   }
+})
+//log the error
+sessionStore.on("error", (error) =>{
+  console.log(error);
+  console.log("Session store error");
 })
 
 //configure the session 
@@ -56,6 +67,16 @@ const sessionConfig: session.SessionOptions = {
 }
 
 app.use(session(sessionConfig))
+//initialize passport session
+app.use(passport.initialize());
+app.use(passport.session());
+//login via email that is set username field to email
+passport.use(new passportLocal.Strategy({
+  usernameField: "email",
+},UserModel.authenticate()));
+passport.serializeUser(UserModel.serializeUser);
+passport.deserializeUser(UserModel.deserializeUser);
+
 
 app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Credentials","true");
@@ -72,28 +93,12 @@ app.use((req, res, next) => {
 
 
 app.use("/api", Authrouter);
+app.use("/api", WorkoutRouter);
 
-
-
-app.get("/", (req,res) =>{
-    //  const ste = new ExerciseModel()
+app.get("/", (req: any,res) =>{
+    console.log(req.session.passport);
     res.json({ flag: "Success"});
 });
-app.post("/api/workout", (req: Express.Request & {body: IWorkoutRequest},res) =>{
-  //console.log(req.headers)
-  console.log(req.body.day);
-  console.log(req.body.duration);
-  req.body.standardExercises.forEach(exercise =>{
-    console.log(exercise.name);
-    exercise.sets.forEach(set =>{
-      console.log(set.repetitions);
-    })
-    
-    
-  })
-  
-  res.status(200).send();
-})
 
 app.listen(3000,() =>{
     console.log("listening on port 3000");

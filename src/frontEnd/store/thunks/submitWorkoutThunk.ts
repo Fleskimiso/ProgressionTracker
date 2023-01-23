@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
+import { IErrorResponse } from "../../../common/responseTypes/auth";
 import {IWorkoutRequest} from "../../../common/responseTypes/workout"
 import { RootState } from "../store";
 
@@ -19,17 +20,22 @@ export const submitWorkoutThunk = createAsyncThunk<number | void, void, { state:
         throw new Error("There should be at least one exercise in workout");
     }
        return axios.post<IWorkoutRequest>("/api/workouts", {
-            duration,
             day: state.workoutForm.day,
             izometricExercises: [...state.workoutForm.izometricExercises],
-            standardExercises: [...state.workoutForm.standardExercises]
-        }).then(response =>{
+            standardExercises: [...state.workoutForm.standardExercises],
+            duration,
+        }, {withCredentials: true}).then(response =>{
+            console.log(response.status);
+            
             if(response.status === 200){
                 return response.status;
             } else {
                 throw new Error("The response status is wrong");
             }
-        }).catch((e: Error) =>{
+        }).catch((e: AxiosError<IErrorResponse>) =>{
+            if(e.response && e.response.data.message) {   
+                throw new Error(e.response.data.message);
+            } 
             throw new Error(e.message);
         });
        

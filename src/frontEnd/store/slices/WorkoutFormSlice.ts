@@ -100,6 +100,8 @@ export const workoutFormSlice = createSlice({
             if(typeof action.payload === "number"){
                 if(action.payload === 200)  {
                     //delete the whole current workout TODO
+                    console.log("I should delete...");
+                    
                 }
             }
             state.message = ""

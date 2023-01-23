@@ -1,15 +1,14 @@
 import mongoose from "mongoose";
 import passportLocalMongoose from "passport-local-mongoose";
 
-interface IUser {
+export interface IUser extends Express.User {
     email: string
     nick: string
     workouts: [
         mongoose.Types.ObjectId
     ],
-    plans: [
-        mongoose.Types.ObjectId
-    ],
+    plan: mongoose.Types.ObjectId
+    ,
     exercises: [
         mongoose.Types.ObjectId
     ]
@@ -32,11 +31,21 @@ const UserSchema = new mongoose.Schema<IUser>({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Workout"
     }],
-    plans: [{
+    plan: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Plan"
+    },
+    exercises: [{ 
+        type: mongoose.Schema.Types.ObjectId,
+    ref: "Exercise"
     }]
 })
-UserSchema.plugin(passportLocalMongoose);
+UserSchema.plugin(passportLocalMongoose, {usernameField: "email",
+serializeUser: function(user: { id: any; }, done: (arg0: null, arg1: any) => void) {
+    // your custom serialization logic
+    // you can use user.id or any other property or logic to serialize the user
+    done(null, user.id);
+}
+});
 
 export const UserModel = mongoose.model<IUser>("User", UserSchema);
