@@ -24,6 +24,7 @@
     "sourceMap": true,
     "rootDir": ".",
     "outDir": "../build",
+    "typeRoots": ["./types"]
   },
   "extends": "../common/tsconfig.json"
 }

@@ -40,12 +40,6 @@ const UserSchema = new mongoose.Schema<IUser>({
     ref: "Exercise"
     }]
 })
-UserSchema.plugin(passportLocalMongoose, {usernameField: "email",
-serializeUser: function(user: { id: any; }, done: (arg0: null, arg1: any) => void) {
-    // your custom serialization logic
-    // you can use user.id or any other property or logic to serialize the user
-    done(null, user.id);
-}
-});
+UserSchema.plugin(passportLocalMongoose, {usernameField: "email"});
 
 export const UserModel = mongoose.model<IUser>("User", UserSchema);

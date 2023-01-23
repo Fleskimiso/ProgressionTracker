@@ -8,3 +8,8 @@ export interface ISignupRequest extends ILoginRequest {
 export interface IErrorResponse { 
     message?: string
 }
+export interface ISignUpResponse {
+    _id: string,
+    nick: string,
+    email: string
+}

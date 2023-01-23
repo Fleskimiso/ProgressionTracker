@@ -1,9 +1,10 @@
-import axios from "axios"
+import axios, { isAxiosError } from "axios"
 import React, { useState } from "react"
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { workoutFormSlice } from "../../store/slices/WorkoutFormSlice";
 import {IErrorResponse} from "../../../common/responseTypes/auth"
 import { useNavigate } from "react-router-dom";
+import { signUpUserThunk } from "../../store/thunks/signUpUserThunk";
 
 export const SignUpForm = () => {
 
@@ -38,24 +39,20 @@ export const SignUpForm = () => {
     const onFormSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         if (password === passwordRetyped) {
-            const response = await axios.post<IErrorResponse>("/api/signup", {
-                email,
-                password,
-                nick
-            }, {method: "post"}); 
-            if (response.status === 200) {
-                console.log("registered user  succesfully");
-                
-            }else {
-                const errorMessage = response.data.message !== undefined ? response.data.message : "";
-                dispatch(workoutFormSlice.actions.setError(response.status + errorMessage));
-            }
-        } else {
-            //dispatch an error
-            dispatch(workoutFormSlice.actions.setError("Passwords should be equal"))
+            dispatch(signUpUserThunk({email,password,nick})).then(resp =>{
+                if(resp.meta.requestStatus === "fulfilled"){
+                    navigate("/");
+                }else{
+                    if(typeof resp.payload === "string"){
+                    dispatch(workoutFormSlice.actions.setError(resp.payload));
+                    }
+                }
+            }).catch((e: Error) =>{
+                    dispatch(workoutFormSlice.actions.setError(e.message));
+            });
+        }else {
+            dispatch(workoutFormSlice.actions.setError("Passwords should be equal"));
         }
-
-        
     }
 
     return <div>

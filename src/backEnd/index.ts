@@ -10,7 +10,7 @@ import { UserModel } from "./models/UserModel";
 import { isLoggedIn } from "./middleware";
 import { WorkoutRouter } from "./routes/workouts";
 import cookieParser from "cookie-parser";
-
+import * as passportType from "./types/passport"; //do not optimize this import 
 //import config values in deployment
 const isDevelopment = process.env.NODE_ENV !== "production";
 if (process.env.NODE_ENV !== "production") {
@@ -66,6 +66,7 @@ const sessionConfig: session.SessionOptions = {
  
 }
 
+
 app.use(session(sessionConfig))
 //initialize passport session
 app.use(passport.initialize());
@@ -74,8 +75,8 @@ app.use(passport.session());
 passport.use(new passportLocal.Strategy({
   usernameField: "email",
 },UserModel.authenticate()));
-passport.serializeUser(UserModel.serializeUser);
-passport.deserializeUser(UserModel.deserializeUser);
+passport.serializeUser(UserModel.serializeUser());
+passport.deserializeUser(UserModel.deserializeUser());
 
 
 app.use((req, res, next) => {
