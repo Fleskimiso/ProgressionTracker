@@ -3,3 +3,4 @@ interface IExercise {
     type: "izometric" | "standard"
 }
 export type Exercise = IExercise;
+

@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { IIzometricExerciseSet, IStandardExerciseSet, WorkoutFormState } from '../../types/workoutForm';
-import { submitWorkoutThunk } from '../thunks/submitWorkoutThunk';
+import { submitWorkoutThunk } from '../thunks/workout/submitWorkoutThunk';
 
 
 

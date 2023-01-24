@@ -1,3 +1,5 @@
+import { IExercise } from "../common"
+
 export interface IWorkoutRequest  {
     day: Number,
     duration: string,
@@ -16,4 +18,4 @@ export interface IWorkoutRequest  {
         }[]
     }[]
 }
-//change
+export interface ISubmitExerciseNameRequest extends IExercise{}

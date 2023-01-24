@@ -3,11 +3,13 @@ import { useSelector, useDispatch } from "react-redux"
 import { RootState } from "../../../store/store";
 import { exerciseListSlice } from "../../../store/slices/ExerciseListSlice"
 import { workoutFormSlice } from "../../../store/slices/WorkoutFormSlice";
+import { submitExerciseThunk } from "../../../store/thunks/workout/submitExerciseThunk";
+import { useAppDispatch } from "../../../store/hooks";
 
 //exercise type might be enum TODO!
 export const ExerciseNameInput = (props: { exerciseType: "standard" | "izometric" }) => {
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     //list of availble exercises
     const exerciseList = useSelector((state: RootState) => { return state.exerciseList });
 
@@ -17,7 +19,19 @@ export const ExerciseNameInput = (props: { exerciseType: "standard" | "izometric
         e.preventDefault();
         e.stopPropagation();
         if (newExerciseName !== "") {
-            dispatch(exerciseListSlice.actions.addExercise({ name: newExerciseName, type: props.exerciseType }))
+            dispatch(submitExerciseThunk({name: newExerciseName, type: props.exerciseType}))
+            .then( resp =>{
+                if(resp.meta.requestStatus === "fulfilled"){
+                    setnewExerciseName("");
+                }else {
+                    if(typeof resp.payload === "string"){ //if string then it's error message
+                        dispatch(workoutFormSlice.actions.setError(resp.payload));
+                    }
+                }
+            })
+            .catch( (e:Error) =>{
+                dispatch(workoutFormSlice.actions.setError(e.message));
+            })
             setnewExerciseName("");
         }
     }

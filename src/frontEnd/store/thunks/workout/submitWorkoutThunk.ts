@@ -1,8 +1,8 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
-import { IErrorResponse } from "../../../common/responseTypes/auth";
-import {IWorkoutRequest} from "../../../common/responseTypes/workout"
-import { RootState } from "../store";
+import { IErrorResponse } from "../../../../common/responseTypes/auth";
+import {IWorkoutRequest} from "../../../../common/responseTypes/workout"
+import { RootState } from "../../store";
 
 export const submitWorkoutThunk = createAsyncThunk<number | void, void, { state: RootState }>("submitWorkout", (arg, { getState }) => {
     const state = getState();

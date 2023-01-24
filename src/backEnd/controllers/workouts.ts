@@ -1,5 +1,5 @@
 import {Request, Response} from "express";
-import {IWorkoutRequest} from "../../common/responseTypes/workout";
+import {ISubmitExerciseNameRequest, IWorkoutRequest} from "../../common/responseTypes/workout";
 
 export const postWorkout = (req: Request<{},{},IWorkoutRequest>,res: Response) =>{
     //console.log(req.headers)
@@ -13,3 +13,6 @@ export const postWorkout = (req: Request<{},{},IWorkoutRequest>,res: Response) =
     })
     res.status(200).send();
   }
+export const postExercise = (req: Request<{},{},ISubmitExerciseNameRequest>,res: Response) =>{
+  //TODO
+}

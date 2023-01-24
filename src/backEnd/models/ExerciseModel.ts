@@ -1,13 +1,5 @@
 import mongoose from "mongoose";
-
-/**
- * Interface for Exercise Schema
- */
-interface IExercise {
-    name: string,
-    type: "izometric" | "standard"
-}
-
+import { IExercise } from "../../common/common"
 /**
  * An exercise model 
  * currently defined for two types of exercises 

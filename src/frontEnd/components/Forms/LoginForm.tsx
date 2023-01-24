@@ -10,8 +10,6 @@ export const LoginForm = () => {
 
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
-    const error = useAppSelector(state =>{ return state.workoutForm.error});
-    const message = useAppSelector(state =>{ return state.workoutForm.message});
     // email and password state
     const [email, setemail] = useState("")
     const [password, setpassword] = useState("")

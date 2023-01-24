@@ -8,7 +8,7 @@ import { IzometricExerciseInput } from "./inputForms/IzometricExerciseInput";
 import { StandardExerciseInput } from "./inputForms/StandardExerciseInput";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { useNavigate } from "react-router-dom";
-import { submitWorkoutThunk } from "../../store/thunks/submitWorkoutThunk";
+import { submitWorkoutThunk } from "../../store/thunks/workout/submitWorkoutThunk";
 // import timePicker from "react-time-picker"
 
 export const WorkoutForm = () => {
@@ -62,7 +62,6 @@ export const WorkoutForm = () => {
      */
     const submitWorkout = () =>{
         console.log("clcliking");
-        
         //to do typed hooks
         dispatch(submitWorkoutThunk()).then(resp =>{
             if(resp.meta.requestStatus === "fulfilled") {
