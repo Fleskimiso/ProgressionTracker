@@ -1,11 +1,13 @@
 import {Request, Response} from "express";
-import {IErrorResponse, ISignupRequest, ISignUpResponse} from "../../common/responseTypes/auth";
+import {IErrorResponse, ILoginRequest, ILoginResponse, ISignupRequest, ISignUpResponse} from "../../common/responseTypes/auth";
 import {UserModel} from "../models/UserModel";
 import * as sessionTypes from "../types/session"; // import session type
 
 export const signup = async (req: Request<{},{},ISignupRequest>,res: Response<ISignUpResponse | IErrorResponse>) =>{
     if(req.body.email && req.body.nick && req.body.password){ //check if they exist
-       const users = await UserModel.find({ email: req.body.email})
+        // Todo check if it's properly formatted using JOI
+        try {
+            const users = await UserModel.find({ email: req.body.email})
        if(users.length === 0) {
         const newUser = new UserModel({
             email: req.body.email,
@@ -19,8 +21,8 @@ export const signup = async (req: Request<{},{},ISignupRequest>,res: Response<IS
         })
         await newUser.save();
         res.status(200).json({
-            _id: newUser._id.toString(),
-            email: newUser.email,
+            _id: newUser._id.toString(), //might not be needed
+            email: newUser.email, // same with email if it's succefull it should be on the frontend
             nick: newUser.nick
         });
        }else {
@@ -28,5 +30,43 @@ export const signup = async (req: Request<{},{},ISignupRequest>,res: Response<IS
                 message: "User with this email already exists."
             });
        }
+        } catch (error) {
+            //should be catched when for example when
+            //the db connections breaks during finding/saving user
+            res.status(500).json({message: "Internal Server Error"});
+        }
+       
     }
+}
+export const login = async (req: Request<{},{},ILoginRequest>,res: Response<ILoginResponse | IErrorResponse>) => {
+    if(req.body.email && req.body.password){//check if they exist 
+        try {
+            const user = await UserModel.findOne({email: req.body.email});
+        if(user){
+            req.login(user, (err) =>{
+                if(!err) {
+                    res.status(200).json({
+                        _id: user._id.toString(),
+                        email: user.email,
+                        nick: user.nick
+                    })
+                }else {
+                    res.status(500).json({message: "Internal Server Error"});
+                }
+            })
+        }
+        } catch (error) {
+            res.status(500).json({message: "Internal Server Error"});
+        }
+        
+    } 
+}
+export const logout = async (req: Request, res: Response<IErrorResponse>) => {
+    req.logout({keepSessionInfo: false},(err) =>{
+        if(err){
+            res.status(500).json({message: "Internal Server Error"});
+        }else {
+            res.status(200).send();
+        }
+    } )
 }

@@ -13,3 +13,6 @@ export interface ISignUpResponse {
     nick: string,
     email: string
 }
+export interface ILoginResponse extends ISignUpResponse{
+    
+}

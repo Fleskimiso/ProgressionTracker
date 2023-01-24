@@ -18,9 +18,6 @@ export const WorkoutForm = () => {
     /*
     *   Display Any errors that happened during making a form
     */
-    
-    const message = useAppSelector((state: RootState) => {return state.workoutForm.message});
-    const workoutError = useAppSelector((state: RootState) => {return state.workoutForm.error});
     //start Time of the Workout 
     const startTime = useSelector((state: RootState) => { return state.workoutForm.startTime });
     //update it on change 
@@ -112,12 +109,5 @@ export const WorkoutForm = () => {
         <ExerciseList/>
             {/* here will be displayed added exercises  */}
         <button onClick={submitWorkout}>Submit Workout</button>
-        <div>
-            {message}
-        </div>
-        <div>
-            {/* display error */}
-            Error: {workoutError}
-        </div>
     </div>
 }

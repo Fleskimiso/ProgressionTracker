@@ -10,7 +10,6 @@ export const SignUpForm = () => {
 
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
-    const error = useAppSelector((state) => { return state.workoutForm.error });
     //email
     const [email, setemail] = useState("");
     // password
@@ -77,9 +76,6 @@ export const SignUpForm = () => {
             <button type="button" onClick={onFormSubmit}>
                 Submit
             </button>
-            <div>
-                {error}
-            </div>
         </form>
     </div>
 }

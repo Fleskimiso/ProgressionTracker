@@ -12,6 +12,7 @@ import {LoginPage} from "./routes/LoginPage"
 import { PlanPage } from "./routes/PlanPage";
 import { SignUpPage } from "./routes/SignUpPage";
 import { WorkoutPage } from "./routes/WorkoutPage";
+import { InformationTable } from "./components/Forms/InformationTable";
  
 
 
@@ -19,6 +20,8 @@ import { WorkoutPage } from "./routes/WorkoutPage";
 
 //main app 
 export const App = (): JSX.Element =>{
+   
+
     return <div>
         <Provider store={store}>
         <BrowserRouter>
@@ -30,8 +33,11 @@ export const App = (): JSX.Element =>{
                 <Route path="/workout" element={<WorkoutPage/>} />
                 <Route path="/plans" element={<PlanPage/>} />
             </Routes>
+            <InformationTable/>
         </BrowserRouter>
         </Provider>
+       
+        
     </div>
 }
 const domNode = document.querySelector("#root");

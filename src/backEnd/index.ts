@@ -97,6 +97,8 @@ app.use("/api", Authrouter);
 app.use("/api", WorkoutRouter);
 
 app.get("/", (req: any,res) =>{
+  console.log(req.user);
+  
     console.log(req.session.passport);
     res.json({ flag: "Success"});
 });

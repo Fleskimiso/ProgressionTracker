@@ -1,9 +1,17 @@
 import axios from "axios"
 import React, {useState} from "react"
+import { useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../store/hooks"
+import { workoutFormSlice } from "../../store/slices/WorkoutFormSlice";
+import { loginUserThunk } from "../../store/thunks/logInUserThunk";
 
 //to do validation
 export const LoginForm = () => {
 
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+    const error = useAppSelector(state =>{ return state.workoutForm.error});
+    const message = useAppSelector(state =>{ return state.workoutForm.message});
     // email and password state
     const [email, setemail] = useState("")
     const [password, setpassword] = useState("")
@@ -16,33 +24,26 @@ export const LoginForm = () => {
         setpassword(e.target.value)
     }
     //form submit
-    const onFormSubmit = async (e: React.FormEvent<HTMLFormElement>) =>{
+    const onFormSubmit = (e: React.MouseEvent<HTMLButtonElement>) =>{
         e.preventDefault();
-           
-        // //make a request 
-        //     const response = await axios.post<ILoginResponse>("/api/login",  {
-        //         email,
-        //         password
-        //     }, {method: "post"})
-        // // to do auth logic 
-        // // to do routing to home page
-        // // to do validation
-        //     if(response.status === 200){
-        //         console.log(response.data.message)
-
-        //     }
-        const response = await axios.post(("/api/login"), {
-            email,
-            password
+        // TODO email and password check...
+        dispatch(loginUserThunk({email,password})).then(resp =>{
+            if(resp.meta.requestStatus === "fulfilled"){
+                navigate("/");
+            }else{
+                if(typeof resp.payload === "string"){
+                dispatch(workoutFormSlice.actions.setError(resp.payload));
+                }
+            }
+        }).catch((e: Error) =>{
+                dispatch(workoutFormSlice.actions.setError(e.message));
         });
-        console.log(response);
-
     }
 
     // div for styling
     return <div>
         {/* login form */}
-        <form onSubmit={onFormSubmit} action="/api/login" method="post">
+        <form  action="/api/login" method="post">
             {/* email input  */}
             <div>
                 <label htmlFor="email">Email: </label>
@@ -53,9 +54,10 @@ export const LoginForm = () => {
                 <label htmlFor="password">Password: </label>
                 <input value={password} onChange={onpasswordChange} type="password" id="password" name="password" />
             </div>
-            <button  type="submit">
+            <button onClick={onFormSubmit} type="button">
                 Submit
             </button>
+            
         </form>
     </div>
 }

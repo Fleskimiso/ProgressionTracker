@@ -1,17 +1,13 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios, {isAxiosError } from "axios";
-import { IErrorResponse,ILoginRequest,ILoginResponse } from "../../../common/responseTypes/auth";
-import { User } from "../../types/user";
+import { IErrorResponse } from "../../../common/responseTypes/auth";
 import { RootState } from "../store";
 
-export const loginUserThunk = createAsyncThunk<User | void, ILoginRequest, { state: RootState,rejectValue: string }>("login", async (arg, thunkApi) => {
+export const logoutUserThunk = createAsyncThunk<void,void, { state: RootState,rejectValue: string }>("logout", async (_arg, thunkApi) => {
     try{ // post login request
-        const response = await axios.post<ILoginResponse>("/api/login", {
-            email: arg.email,
-            password: arg.password,
-        })
+        const response = await axios.post("/api/logout"); // no data for logout
         if(response.status === 200) {
-            return response.data;
+            return;
         }
     } catch (e) {
         if( isAxiosError<IErrorResponse>(e)) {
