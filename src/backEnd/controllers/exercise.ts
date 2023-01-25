@@ -42,7 +42,8 @@ export const getExercises = async (req: Request, res: Response<IGetExercisesResp
                 const exercises = (await currentUserDoc.populate<{exercises: Exercise[]}>("exercises")).exercises;
                 const exercisesToSend = exercises.map(exercise =>{
                     return {
-                        ...exercise,
+                        name: exercise.name,
+                        type: exercise.type,
                         id: exercise.id //will it get called???
                     }
                 })

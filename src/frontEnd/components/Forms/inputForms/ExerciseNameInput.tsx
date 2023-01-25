@@ -1,17 +1,17 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { RootState } from "../../../store/store";
 import { exerciseListSlice } from "../../../store/slices/ExerciseListSlice"
 import { workoutFormSlice } from "../../../store/slices/WorkoutFormSlice";
 import { submitExerciseThunk } from "../../../store/thunks/workout/submitExerciseThunk";
-import { useAppDispatch } from "../../../store/hooks";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 
 //exercise type might be enum TODO!
 export const ExerciseNameInput = (props: { exerciseType: "standard" | "izometric" }) => {
 
     const dispatch = useAppDispatch();
     //list of availble exercises
-    const exerciseList = useSelector((state: RootState) => { return state.exerciseList });
+    const exerciseList = useAppSelector(state => state.exerciseList);
 
     const [newExerciseName, setnewExerciseName] = useState("");
     // handle newexerciseName submit
@@ -49,13 +49,47 @@ export const ExerciseNameInput = (props: { exerciseType: "standard" | "izometric
             name: e.target.value
         }))
     }
+    /**
+     * get the default exercise name
+     */
+    useEffect(() =>{
+        if(currentStandardExerciseName === "") {
+           exerciseList.every(exercise =>{
+                if(exercise.type === "standard"){
+                    dispatch(workoutFormSlice.actions.changeCurrentExerciseName({
+                        exerciseType: "standard",
+                        name: exercise.name
+                    }));
+                    return false;
+                }
+                return true;
+           })           
+        }
+        /**
+         * loops over array if finds the exercise with the same type
+         * then sets the current exercise name to that exercise name
+         */
+        if(currentIzometricExerciseName === "") {
+            exerciseList.every(exercise =>{
+                 if(exercise.type === "izometric"){
+                     dispatch(workoutFormSlice.actions.changeCurrentExerciseName({
+                         exerciseType: "izometric",
+                         name: exercise.name
+                     }));
+                     return false;
+                 }
+                 return true;
+            })           
+         }
+    },[])
 
     return <div>
         <div>
             <label htmlFor="exerciseName">Exercise Name: </label>
             <select value={props.exerciseType === "standard" ? currentStandardExerciseName : currentIzometricExerciseName } 
             onChange={handleNameSelect} name="exerciseName" id="exerciseName">
-                {exerciseList.map((exercise) => {
+                {
+                exerciseList.map((exercise) => {
                     if (exercise.type === props.exerciseType) {
                         //name of the exercise is supossed to be unique
                         return <option key={exercise.id || exercise.name} value={exercise.name}>

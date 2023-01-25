@@ -1,7 +1,7 @@
 import { RootState } from "../../store/store"
 import { useSelector } from "react-redux";
 import {  workoutFormSlice } from "../../store/slices/WorkoutFormSlice"
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import TimePicker, { TimePickerValue } from "react-time-picker";
 import { ExerciseList } from "../ExerciseList";
 import { IzometricExerciseInput } from "./inputForms/IzometricExerciseInput";
@@ -10,17 +10,22 @@ import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { useNavigate } from "react-router-dom";
 import { submitWorkoutThunk } from "../../store/thunks/workout/submitWorkoutThunk";
 import { getExercisesThunk } from "../../store/thunks/workout/getExercisesThunk";
+import { WorkoutFormState } from "../../types/workoutForm";
 // import timePicker from "react-time-picker"
 
 export const WorkoutForm = () => {
 
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+    const isMounted = useRef(false); // set to true on production or just delete 
     /*
     *   Display Any errors that happened during making a form
     */
+    //get the whole workout and cache on change to localStorage
+    const workout = useAppSelector(state => state.workoutForm);
+
     //start Time of the Workout 
-    const startTime = useSelector((state: RootState) => { return state.workoutForm.startTime });
+    const startTime = workout.startTime;
     //update it on change 
     const onstartTimeChange = (e: TimePickerValue) => {
         if( e!== null){
@@ -28,7 +33,7 @@ export const WorkoutForm = () => {
         }
     }
     //end time of the workout
-    const endTime = useSelector((state: RootState) => { return state.workoutForm.endTime });
+    const endTime = workout.endTime;
     // update it on change
     const onendTimeChange = (e: TimePickerValue) => {
         if(e !== null){
@@ -36,7 +41,8 @@ export const WorkoutForm = () => {
         }
     }
     //day of the workout
-    const day = useSelector((state: RootState) => {return state.workoutForm.day})
+    const day = workout.day;
+    
     //update day on change
     const ondayChange = (e: React.ChangeEvent<HTMLInputElement>) =>{
         // console.log(e.target.value);
@@ -63,7 +69,6 @@ export const WorkoutForm = () => {
      */
     const submitWorkout = () =>{
         console.log("clcliking");
-        //to do typed hooks
         dispatch(submitWorkoutThunk()).then(resp =>{
             if(resp.meta.requestStatus === "fulfilled") {
                 navigate("/")
@@ -72,14 +77,36 @@ export const WorkoutForm = () => {
     }
     //get all the exercises for the form
     useEffect(() =>{
+        const localWorkoutDataString = localStorage.getItem("workoutFormData");
+        if(localWorkoutDataString) {
+            //get the cache,parse it , and set the workout Form data
+            const localWorkoutData = JSON.parse(localWorkoutDataString) as WorkoutFormState;
+            dispatch(workoutFormSlice.actions.setCacheWorkout(localWorkoutData));
+
+            console.log("setted up the data: ");
+            console.log(localWorkoutData);
+
+        }
         dispatch(getExercisesThunk()).then(resp =>{
             if(resp.meta.requestStatus === "rejected") {
                 if(typeof resp.payload === "string"){
                     dispatch(workoutFormSlice.actions.setError(resp.payload));
                 }
             }
-        })        
+        });
     },[])
+    useEffect(() =>{
+        if(isMounted.current) {
+            localStorage.setItem("workoutFormData",JSON.stringify(workout))
+            return () =>{
+                console.log("saving on unmount");
+                localStorage.setItem("workoutFormData",JSON.stringify(workout))
+            };            
+        } else {
+            isMounted.current = true;
+        }
+    }, [workout])
+
     //To do styling
     return <div>
         <form action="">

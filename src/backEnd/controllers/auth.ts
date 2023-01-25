@@ -71,3 +71,12 @@ export const logout = async (req: Request, res: Response<IErrorResponse>) => {
         }
     } )
 }
+export const getLoggedUser = async (req: Request, res: Response<IErrorResponse | ILoginResponse>) => {
+    if(req.session.currentUser){
+        res.status(200).send({
+            _id: req.session.currentUser._id.toString(),
+            email: req.session.currentUser.email,
+            nick: req.session.currentUser.nick
+        });
+    }
+}

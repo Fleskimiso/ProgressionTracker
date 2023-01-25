@@ -93,7 +93,34 @@ export const workoutFormSlice = createSlice({
             state.currentIzometricExercise.name = "";
             state.currentIzometricExercise.sets = [];
         },
-
+        setCacheWorkout: (state, action: PayloadAction<WorkoutFormState>) =>{
+            state.endTime = action.payload.endTime;
+            state.startTime = action.payload.startTime;
+            state.standardExercises = action.payload.standardExercises;
+            state.izometricExercises = action.payload.izometricExercises;
+            state.currentStandardExercise = action.payload.currentStandardExercise;
+            state.currentIzometricExercise = action.payload.currentIzometricExercise;
+            state.error = action.payload.error;
+            state.message = action.payload.message;
+            state.day = action.payload.day;
+        },
+        clearWorkoutForm: (state,action: PayloadAction<void>) =>{
+            state.endTime = "";
+            state.startTime = "";
+            state.standardExercises = [];
+            state.izometricExercises = [];
+            state.currentStandardExercise = {
+                name: "",
+                sets: []
+            };
+            state.currentIzometricExercise = {
+                name: "",
+                sets: []
+            };
+            state.error = "";
+            state.message = "";
+            state.day = Date.now();       
+        }
     },
     extraReducers: (builder) => {
         builder.addCase(submitWorkoutThunk.fulfilled, (state, action) => {
