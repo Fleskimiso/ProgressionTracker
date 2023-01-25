@@ -1,23 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
-import type { PayloadAction } from '@reduxjs/toolkit'
-import { Exercise } from '../../types/exercise';
 import { submitExerciseThunk } from '../thunks/workout/submitExerciseThunk';
+import { getExercisesThunk } from '../thunks/workout/getExercisesThunk';
+import { Exercise } from '../../../common/common';
 
 // dummy state for the begginning
-const initialExerciseListState: Exercise[] = [{
-        type: "standard",
-        name: "pull up"
-},
-{
-    type: "izometric",
-    name: "plank"
-},{
-    type: "standard",
-    name: "chin up"
-},{
-    type: "izometric",
-    name: "planch"
-},
+const initialExerciseListState: Exercise[] = [
 ]
 
 export const exerciseListSlice = createSlice({
@@ -28,11 +15,18 @@ export const exerciseListSlice = createSlice({
     extraReducers(builder) {
         builder.addCase(submitExerciseThunk.fulfilled, (state,action) =>{
             if(action.payload){
+                console.log(action.payload);
+                
                 state.push({...action.payload});
             }
         })
         builder.addCase(submitExerciseThunk.rejected, (state,action) =>{
             // 
+        })
+        builder.addCase(getExercisesThunk.fulfilled, (state,action) =>{
+            if(action.payload) {
+                state = action.payload
+            }
         })
     },
 

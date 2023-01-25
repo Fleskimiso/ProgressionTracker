@@ -6,11 +6,12 @@ import MongoDBConnect from "connect-mongo";
 import passport from "passport";
 import * as passportLocal from "passport-local";
 import {Authrouter} from "./routes/auth"
-import { UserModel } from "./models/UserModel";
+import { IUser, UserModel } from "./models/UserModel";
 import { isLoggedIn } from "./middleware";
 import { WorkoutRouter } from "./routes/workouts";
 import cookieParser from "cookie-parser";
 import * as passportType from "./types/passport"; //do not optimize this import 
+import { exerciseRouter } from "./routes/exercise";
 //import config values in deployment
 const isDevelopment = process.env.NODE_ENV !== "production";
 if (process.env.NODE_ENV !== "production") {
@@ -95,11 +96,13 @@ app.use((req, res, next) => {
 
 app.use("/api", Authrouter);
 app.use("/api", WorkoutRouter);
+app.use("/api", exerciseRouter);
 
-app.get("/", (req: any,res) =>{
-  console.log(req.user);
-  
-    console.log(req.session.passport);
+app.get("/", (req: express.Request,res) =>{
+  console.log("Current user");
+    console.log(req.session.currentUser);
+    
+   // console.log(req.session.passport);
     res.json({ flag: "Success"});
 });
 

@@ -19,3 +19,6 @@ export interface IWorkoutRequest  {
     }[]
 }
 export interface ISubmitExerciseNameRequest extends IExercise{}
+export interface IGetExercisesResponse {
+    exercises: IExercise[]
+}

@@ -13,6 +13,3 @@ export const postWorkout = (req: Request<{},{},IWorkoutRequest>,res: Response) =
     })
     res.status(200).send();
   }
-export const postExercise = (req: Request<{},{},ISubmitExerciseNameRequest>,res: Response) =>{
-  //TODO
-}

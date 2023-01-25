@@ -58,7 +58,7 @@ export const ExerciseNameInput = (props: { exerciseType: "standard" | "izometric
                 {exerciseList.map((exercise) => {
                     if (exercise.type === props.exerciseType) {
                         //name of the exercise is supossed to be unique
-                        return <option key={exercise.name} value={exercise.name}>
+                        return <option key={exercise.id || exercise.name} value={exercise.name}>
                             {exercise.name}
                         </option>
                     }

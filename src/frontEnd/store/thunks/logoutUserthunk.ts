@@ -5,6 +5,7 @@ import { RootState } from "../store";
 
 export const logoutUserThunk = createAsyncThunk<void,void, { state: RootState,rejectValue: string }>("logout", async (_arg, thunkApi) => {
     try{ // post login request
+        //TODO CLEAR ALL THE USER DATA ON LOGOUT
         const response = await axios.post("/api/logout"); // no data for logout
         if(response.status === 200) {
             return;

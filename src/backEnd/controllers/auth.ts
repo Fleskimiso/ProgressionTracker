@@ -45,6 +45,7 @@ export const login = async (req: Request<{},{},ILoginRequest>,res: Response<ILog
         if(user){
             req.login(user, (err) =>{
                 if(!err) {
+                    req.session.currentUser = user;
                     res.status(200).json({
                         _id: user._id.toString(),
                         email: user.email,

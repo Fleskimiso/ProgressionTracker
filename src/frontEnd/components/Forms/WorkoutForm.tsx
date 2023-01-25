@@ -1,7 +1,7 @@
 import { RootState } from "../../store/store"
 import { useSelector } from "react-redux";
 import {  workoutFormSlice } from "../../store/slices/WorkoutFormSlice"
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import TimePicker, { TimePickerValue } from "react-time-picker";
 import { ExerciseList } from "../ExerciseList";
 import { IzometricExerciseInput } from "./inputForms/IzometricExerciseInput";
@@ -9,6 +9,7 @@ import { StandardExerciseInput } from "./inputForms/StandardExerciseInput";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { useNavigate } from "react-router-dom";
 import { submitWorkoutThunk } from "../../store/thunks/workout/submitWorkoutThunk";
+import { getExercisesThunk } from "../../store/thunks/workout/getExercisesThunk";
 // import timePicker from "react-time-picker"
 
 export const WorkoutForm = () => {
@@ -69,6 +70,16 @@ export const WorkoutForm = () => {
             }
         });
     }
+    //get all the exercises for the form
+    useEffect(() =>{
+        dispatch(getExercisesThunk()).then(resp =>{
+            if(resp.meta.requestStatus === "rejected") {
+                if(typeof resp.payload === "string"){
+                    dispatch(workoutFormSlice.actions.setError(resp.payload));
+                }
+            }
+        })        
+    },[])
     //To do styling
     return <div>
         <form action="">

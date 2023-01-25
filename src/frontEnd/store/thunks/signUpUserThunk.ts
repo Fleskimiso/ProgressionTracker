@@ -6,6 +6,7 @@ import { RootState } from "../store";
 
 export const signUpUserThunk=createAsyncThunk<User|void,ISignupRequest,{state:RootState,rejectValue:string}>("signup",async(arg,thunkApi)=>{
     try{
+        //make a a sign up request
         const response = await axios.post<ISignUpResponse>("/api/signup", {
             email: arg.email,
             password: arg.password,
@@ -14,6 +15,7 @@ export const signUpUserThunk=createAsyncThunk<User|void,ISignupRequest,{state:Ro
         if(response.status === 200) {
             return response.data
         }
+        //handle errors
     } catch (e) {
         if( isAxiosError<IErrorResponse>(e)) {
             if(e.response?.data.message) {
