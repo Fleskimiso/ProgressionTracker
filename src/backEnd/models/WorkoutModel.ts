@@ -4,20 +4,20 @@ import mongoose from "mongoose";
 interface IWorkout {
     day: Date,
     duration: String,
-    izometricsExercises: [
+    izometricExercises: {
         exercise: mongoose.Types.ObjectId,
-        additionalWeight: number,
-        sets: [
-            holdTime: [number]
-        ]
-    ],
-    standardExercises: [
+        sets: {
+            weight: number,
+            holdsTime: number[]
+        }[]
+    }[],
+    standardExercises: {
         exercise: mongoose.Types.ObjectId,
-        additionalWeight: number,
-        sets: [{
+        sets: {
+            weight: number,
             repetitions: number
-        }]
-    ]
+        }[]
+    }[]
 }
 /**
  *
@@ -26,21 +26,20 @@ interface IWorkout {
 const WorkoutSchema = new mongoose.Schema<IWorkout>({
     day: Date,
     duration: String,
-    izometricsExercises: [
+    izometricExercises: [
         {
             exercise: {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: "Exercise"
             },
-            additionalWeight: {
-                type: Number,
-                min: 0
-            },
             sets: [{
-                holdTime: [{
+                holdsTime: [{
                     type: Number,
                     min: 0
-                }]
+                }],
+                weight: {
+                    type: Number,
+                },
             }]
         }
     ],
@@ -49,15 +48,15 @@ const WorkoutSchema = new mongoose.Schema<IWorkout>({
             type: mongoose.Schema.Types.ObjectId,
             ref: "Exercise"
         },
-        additionalWeight: {
-            type: Number,
-            min: 0
-        },
+
         sets: [{
             repetitions: {
                 type: Number,
                 min: 0
-            }
+            },
+            weight: {
+                type: Number,
+            },
         }]
     }]
 })

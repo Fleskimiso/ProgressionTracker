@@ -1,9 +1,9 @@
 import { IExercise } from "../common"
 
 export interface IWorkoutRequest  {
-    day: Number,
+    day: number,
     duration: string,
-    izometricsExercises: {
+    izometricExercises: {
         name: string,
         sets: {
             weight: number,

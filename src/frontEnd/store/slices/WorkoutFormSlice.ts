@@ -4,6 +4,23 @@ import { IIzometricExerciseSet, IStandardExerciseSet, WorkoutFormState } from '.
 import { submitWorkoutThunk } from '../thunks/workout/submitWorkoutThunk';
 
 
+const clearWorkout = (state: WorkoutFormState) =>{
+    state.endTime = "";
+            state.startTime = "";
+            state.standardExercises = [];
+            state.izometricExercises = [];
+            state.currentStandardExercise = {
+                name: "",
+                sets: []
+            };
+            state.currentIzometricExercise = {
+                name: "",
+                sets: []
+            };
+            state.error = "";
+            state.message = "";
+            state.day = Date.now();  
+}
 
 const initialWorkoutFormState: WorkoutFormState = {
     day: Date.now(),
@@ -105,30 +122,14 @@ export const workoutFormSlice = createSlice({
             state.day = action.payload.day;
         },
         clearWorkoutForm: (state,action: PayloadAction<void>) =>{
-            state.endTime = "";
-            state.startTime = "";
-            state.standardExercises = [];
-            state.izometricExercises = [];
-            state.currentStandardExercise = {
-                name: "",
-                sets: []
-            };
-            state.currentIzometricExercise = {
-                name: "",
-                sets: []
-            };
-            state.error = "";
-            state.message = "";
-            state.day = Date.now();       
+                clearWorkout(state);
         }
     },
     extraReducers: (builder) => {
         builder.addCase(submitWorkoutThunk.fulfilled, (state, action) => {
             if(typeof action.payload === "number"){
                 if(action.payload === 200)  {
-                    //delete the whole current workout TODO
-                    console.log("I should delete...");
-                    
+                   clearWorkout(state);
                 }
             }
             state.message = ""

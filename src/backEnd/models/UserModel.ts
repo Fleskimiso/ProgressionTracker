@@ -4,14 +4,12 @@ import passportLocalMongoose from "passport-local-mongoose";
 export interface IUser extends Express.User {
     email: string
     nick: string
-    workouts: [
-        mongoose.Types.ObjectId
-    ],
+    workouts: mongoose.Types.ObjectId[]
+,
     plan: mongoose.Types.ObjectId
     ,
-    exercises: [
-        mongoose.Types.ObjectId
-    ]
+    exercises:  mongoose.Types.ObjectId[]
+    
 }
 
 /**
