@@ -11,7 +11,7 @@ import { HomePage } from "./routes/HomePage";
 import {LoginPage} from "./routes/LoginPage"
 import { PlanPage } from "./routes/PlanPage";
 import { SignUpPage } from "./routes/SignUpPage";
-import { WorkoutPage } from "./routes/WorkoutPage";
+import { WorkoutPage } from "./routes/WorkoutFormPage";
 import { InformationTable } from "./components/Forms/InformationTable";
  
 

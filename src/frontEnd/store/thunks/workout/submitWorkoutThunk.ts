@@ -10,7 +10,8 @@ export const submitWorkoutThunk = createAsyncThunk<void, void, { state: RootStat
     const startTime = Number(state.workoutForm.startTime.split(":")[0]) * 60 + Number(state.workoutForm.startTime.split(":")[1]);
     const endTime = Number(state.workoutForm.endTime.split(":")[0]) * 60 + Number(state.workoutForm.endTime.split(":")[1]);
     const difference = endTime - startTime;
-    const duration = difference / 60 + ":" + (difference % 60 < 10 ? "0" + difference % 60 : difference % 60)
+    //use math floor function to get hours 
+    const duration = Math.floor(difference / 60) + ":" + (difference % 60 < 10 ? "0" + difference % 60 : difference % 60)
     /**
      * check if array is empty if yes then reject 
      */
@@ -43,6 +44,4 @@ export const submitWorkoutThunk = createAsyncThunk<void, void, { state: RootStat
                 return thunkApi.rejectWithValue("Unexpected error happened during network request");
             }
         }
-       
-
 })

@@ -1,4 +1,4 @@
-import { IExercise } from "../common"
+import { IExercise, IModifiedWorkout, IWorkout } from "../common"
 
 export interface IWorkoutRequest  {
     day: number,
@@ -21,4 +21,7 @@ export interface IWorkoutRequest  {
 export interface ISubmitExerciseNameRequest extends IExercise{}
 export interface IGetExercisesResponse {
     exercises: IExercise[]
+}
+export interface IWorkoutResponse {
+    workouts: IModifiedWorkout[]
 }

@@ -1,24 +1,6 @@
 import mongoose from "mongoose";
+import { IWorkout } from "../../common/common";
 
-
-interface IWorkout {
-    day: Date,
-    duration: String,
-    izometricExercises: {
-        exercise: mongoose.Types.ObjectId,
-        sets: {
-            weight: number,
-            holdsTime: number[]
-        }[]
-    }[],
-    standardExercises: {
-        exercise: mongoose.Types.ObjectId,
-        sets: {
-            weight: number,
-            repetitions: number
-        }[]
-    }[]
-}
 /**
  *
  * Workout Schema TODO: describe it
