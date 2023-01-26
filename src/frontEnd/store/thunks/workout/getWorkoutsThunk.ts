@@ -7,7 +7,7 @@ import { RootState } from "../../store";
 
 export const getWorkoutsThunk = createAsyncThunk<IModifiedWorkout[], void, { state: RootState, rejectValue: string }>("getWorkouts", async (arg, thunkApi) => {
     try { // post login request
-        const response = await axios.get<IWorkoutResponse>("/api/exercises");
+        const response = await axios.get<IWorkoutResponse>("/api/workouts");
         return response.data.workouts;
     } catch (e) {
         if (isAxiosError<IErrorResponse>(e)) {

@@ -63,7 +63,20 @@ export const getWorkouts = async (req: Request, res: Response<IErrorResponse | I
     const user = await UserModel.findById(req.session.currentUser?._id);
     if (user) { 
       //populate reference fields     
-      const populatedUser = await user.populate<{workouts: IModifiedWorkout[]}>(["workouts", "workouts.izometricExercises.exercise","workouts.standardExercises.exercise"]);
+      const populatedUser = await user.populate<{workouts: IModifiedWorkout[]}>({
+        path: "workouts",
+        populate: [{
+          path: "standardExercises",
+          populate: {
+            path: "exercise",
+          }
+        }, {
+          path: "izometricExercises",
+          populate: {
+            path: "exercise",
+          }
+        }],
+      });
       // send the workouts even if empty
       res.status(200).json({
         workouts: populatedUser.workouts

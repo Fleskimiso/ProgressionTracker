@@ -1,20 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Progression Tracker</title>
-</head>
-<body>
-    <div id="root">
+import axios from "axios";
 
-    </div>
-    <!-- run this script once -->
-    <!-- <script>
-import("https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js").then(resp =>{
-    for(let i=0; i<20; i++){
-    window.axios.post("/api/workouts", {
+for(let i=0; i<20; i++){
+    axios.post("/api/workouts", {
         day: Date.now(),
         duration: `${Math.floor(Math.random()*24)}:${Math.floor(Math.random()*60)}`,
         izometricExercises: [{
@@ -40,19 +27,14 @@ import("https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js").then(resp =>{
                 repetitions: 6
             },{
                 weight: 0,
-                repetitions: 6
+                holdsTime: 7
             },{
                 weight: 6,
-                repetitions: 6
+                holdsTime: 8
             },{
                 weight: 0,
-                repetitions: 6
+                holdsTime: 9
             }]
         }]
     })
 }
-})
-
-    </script> -->
-</body>
-</html>

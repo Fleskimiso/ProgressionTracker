@@ -39,7 +39,10 @@ export const Navbar = () => {
             <Link to={"/signup"}>Sign Up</Link>
         }
         {user._id !== "" &&
-            <Link to={"/workout"}>Add Workout</Link>
+            <Link to={"/workoutform"}>Add Workout</Link>
+        }
+        {user._id !== "" &&
+            <Link to={"/workouts"}>Recent Workouts</Link>
         }
         {user._id !== "" &&
             <Link to={"/plans"}>Edit plans</Link>

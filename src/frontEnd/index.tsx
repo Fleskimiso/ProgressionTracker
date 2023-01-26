@@ -11,8 +11,9 @@ import { HomePage } from "./routes/HomePage";
 import {LoginPage} from "./routes/LoginPage"
 import { PlanPage } from "./routes/PlanPage";
 import { SignUpPage } from "./routes/SignUpPage";
-import { WorkoutPage } from "./routes/WorkoutFormPage";
+import { WorkoutFormPage } from "./routes/WorkoutFormPage";
 import { InformationTable } from "./components/Forms/InformationTable";
+import { WorkoutsPage } from "./routes/WorkoutsPage";
  
 
 
@@ -30,8 +31,9 @@ export const App = (): JSX.Element =>{
                 <Route  path="/" element={<HomePage/>} />
                 <Route path="/login" element={<LoginPage/>}/>
                 <Route path="/signup" element={<SignUpPage/>} />
-                <Route path="/workout" element={<WorkoutPage/>} />
+                <Route path="/workoutform" element={<WorkoutFormPage/>} />
                 <Route path="/plans" element={<PlanPage/>} />
+                <Route path="/workouts" element={<WorkoutsPage/>} />
             </Routes>
             <InformationTable/>
         </BrowserRouter>
