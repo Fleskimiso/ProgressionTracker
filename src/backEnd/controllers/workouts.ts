@@ -4,7 +4,7 @@ import { Exercise, IModifiedWorkout, IWorkout } from "../../common/common";
 import { IErrorResponse } from "../../common/responseTypes/auth";
 import { ISubmitExerciseNameRequest, IWorkoutRequest, IWorkoutResponse } from "../../common/responseTypes/workout";
 import { ExerciseModel } from "../models/ExerciseModel";
-import { UserModel } from "../models/UserModel";
+import { IUser, UserModel } from "../models/UserModel";
 import { WorkoutModel } from "../models/WorkoutModel";
 
 export const postWorkout = async (req: Request<{}, {}, IWorkoutRequest>, res: Response<IErrorResponse>) => {
@@ -56,15 +56,29 @@ export const postWorkout = async (req: Request<{}, {}, IWorkoutRequest>, res: Re
       message: "Internal Server Error"
     });
   }
-}
-export const getWorkouts = async (req: Request, res: Response<IErrorResponse | IWorkoutResponse>) => {
+} //
+export const getWorkouts = async (req: Request<{},{},{},{ limit ?: string, offset ?:string  }>, res: Response<IErrorResponse | IWorkoutResponse>) => {
   try {
     //find user 
-    const user = await UserModel.findById(req.session.currentUser?._id);
-    if (user) { 
-      //populate reference fields     
-      const populatedUser = await user.populate<{workouts: IModifiedWorkout[]}>({
+    const userId = req.session.currentUser?._id;
+    if (userId) { 
+      //populate reference fields    
+      let limit =0;
+      let offset = 0;
+      if(req.query.limit){
+        limit = Number(req.query.limit)
+      }
+      if(req.query.offset){
+        offset = Number(req.query.offset)
+      }
+      
+      UserModel.findById(userId).lean();
+      const populatedUserWorkouts = await UserModel.findById(userId).populate<{workouts: IModifiedWorkout[]}>({
         path: "workouts",
+        options: {
+          limit: limit,
+          skip: offset
+        },
         populate: [{
           path: "standardExercises",
           populate: {
@@ -79,7 +93,7 @@ export const getWorkouts = async (req: Request, res: Response<IErrorResponse | I
       });
       // send the workouts even if empty
       res.status(200).json({
-        workouts: populatedUser.workouts
+        workouts: (populatedUserWorkouts !== null ? populatedUserWorkouts.workouts : [])
       });
     }
   } catch (error: any) {
