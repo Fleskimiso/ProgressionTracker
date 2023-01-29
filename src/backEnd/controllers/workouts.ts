@@ -71,9 +71,7 @@ export const getWorkouts = async (req: Request<{},{},{},{ limit ?: string, offse
       if(req.query.offset){
         offset = Number(req.query.offset)
       }
-      
-      UserModel.findById(userId).lean();
-      const populatedUserWorkouts = await UserModel.findById(userId).populate<{workouts: IModifiedWorkout[]}>({
+      const populatedUser = await UserModel.findById(userId).populate<{workouts: IModifiedWorkout[]}>({
         path: "workouts",
         options: {
           limit: limit,
@@ -93,7 +91,7 @@ export const getWorkouts = async (req: Request<{},{},{},{ limit ?: string, offse
       });
       // send the workouts even if empty
       res.status(200).json({
-        workouts: (populatedUserWorkouts !== null ? populatedUserWorkouts.workouts : [])
+        workouts: (populatedUser !== null ? populatedUser.workouts : []),
       });
     }
   } catch (error: any) {

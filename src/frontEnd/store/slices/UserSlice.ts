@@ -9,7 +9,8 @@ const initialState: User = {
     _id: "",
     email: "",
     nick: "",
-    explicitLogout: false
+    explicitLogout: false,
+    wLength: 0
 }
 
 export const userSlice = createSlice({
@@ -37,6 +38,8 @@ export const userSlice = createSlice({
                 state._id = action.payload._id;
                 state.email = action.payload.email;
                 state.nick = action.payload.nick;
+                state.wLength = action.payload.wLength;
+
             }
         });
         builder.addCase(loginUserThunk.rejected, (state, action) => {
@@ -53,6 +56,7 @@ export const userSlice = createSlice({
                 state._id = action.payload._id;
                 state.email = action.payload.email;
                 state.nick = action.payload.nick;
+                state.wLength = action.payload.wLength;
             }
         })
     }

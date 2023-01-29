@@ -1,10 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IModifiedWorkout} from "../../../common/common"
 import { getWorkoutsThunk } from "../thunks/workout/getWorkoutsThunk";
+import immutable from "immutable"
 
 //add caching maybe watch when the workouts are added ...
-const initialState : { workouts: IModifiedWorkout[], shouldUpdate: boolean, message: string }= {
-    workouts: [],
+const initialState : { workouts: (IModifiedWorkout|null)[], shouldUpdate: boolean, message: string }= {
+    workouts:  [],
     shouldUpdate: true,
     message: ""
 }
@@ -19,9 +20,12 @@ export const workoutsSlice = createSlice({
     },
     extraReducers(builder) {
         builder.addCase(getWorkoutsThunk.fulfilled, (state,action) =>{
-           // console.log(action.payload);
-            state.workouts.length = 0;
-            state.workouts.push(...action.payload);
+            if(action.payload.limit + action.payload.offset  > state.workouts.length) {
+                state.workouts.fill(null,action.payload.offset,action.payload.limit);
+            }
+            for(let i=0; i<action.payload.limit; i++) {
+                state.workouts[i+action.payload.offset] = action.payload.workouts[i];
+            }
             state.shouldUpdate = false;
             state.message = "";
         });

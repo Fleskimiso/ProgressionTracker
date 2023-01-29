@@ -14,5 +14,5 @@ export interface ISignUpResponse {
     email: string
 }
 export interface ILoginResponse extends ISignUpResponse{
-    
+    wLength: number
 }
