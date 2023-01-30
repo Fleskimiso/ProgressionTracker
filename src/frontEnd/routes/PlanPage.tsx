@@ -1,5 +1,10 @@
 import * as React from "react";
-export const PlanPage = () =>{
+
+//Edit plan page
+export const PlanPage = () => {
+
+    
+
     return <div>
         "PlanPage"
     </div>
