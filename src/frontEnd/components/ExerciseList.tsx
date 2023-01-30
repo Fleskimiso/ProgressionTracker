@@ -1,23 +1,25 @@
 import React from "react"
-import { Root } from "react-dom/client"
-import { useSelector } from "react-redux"
-import { RootState } from "../store/store"
+import { IModifiedIzometricExercise, IModifiedStandardExercise } from "../../common/common"
 
 //TODO STYLING
-export const ExerciseList = () => {
+type exerciseListType = {
+    izometricExercises: IModifiedIzometricExercise[],
+    standardExercises: IModifiedStandardExercise[]
+}
 
-    const workoutForm = useSelector((state: RootState) => { return state.workoutForm });
+export const ExerciseList = ({izometricExercises, standardExercises}: exerciseListType ) => {
 
     return <div>
         <div>
             {/* for izometric Exercises */}
             <div> Izometric Exercises
-                {workoutForm.izometricExercises.length === 0 ? "(none yet)" : ""}
+                {izometricExercises.length === 0 ? "(none)" : ""}
             </div>
             {/* map over each exercise */}
-            {workoutForm.izometricExercises.map((exercise, index) => {
+            {izometricExercises.map((exercise, index) => {
                 return <div key={index}>
-                    <div> {exercise.name} </div>
+                    {/* commment from the future there should be different naming convention */}
+                    <div> {exercise.exercise.name} </div>
                     {/* display exercise name map over each exercise set */}
                     {exercise.sets.map((set, setIndex) => {
                         return <div key={setIndex}>
@@ -37,12 +39,12 @@ export const ExerciseList = () => {
         <div>
             {/* for standard Exercicses */}
             <div> Standard Exercises
-                {workoutForm.standardExercises.length === 0 ? "(none yet)" : ""}
+                {standardExercises.length === 0 ? "(none)" : ""}
             </div>
             {
-                workoutForm.standardExercises.map((exercise, index) => {
+                standardExercises.map((exercise, index) => {
                     return <div key={index}>
-                        <div> {exercise.name} </div>
+                        <div> {exercise.exercise.name} </div>
                         {
                             exercise.sets.map((set, setIndex) => {
                                 return <div key={setIndex}>

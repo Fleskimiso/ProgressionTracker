@@ -143,7 +143,7 @@ export const WorkoutForm = () => {
 
             </div>
         </form>
-        <ExerciseList/>
+        <ExerciseList izometricExercises={workout.izometricExercises} standardExercises={workout.standardExercises} />
             {/* here will be displayed added exercises  */}
         <button onClick={submitWorkout}>Submit Workout</button>
     </div>

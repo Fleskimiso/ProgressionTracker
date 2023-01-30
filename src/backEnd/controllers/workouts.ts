@@ -21,7 +21,7 @@ export const postWorkout = async (req: Request<{}, {}, IWorkoutRequest>, res: Re
       //standard exercises
       req.body.standardExercises.forEach(exercise => {
         for (let i = 0; i < userExercisesList.length; i++) {
-          if (userExercisesList[i].name === exercise.name) {
+          if (userExercisesList[i].name === exercise.exercise.name) {
             newUserWorkout.standardExercises.push({
               exercise: userExercisesList[i]._id,
               sets: exercise.sets
@@ -33,7 +33,7 @@ export const postWorkout = async (req: Request<{}, {}, IWorkoutRequest>, res: Re
       //izometric exercises
       req.body.izometricExercises.forEach(exercise => {
         for (let i = 0; i < userExercisesList.length; i++) {
-          if (userExercisesList[i].name === exercise.name) {
+          if (userExercisesList[i].name === exercise.exercise.name) {
             newUserWorkout.izometricExercises.push({
               exercise: userExercisesList[i],
               sets: exercise.sets

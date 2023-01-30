@@ -92,7 +92,11 @@ export const workoutFormSlice = createSlice({
                 return;
             }
             //push the copy 
-            state.standardExercises.push({ ...state.currentStandardExercise });
+            state.standardExercises.push({ sets: state.currentStandardExercise.sets,
+            exercise: {
+                name: state.currentStandardExercise.name,
+                type: "standard"
+            } });
             state.currentStandardExercise.name = "";
             state.currentStandardExercise.sets = [];
         },
@@ -106,7 +110,11 @@ export const workoutFormSlice = createSlice({
                 return;
             }
             //push the copy 
-            state.izometricExercises.push({ ...state.currentIzometricExercise });
+            state.izometricExercises.push({ sets: state.currentIzometricExercise.sets, 
+            exercise: {
+                name: state.currentIzometricExercise.name,
+                type: "izometric"
+            } });
             state.currentIzometricExercise.name = "";
             state.currentIzometricExercise.sets = [];
         },

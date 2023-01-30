@@ -14,6 +14,7 @@ import { SignUpPage } from "./routes/SignUpPage";
 import { WorkoutFormPage } from "./routes/WorkoutFormPage";
 import { InformationTable } from "./components/Forms/InformationTable";
 import { WorkoutsPage } from "./routes/WorkoutsPage";
+import { WorkoutDetailsPage } from "./routes/WorkoutDetailsPage";
  
 
 
@@ -34,6 +35,7 @@ export const App = (): JSX.Element =>{
                 <Route path="/workoutform" element={<WorkoutFormPage/>} />
                 <Route path="/plans" element={<PlanPage/>} />
                 <Route path="/workouts" element={<WorkoutsPage/>} />
+                <Route path="/workouts/:id" element={<WorkoutDetailsPage/>} />
             </Routes>
             <InformationTable/>
         </BrowserRouter>

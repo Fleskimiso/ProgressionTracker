@@ -1,20 +1,7 @@
 import mongoose from "mongoose";
+import { IPlan } from "../../common/common";
 
-/**
- * Interface for workout Plan Schema
- */
-interface IPlan {
-    currentDay: number,
-    workout: {
-        day: number,
-        exercises: [
-            {
-                exercise: mongoose.Types.ObjectId,
-                sets: number
-            }
-        ]
-    }
-}
+
 
 /**
  * A Workout schedule 
@@ -26,22 +13,23 @@ const PlanSchema = new mongoose.Schema<IPlan>({
         type: Number,
         min: 1
     },
-    workout: {
+    workouts: [{
         day: {
             type: Number,
             min: 1
         },
         exercises: [{
             exercise: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "Exercise"
+                type: "string",
+                required: true,
             },
             sets: {
                 type: Number,
-                min: 1
+                min: 1,
+                required: false
             }
         }]
-    }
+    }]
 })
 
 export const PlanModel = mongoose.model<IPlan>("Plan", PlanSchema);

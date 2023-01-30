@@ -2,6 +2,21 @@ import mongoose from "mongoose"
 /**
  * Interface for Exercise Schema
  */
+/**
+ * Interface for workout Plan Schema
+ */
+export interface IPlan {
+    currentDay: number,
+    workouts: {
+        day: number,
+        exercises: 
+            {
+                exercise: string,
+                sets: number
+            }[]
+    }[]
+}
+
 interface IExercise {
     id?: string  
     name: string,
@@ -34,27 +49,31 @@ export interface IWorkout {
 /**
  * @param day ISO string date
  */
+export interface IModifiedIzometricExercise {
+    exercise: {
+        name: string,
+        type: "izometric"
+    },
+    sets: {
+        weight: number,
+        holdsTime: number[]
+    }[]
+}
+
+export interface IModifiedStandardExercise {
+    exercise: {
+        name: string,
+        type: "standard"
+    },
+    sets: {
+        weight: number,
+        repetitions: number
+    }[]
+}
+
 export interface IModifiedWorkout extends Omit<IWorkout,"day" | "izometricExercises" | "standardExercises"> {
-    izometricExercises: {
-        exercise: {
-            name: string,
-            type: "izometric"
-        },
-        sets: {
-            weight: number,
-            holdsTime: number[]
-        }[]
-    }[],
-    standardExercises: {
-        exercise: {
-            name: string,
-            type: "standard"
-        },
-        sets: {
-            weight: number,
-            repetitions: number
-        }[]
-    }[],
+    izometricExercises: IModifiedIzometricExercise[],
+    standardExercises: IModifiedStandardExercise[],
     _id: string,
     day: string
 }

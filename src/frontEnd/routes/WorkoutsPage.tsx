@@ -16,12 +16,23 @@ export const WorkoutsPage = () => {
     const keyExtractor = (workout: IModifiedWorkout) => {
         // most of the time you train once per day
         // high chance that is unique but may change othwerwise
-        return workout.day.toString() + workout.duration.toString();
+        return workout._id;
     }
     const loadData = async (limit: number, offset: number) => {
         try {
             //load data only when it's not present or there are null values in some places
-            await dispatch(getWorkoutsThunk({limit, offset}));
+            //checks for null values
+            let j = limit;
+            for(let i=offset,z=limit; i<workoutsState.workouts.length && z>0 ; i++, z-- ){
+                if (workoutsState.workouts[i] !== null) {
+                    j-=1;
+                }
+            }            
+            //if all data is avaible do not make request
+            if(j > 0){
+                await dispatch(getWorkoutsThunk({limit, offset}));
+            }
+
         } catch (error) {
             let message = "Unknown error"
             if (error instanceof Error) message = error.message
