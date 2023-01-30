@@ -12,6 +12,7 @@ import { WorkoutRouter } from "./routes/workouts";
 import cookieParser from "cookie-parser";
 import * as passportType from "./types/passport"; //do not optimize this import 
 import { exerciseRouter } from "./routes/exercise";
+import { planRouter } from "./routes/plan";
 //import config values in deployment
 const isDevelopment = process.env.NODE_ENV !== "production";
 if (process.env.NODE_ENV !== "production") {
@@ -97,6 +98,7 @@ app.use((req, res, next) => {
 app.use("/api", Authrouter);
 app.use("/api", WorkoutRouter);
 app.use("/api", exerciseRouter);
+app.use("/api", planRouter);
 
 app.get("/", (req: express.Request,res) =>{
   console.log("Current user");

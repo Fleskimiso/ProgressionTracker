@@ -8,7 +8,7 @@ import { RootState } from "../../store";
 export const editPlanThunk = createAsyncThunk<string|void| undefined , IPlan, { state: RootState, rejectValue: string }>("putPlan", async (arg, thunkApi) => {
     try {
         //make put plan request 
-        const response = await axios.put<IPutPlanRequest, AxiosResponse<IErrorResponse,IPutPlanRequest> >("/api/login", {
+        const response = await axios.put<IPutPlanRequest, AxiosResponse<IErrorResponse,IPutPlanRequest> >("/api/plans", {
             plan: arg
         });
         if (response.status === 200) {

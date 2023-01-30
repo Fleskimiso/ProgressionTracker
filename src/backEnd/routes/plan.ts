@@ -4,6 +4,6 @@ import { isLoggedIn } from "../middleware";
 
 export const planRouter = express.Router();
 
-planRouter.get("/plan", isLoggedIn, getPlan)
+planRouter.get("/plans", isLoggedIn, getPlan)
 //you only modify your  current plan
-planRouter.put("/exercises", isLoggedIn, putPlan);
+planRouter.put("/plans", isLoggedIn, putPlan);

@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { IErrorResponse, ILoginRequest, ILoginResponse, ISignupRequest, ISignUpResponse } from "../../common/responseTypes/auth";
+import { PlanModel } from "../models/PlanModel";
 import { UserModel } from "../models/UserModel";
 import * as sessionTypes from "../types/session"; // import session type
 
@@ -13,6 +14,8 @@ export const signup = async (req: Request<{}, {}, ISignupRequest>, res: Response
                     email: req.body.email,
                     nick: req.body.nick,
                 });
+                const userPlan = new PlanModel();
+                newUser.plan = userPlan._id;
                 const registeredUser = await UserModel.register(newUser, req.body.password);
                 await req.login(registeredUser, (error) => {
                     if (error) {
@@ -75,7 +78,6 @@ export const logout = async (req: Request, res: Response<IErrorResponse>) => {
 export const getLoggedUser = async (req: Request, res: Response<IErrorResponse | ILoginResponse>) => {
 
     const user = await UserModel.findById(req.session.currentUser?._id);
-    console.log(user);
     
     if (user) {
         req.session.currentUser = user;
