@@ -1,4 +1,5 @@
 @import url(colors.css);
+
 .navbar {
     display: flex;
     flex-direction: row;
@@ -11,7 +12,18 @@
     align-items: center;
 }
 
+.pane {
+    width: 35px;
+    height: 5px;
+    background-color: black;
+    margin: 6px 0;
+}
+.mobileHamburger {
+    display: none;
+}
+
 .navbar-item {
+    font-size: 1rem;
     color: black;
     padding: 0.5rem;
     margin-left: 0.5rem;
@@ -23,29 +35,57 @@
     animation: rot 2s normal;
     animation-delay: 1s;
 }
+
 .navbar-link {
     font-size: small;
     text-decoration: none;
+}
+.navbar-button {
+    background-color: var(--orchid-crayola);
 }
 
 .navbar-button:hover {
     cursor: pointer;
 }
+
 .navbar-item:hover {
     background-color: var(--medium-blue);
     border-style: double;
-    border-radius: 25%;   
+    border-radius: 25%;
 }
+
 @keyframes rot {
     from {
-        transform: rotateX(0deg);    
+        transform: rotateX(0deg);
     }
+
     to {
         transform: rotateX(360deg);
     }
 }
+
 @media only screen and (orientation: portrait) {
-    body {
-      background-color: lightblue;
+    .mobileHamburger {
+        display: block;
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
     }
-  }
+    .navbar-item-show {
+        display: block;
+        margin-top: 1rem;
+        text-align: center;
+        animation-delay: 0s;
+    }
+    .navbar-item-hide {
+        display: none;
+    }
+    .navbar {
+        flex-direction: column;
+        width: min-content;
+        position: relative;
+        top: 0;
+        left: 0;
+        height: 100vh;
+    }
+    
+}

@@ -11,6 +11,7 @@ export const Navbar = () => {
     const user = useAppSelector(state => state.user);
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+    const [mobileLinkClass,setmobileLinkClass] = React.useState("navbar-item-hide")
 
     const logout = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
@@ -29,26 +30,38 @@ export const Navbar = () => {
             dispatch(workoutFormSlice.actions.setError(e.message));
         });
     }
+    const changeMobileClasses = (e: React.MouseEvent<HTMLDivElement>) =>{
+        if(mobileLinkClass === "navbar-item-hide") {
+            setmobileLinkClass("navbar-item-show");
+        }else {
+            setmobileLinkClass("navbar-item-hide");
+        }
+    }
 
     return <div className="navbar">
-        <Link className="navbar-link navbar-item" to={"/"}>Homepage</Link>
+        <div className="mobileHamburger" onClick={changeMobileClasses} >
+        <div className="pane"></div>
+        <div className="pane"></div>
+        <div className="pane"></div>
+        </div>
+        <Link className={`navbar-link navbar-item ${mobileLinkClass}`} to={"/"}>Homepage</Link>
         {user._id === "" &&
-            <Link className="navbar-link navbar-item" to={"/login"}>Login</Link>
+            <Link className={`navbar-link navbar-item ${mobileLinkClass}`} to={"/login"}>Login</Link>
         }
         {user._id === "" &&
-            <Link className="navbar-link navbar-item" to={"/signup"}>Sign Up</Link>
+            <Link className={`navbar-link navbar-item ${mobileLinkClass}`} to={"/signup"}>Sign Up</Link>
         }
         {user._id !== "" &&
-            <Link className="navbar-link navbar-item" to={"/workoutform"}>Add Workout</Link>
+            <Link className={`navbar-link navbar-item ${mobileLinkClass}`} to={"/workoutform"}>Add Workout</Link>
         }
         {user._id !== "" &&
-            <Link className="navbar-link navbar-item" to={"/workouts"}>Recent Workouts</Link>
+            <Link className={`navbar-link navbar-item ${mobileLinkClass}`} to={"/workouts"}>Recent Workouts</Link>
         }
         {user._id !== "" &&
-            <Link className="navbar-link navbar-item" to={"/plans"}>Edit plans</Link>
+            <Link className={`navbar-link navbar-item ${mobileLinkClass}`} to={"/plans"}>Edit plans</Link>
         }
         {user._id !== "" &&
-            <button className="navbar-button navbar-item" onClick={logout}>Logout</button>
+            <button className={`navbar-button navbar-item  ${mobileLinkClass}`}  onClick={logout}>Logout</button>
         }
     </div>
 }

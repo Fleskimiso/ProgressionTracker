@@ -24,10 +24,11 @@ import "./assets/css/root.css"
 export const App = (): JSX.Element =>{
    
 
-    return <div>
+    return <div className="app-react-root" >
         <Provider store={store}>
         <BrowserRouter>
         <Navbar/>
+            <div className="mainContent">
             <Routes>
                 <Route  path="/" element={<HomePage/>} />
                 <Route path="/login" element={<LoginPage/>}/>
@@ -38,6 +39,7 @@ export const App = (): JSX.Element =>{
                 <Route path="/workouts/:id" element={<WorkoutDetailsPage/>} />
             </Routes>
             <InformationTable/>
+            </div>
         </BrowserRouter>
         </Provider>
        
