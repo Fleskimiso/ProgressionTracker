@@ -1,9 +1,6 @@
-/* CSS HEX */
-/* css color palete which will be used for ui design */
-:root{
---purple: #531cb3ff;
---purple-plum: #944bbbff;
---african-violet: #aa7bc3ff;
---orchid-crayola: #cc92c2ff;
---pastel-pink: #dba8acff;
+/* in this file imports of all other files should go */
+@import url(navbar.css);
+body {
+    background-color: rgb(228, 217, 229);
+    margin: 0;
 }

@@ -1,0 +1,51 @@
+@import url(colors.css);
+.navbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    padding: 0.5rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    margin-bottom: 0.25rem;
+    background-color: var(--african-violet);
+    align-items: center;
+}
+
+.navbar-item {
+    color: black;
+    padding: 0.5rem;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    background-color: var(--purple-plum);
+    border: 2px solid var(--pastel-pink);
+    border-radius: 15%;
+    transition: all 1s linear;
+    animation: rot 2s normal;
+    animation-delay: 1s;
+}
+.navbar-link {
+    font-size: small;
+    text-decoration: none;
+}
+
+.navbar-button:hover {
+    cursor: pointer;
+}
+.navbar-item:hover {
+    background-color: var(--medium-blue);
+    border-style: double;
+    border-radius: 25%;   
+}
+@keyframes rot {
+    from {
+        transform: rotateX(0deg);    
+    }
+    to {
+        transform: rotateX(360deg);
+    }
+}
+@media only screen and (orientation: portrait) {
+    body {
+      background-color: lightblue;
+    }
+  }

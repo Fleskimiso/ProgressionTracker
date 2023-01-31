@@ -16,7 +16,7 @@ import { InformationTable } from "./components/Forms/InformationTable";
 import { WorkoutsPage } from "./routes/WorkoutsPage";
 import { WorkoutDetailsPage } from "./routes/WorkoutDetailsPage";
  
-
+import "./assets/css/root.css"
 
 
 

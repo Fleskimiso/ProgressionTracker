@@ -30,25 +30,25 @@ export const Navbar = () => {
         });
     }
 
-    return <div>
-        <Link to={"/"}>Homepage</Link>
+    return <div className="navbar">
+        <Link className="navbar-link navbar-item" to={"/"}>Homepage</Link>
         {user._id === "" &&
-            <Link to={"/login"}>Login</Link>
+            <Link className="navbar-link navbar-item" to={"/login"}>Login</Link>
         }
         {user._id === "" &&
-            <Link to={"/signup"}>Sign Up</Link>
+            <Link className="navbar-link navbar-item" to={"/signup"}>Sign Up</Link>
         }
         {user._id !== "" &&
-            <Link to={"/workoutform"}>Add Workout</Link>
+            <Link className="navbar-link navbar-item" to={"/workoutform"}>Add Workout</Link>
         }
         {user._id !== "" &&
-            <Link to={"/workouts"}>Recent Workouts</Link>
+            <Link className="navbar-link navbar-item" to={"/workouts"}>Recent Workouts</Link>
         }
         {user._id !== "" &&
-            <Link to={"/plans"}>Edit plans</Link>
+            <Link className="navbar-link navbar-item" to={"/plans"}>Edit plans</Link>
         }
         {user._id !== "" &&
-            <button onClick={logout}>Logout</button>
+            <button className="navbar-button navbar-item" onClick={logout}>Logout</button>
         }
     </div>
 }
