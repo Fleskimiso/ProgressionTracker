@@ -84,7 +84,7 @@ export const ExerciseNameInput = (props: { exerciseType: "standard" | "izometric
     },[])
 
     return <div>
-        <div>
+        <div className="inputGroup">
             <label htmlFor="exerciseName">Exercise Name: </label>
             <select value={props.exerciseType === "standard" ? currentStandardExerciseName : currentIzometricExerciseName } 
             onChange={handleNameSelect} name="exerciseName" id="exerciseName">
@@ -100,11 +100,15 @@ export const ExerciseNameInput = (props: { exerciseType: "standard" | "izometric
             </select>
         </div>
         <div>
+            <div  className="inputGroup formSimpleInput">
             <label htmlFor="newExerciseName">Add exercise name to the list: </label>
             {/* handle change inline... */}
             <input type="text" value={newExerciseName} id="newExerciseName"
                 onChange={(e) => { setnewExerciseName(e.target.value) }} />
+            </div>
+            <div className="buttonContainer">
             <button type="button" onClick={handleNewExerciseNameSubmit} >Define!</button>
+            </div>
         </div>
     </div>
 }

@@ -1,8 +1,8 @@
 import { RootState } from "../../store/store"
 import { useSelector } from "react-redux";
-import {  workoutFormSlice } from "../../store/slices/WorkoutFormSlice"
+import { workoutFormSlice } from "../../store/slices/WorkoutFormSlice"
 import React, { useEffect, useRef, useState } from "react"
-import TimePicker, { TimePickerValue } from "react-time-picker";
+import TimePicker, { TimePickerValue } from "react-time-picker/dist/entry.nostyle";
 import { ExerciseList } from "../ExerciseList";
 import { IzometricExerciseInput } from "./inputForms/IzometricExerciseInput";
 import { StandardExerciseInput } from "./inputForms/StandardExerciseInput";
@@ -28,7 +28,7 @@ export const WorkoutForm = () => {
     const startTime = workout.startTime;
     //update it on change 
     const onstartTimeChange = (e: TimePickerValue) => {
-        if( e!== null){
+        if (e !== null) {
             dispatch(workoutFormSlice.actions.changeStartTime(e.toString()))
         }
     }
@@ -36,49 +36,49 @@ export const WorkoutForm = () => {
     const endTime = workout.endTime;
     // update it on change
     const onendTimeChange = (e: TimePickerValue) => {
-        if(e !== null){
+        if (e !== null) {
             dispatch(workoutFormSlice.actions.changeEndTime(e.toString()))
         }
     }
     //day of the workout
     const day = workout.day;
-    
+
     //update day on change
-    const ondayChange = (e: React.ChangeEvent<HTMLInputElement>) =>{
+    const ondayChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         // console.log(e.target.value);
         dispatch(workoutFormSlice.actions.changeDay(new Date(e.target.value).getTime()));
     }
     //set formatted date for input 
-    const setDayValueForInput = () =>{
+    const setDayValueForInput = () => {
         let x = new Date(day); // uses day from outer scope
-        let y = (x.getMonth()+1)
+        let y = (x.getMonth() + 1)
         let month = "01";
-        if (y<10) {
-            month =  "0"+String(y)
+        if (y < 10) {
+            month = "0" + String(y)
         }
-        return (x.getFullYear()+"-"+month+"-"+x.getDate());
+        return (x.getFullYear() + "-" + month + "-" + x.getDate());
     }
     // which input type show on display? 
-    const [inputType,setinputType] = useState("")
+    const [inputType, setinputType] = useState("")
     // handle the change
-    const onInputTypeChange = (e: React.ChangeEvent<HTMLInputElement>) =>{
+    const onInputTypeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setinputType(e.target.value);
     }
     /**
      * dispatches `submitWorkout` action
      */
-    const submitWorkout = () =>{
+    const submitWorkout = () => {
         console.log("clcliking");
-        dispatch(submitWorkoutThunk()).then(resp =>{
-            if(resp.meta.requestStatus === "fulfilled") {
+        dispatch(submitWorkoutThunk()).then(resp => {
+            if (resp.meta.requestStatus === "fulfilled") {
                 navigate("/")
             }
         });
     }
     //get all the exercises for the form
-    useEffect(() =>{
+    useEffect(() => {
         const localWorkoutDataString = localStorage.getItem("workoutFormData");
-        if(localWorkoutDataString) {
+        if (localWorkoutDataString) {
             //get the cache,parse it , and set the workout Form data
             const localWorkoutData = JSON.parse(localWorkoutDataString) as WorkoutFormState;
             dispatch(workoutFormSlice.actions.setCacheWorkout(localWorkoutData));
@@ -87,64 +87,72 @@ export const WorkoutForm = () => {
             console.log(localWorkoutData);
 
         }
-        dispatch(getExercisesThunk()).then(resp =>{
-            if(resp.meta.requestStatus === "rejected") {
-                if(typeof resp.payload === "string"){
+        dispatch(getExercisesThunk()).then(resp => {
+            if (resp.meta.requestStatus === "rejected") {
+                if (typeof resp.payload === "string") {
                     dispatch(workoutFormSlice.actions.setError(resp.payload));
                 }
             }
         });
-    },[])
-    useEffect(() =>{
-        if(isMounted.current) {
-            localStorage.setItem("workoutFormData",JSON.stringify(workout))
-            return () =>{
+    }, [])
+    useEffect(() => {
+        if (isMounted.current) {
+            localStorage.setItem("workoutFormData", JSON.stringify(workout))
+            return () => {
                 console.log("saving on unmount");
-                localStorage.setItem("workoutFormData",JSON.stringify(workout))
-            };            
+                localStorage.setItem("workoutFormData", JSON.stringify(workout))
+            };
         } else {
             isMounted.current = true;
         }
     }, [workout])
 
     //To do styling
-    return <div>
+    return <div className="">
         <form action="">
             <div>
-                <div>
-                    <label htmlFor="day">Workout Day</label>
+                <div className="singleContentItem" id="dateInputGroup">
+                    <label htmlFor="day">Workout Day:</label>
                     <input onChange={ondayChange} value={setDayValueForInput()} type="date" name="day" id="day" />
                 </div>
-                <div>
-                    <label htmlFor="startTime">Workout start Time</label>
-                    {/* <input value={startTime} type="time" name="startTime" id="startTime" /> */}
-                    <TimePicker onChange={onstartTimeChange} clearIcon={null}
-                        disableClock={true} clockIcon={null} locale="pl-pl" value={startTime} />
+                <div className="singleContentItem" id="formTimeGroup">
+                    <div className="formSimpleInput">
+                        <label className="timeLabel" htmlFor="startTime">Workout start time</label>
+                        {/* <input value={startTime} type="time" name="startTime" id="startTime" /> */}
+                        <TimePicker className="timePicker" onChange={onstartTimeChange} clearIcon={null}
+                            disableClock={true} clockIcon={null} locale="pl-pl" value={startTime} />
+                    </div>
+                    <div className="formSimpleInput">
+                        <label className="timeLabel" htmlFor="endTime">Workout end time</label>
+                        <TimePicker className="timePicker" onChange={onendTimeChange} clearIcon={null}
+                            disableClock={true} clockIcon={null} locale="pl-pl" value={endTime} />
+                    </div>
                 </div>
-                <div>
-                    <label htmlFor="endTime">Workout end Time</label>
-                    <TimePicker onChange={onendTimeChange} clearIcon={null}
-                        disableClock={true} clockIcon={null} locale="pl-pl" value={endTime} />
+                <div className="signleContentItem">
+                    <fieldset className="fieldSetGroup">
+                        <legend>Choose Exercise Type:</legend>
+                        <div>
+                            <label htmlFor="exerciseType1">Standard </label>
+                            <input onChange={onInputTypeChange} value="standard" type="radio" name="exerciseType" id="exerciseType1" />
+                        </div><div>
+                            <label htmlFor="exerciseType2">Izometric</label>
+                            <input onChange={onInputTypeChange} value="izometric" type="radio" name="exerciseType" id="exerciseType2" />
+                        </div></fieldset>
                 </div>
-                <fieldset>
-                    <legend>Choose Exercise Type:</legend>
-                    <label htmlFor="exerciseType1">Standard </label>
-                    <input onChange={onInputTypeChange} value="standard" type="radio" name="exerciseType" id="exerciseType1" />
-                    <label htmlFor="exerciseType2">Izometric</label>
-                    <input onChange={onInputTypeChange} value="izometric" type="radio" name="exerciseType" id="exerciseType2" />
-                </fieldset>
-                { inputType === "standard" &&
-                     <StandardExerciseInput exerciseType="standard"/>
+
+                {inputType === "standard" &&
+                    <StandardExerciseInput exerciseType="standard" />
                 }
-                { inputType === "izometric" &&
-                       <IzometricExerciseInput exerciseType="izometric" />
+                {inputType === "izometric" &&
+                    <IzometricExerciseInput exerciseType="izometric" />
                 }
-               
+
+
 
             </div>
         </form>
         <ExerciseList izometricExercises={workout.izometricExercises} standardExercises={workout.standardExercises} />
-            {/* here will be displayed added exercises  */}
+        {/* here will be displayed added exercises  */}
         <button onClick={submitWorkout}>Submit Workout</button>
     </div>
 }

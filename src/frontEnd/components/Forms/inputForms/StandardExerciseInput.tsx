@@ -39,35 +39,54 @@ export const StandardExerciseInput = (props: { exerciseType: "standard" }) => {
         dispatch(workoutFormSlice.actions.submitStandardExercise());
     }
 
-    return <div style={{ border: "2px black solid", margin: "2rem" }}>
+    return <div className="exerciseInput">
         <ExerciseNameInput exerciseType={props.exerciseType} />
 
-        <div>
-            <label htmlFor="reps">Repetitions number:  </label>
-            <input onChange={handleRepsChange} value={reps} type="number" id="reps" name="reps" />
+        <div  >
+            <div className="inputGroup formSimpleInput">
+                <div>
+                    <label htmlFor="reps">Repetitions number:  </label>
+                    <button>Up</button>
+                </div>
+                <div>
+                    <input onChange={handleRepsChange} value={reps} type="number" id="reps" name="reps" />
+                    <button>Down</button>
+                </div>
+            </div>
+            <div className="inputGroup formSimpleInput">
+                <div>
+                    <label htmlFor="weight">Additional Weight (kg):   </label>
+                    <button>Up </button>
+                </div>
+                <div>
+                    <input onChange={handleWeightChange} value={weight} type="number" id="weight" name="weight" />
+                    <button>Down</button>
+                </div>
+            </div>
         </div>
-        <div>
-            <label htmlFor="weight">Additional Weight (kg):  </label>
-            <input onChange={handleWeightChange} value={weight} type="number" id="weight" name="weight" />
-        </div>
-        <div>
-            <button type="button" onClick={submitSet} >Add Set</button>
-        </div>
+
         <div>
             {/* display current sets */}
             {
                 // to do removing on the click 
                 exerciseSets.map((set, index) => {
-                    return <div  key={index}>
-                        Set {index + 1}: {set.repetitions} Repetitions 
+                    return <div key={index}>
+                        Set {index + 1}: {set.repetitions} Repetitions
                         {set.weight === 0 ? "" : ` with ${set.weight} kg`}
                     </div>
                 })
             }
         </div>
-        <button type="button" onClick={submitExercise}>
-            Submit exercise
-        </button>
+        <div className="buttonsContainer">
+            <div className="buttonContainer">
+                <button type="button" onClick={submitSet} >Add Set</button>
+            </div>
+            <div className="buttonContainer">
+                <button type="button" onClick={submitExercise}>
+                    Submit exercise
+                </button>
+            </div>
+        </div>
 
     </div>
 }
