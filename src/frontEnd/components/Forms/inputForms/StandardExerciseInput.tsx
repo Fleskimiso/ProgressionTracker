@@ -44,39 +44,27 @@ export const StandardExerciseInput = (props: { exerciseType: "standard" }) => {
 
         <div  >
             <div className="inputGroup formSimpleInput">
-                <div>
+                <div className="spinContainer">
                     <label htmlFor="reps">Repetitions number:  </label>
-                    <button>Up</button>
+                    <button className="spinButton">Up</button>
                 </div>
-                <div>
+                <div className="spinInputContainer">
                     <input onChange={handleRepsChange} value={reps} type="number" id="reps" name="reps" />
-                    <button>Down</button>
+                    <button className="spinButton">Down</button>
                 </div>
             </div>
             <div className="inputGroup formSimpleInput">
-                <div>
+                <div className="spinContainer">
                     <label htmlFor="weight">Additional Weight (kg):   </label>
-                    <button>Up </button>
+                    <button className="spinButton">Up </button>
                 </div>
-                <div>
+                <div className="spinInputContainer">
                     <input onChange={handleWeightChange} value={weight} type="number" id="weight" name="weight" />
-                    <button>Down</button>
+                    <button className="spinButton">Down</button>
                 </div>
             </div>
         </div>
 
-        <div>
-            {/* display current sets */}
-            {
-                // to do removing on the click 
-                exerciseSets.map((set, index) => {
-                    return <div key={index}>
-                        Set {index + 1}: {set.repetitions} Repetitions
-                        {set.weight === 0 ? "" : ` with ${set.weight} kg`}
-                    </div>
-                })
-            }
-        </div>
         <div className="buttonsContainer">
             <div className="buttonContainer">
                 <button type="button" onClick={submitSet} >Add Set</button>
@@ -87,6 +75,17 @@ export const StandardExerciseInput = (props: { exerciseType: "standard" }) => {
                 </button>
             </div>
         </div>
-
+        <div>
+            {/* display current sets */}
+            {
+                // to do removing on the click 
+                exerciseSets.map((set, index) => {
+                    return <div key={index}>
+                        Set {index + 1}: {set.repetitions} Repetitions 
+                        {set.weight === 0 ? "" : `  with ${set.weight} kg`}
+                    </div>
+                })
+            }
+        </div>
     </div>
 }

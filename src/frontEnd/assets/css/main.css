@@ -1,6 +1,8 @@
 /* in this file imports of all other files should go */
 @import url(navbar.css);
 @import url(forms.css);
+@import url(colors.css);
+@import url(exerciseList.css);
 html{
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -15,6 +17,16 @@ body {
   justify-content: center;
   align-items: center;
 }
+.rowContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.alignSelf {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .mainContent {
   margin-left: auto;
   margin-right: auto;
@@ -28,7 +40,6 @@ body {
   margin-bottom: 5px;
   align-items: center;
 }
-
 @media only screen and (orientation: portrait) {
     html {
       font-size: 12px;

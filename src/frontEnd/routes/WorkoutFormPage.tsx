@@ -5,11 +5,6 @@ export const WorkoutFormPage = () =>{
 
 
     return <div className="mainContainer">
-        <div className="singleContentItem">
-        <span>
-        Your last workout
-        </span>
-        </div>
         <WorkoutForm />
     </div>
 }

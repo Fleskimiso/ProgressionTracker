@@ -109,8 +109,13 @@ export const WorkoutForm = () => {
 
     //To do styling
     return <div className="">
-        <form action="">
-            <div>
+        <div className="singleContentItem workoutLabel">
+            <span>
+                Add your Workout
+            </span>
+        </div>
+        <form className="formContainer" action="">
+            <div className="timeFormContent">
                 <div className="singleContentItem" id="dateInputGroup">
                     <label htmlFor="day">Workout Day:</label>
                     <input onChange={ondayChange} value={setDayValueForInput()} type="date" name="day" id="day" />
@@ -139,20 +144,20 @@ export const WorkoutForm = () => {
                             <input onChange={onInputTypeChange} value="izometric" type="radio" name="exerciseType" id="exerciseType2" />
                         </div></fieldset>
                 </div>
-
+            </div>
+            <div>
                 {inputType === "standard" &&
                     <StandardExerciseInput exerciseType="standard" />
                 }
                 {inputType === "izometric" &&
                     <IzometricExerciseInput exerciseType="izometric" />
                 }
-
-
-
             </div>
         </form>
         <ExerciseList izometricExercises={workout.izometricExercises} standardExercises={workout.standardExercises} />
         {/* here will be displayed added exercises  */}
-        <button onClick={submitWorkout}>Submit Workout</button>
+        <div className="buttonContainer">
+            <button className="submitButton" onClick={submitWorkout}>Submit Workout</button>
+        </div>
     </div>
 }
