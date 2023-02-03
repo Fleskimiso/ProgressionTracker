@@ -29,11 +29,11 @@ useEffect(() => {
     }
 }, [])
 
-return <div>
-    <div>
-        Workout on: {workout?.day}
+return <div className="mainContainer">
+    <div className="singleContentItem">
+        Your workout on: {new Date(workout.day).toLocaleDateString()}
     </div>
-    <div>
+    <div className="singleContentItem">
         Was {workout?.duration} hours long...
     </div>
     <ExerciseList izometricExercises={workout.izometricExercises} standardExercises={workout.standardExercises} />

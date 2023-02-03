@@ -56,26 +56,50 @@ export const IzometricExerciseInput = (props: { exerciseType: "izometric" }) => 
         setholdTime(0);
         setWeight(0);
     }
+    const upHoldTime = (e: React.MouseEvent<HTMLButtonElement>) => { 
+        e.preventDefault();
+        e.stopPropagation();
+            setholdTime(holdTime+1);
+    }
+    const downHoldTime =(e: React.MouseEvent<HTMLButtonElement>) => { 
+        e.preventDefault();
+        e.stopPropagation();
+            if(holdTime > 1) {
+                setholdTime(holdTime-1);
+            }
+    }
+    const upWeight = (e: React.MouseEvent<HTMLButtonElement>) => { 
+        e.preventDefault();
+        e.stopPropagation();
+        setWeight(weight+1);
+    }
+    const downWeight = (e: React.MouseEvent<HTMLButtonElement>) => { 
+        e.preventDefault();
+        e.stopPropagation();
+        if(weight > 1){
+        setWeight(weight-1)
+        }
+    }
 
     return <div className="exerciseInput">
         <ExerciseNameInput exerciseType={props.exerciseType} />
         <div className="inputGroup formSimpleInput">
             <div className="spinContainer">
                 <label htmlFor="holdTime">Hold time (in seconds): </label>
-                <button className="spinButton">Up</button>
+                <button onClick={upHoldTime} className="spinButton">Up</button>
             </div>
             <div className="spinInputContainer">
                 <input value={holdTime} onChange={onHoldTimeChange} type="number" name="holdTime" id="holdTime" />
-                <button className="spinButton">Down</button>
+                <button onClick={downHoldTime} className="spinButton">Down</button>
             </div>
         </div>
         <div className="inputGroup formSimpleInput">
             <div className="spinContainer">
                 <label htmlFor="weight">Weight (kg): </label>
-                <button className="spinButton">Up</button></div>
+                <button onClick={upWeight} className="spinButton">Up</button></div>
             <div className="spinInputContainer">
                 <input value={weight} onChange={onweightChange} type="number" name="weight" id="weight" />
-                <button className="spinButton">Down</button>
+                <button onClick={downWeight} className="spinButton">Down</button>
             </div>
         </div>
         <div className="buttonContainer">

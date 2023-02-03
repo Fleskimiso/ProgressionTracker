@@ -5,14 +5,14 @@ import immutable from "immutable"
 //making my own list
 
 interface Props<T> {
-    loadData:  (limit: number, offset: number) => Promise<void>
+    loadData: (limit: number, offset: number) => Promise<void>
     renderItem: (item: T) => JSX.Element;
     keyExtractor: (item: T) => string;
-    data: (T|null)[],
+    data: (T | null)[],
     dataLength: number
 }
 
-export const CardList = <T extends unknown>({ dataLength,loadData,renderItem, keyExtractor, data }: Props<T>) => {
+export const CardList = <T extends unknown>({ dataLength, loadData, renderItem, keyExtractor, data }: Props<T>) => {
 
     //current cursor position
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -28,22 +28,22 @@ export const CardList = <T extends unknown>({ dataLength,loadData,renderItem, ke
         const temporaryList: T[] = [];
         for (let i = currentIndex, j = 0; j < data.length && j < elementsPerList; i++, j++) {
             const x = data[i]
-            if(x !== null ) {
+            if (x !== null) {
                 temporaryList.push(x);
             }
         }
         setcurrentList(temporaryList);
     }, [currentIndex, data]);
 
-    const whatPageChange =  (e: React.ChangeEvent<HTMLInputElement>) => {
+    const whatPageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
         setwhatPage(Number(e.target.value));
     }
 
     const backOnePage = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        if(currentIndex > 0) {
-            loadData(elementsPerList, currentIndex - elementsPerList).then(() =>{
+        if (currentIndex > 0) {
+            loadData(elementsPerList, currentIndex - elementsPerList).then(() => {
                 setCurrentIndex(currentIndex - elementsPerList);
             });
 
@@ -51,34 +51,43 @@ export const CardList = <T extends unknown>({ dataLength,loadData,renderItem, ke
     }
     const forwardOnePage = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        if(currentIndex < dataLength) {
-            loadData(elementsPerList, currentIndex + elementsPerList).then(() =>{
+        if (currentIndex < dataLength) {
+            loadData(elementsPerList, currentIndex + elementsPerList).then(() => {
                 setCurrentIndex(currentIndex + elementsPerList);
             });
         }
     }
     const goToAnywhere = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-            loadData(elementsPerList, whatPage*elementsPerList).then(() =>{
-                setCurrentIndex(whatPage*elementsPerList);
-            });
-        
+        loadData(elementsPerList, whatPage * elementsPerList).then(() => {
+            setCurrentIndex(whatPage * elementsPerList);
+        });
+
     }
     //implement pagination
-    return <div>
-        <div>
+    return <div className="cardListContainer">
+        <div className="cardList">
             {currentList.map(item => {
                 if (item) {
-                    return <div key={keyExtractor(item)}>
+                    return <div className="card" key={keyExtractor(item)}>
+                        <div className="topCardBorder"></div>
                         {renderItem(item)}
+                        <div className="bottomCardBorder"></div>
                     </div>;
                 }
             })}
         </div>
-        <div><button onClick={backOnePage}>Go back</button> <button onClick={forwardOnePage}>Go forward</button></div>
-        <div>
-            <label htmlFor="pageGoTo">Page  (0-{Math.floor(dataLength/elementsPerList)}):</label>
-            <input onChange={whatPageChange} value={whatPage} id="pageGoTo" type="number" min={0} max={dataLength/elementsPerList} />
+        <div className="rowContainer">
+            <div className="buttonContainer">
+                <button onClick={backOnePage}>Go back</button>
+            </div>
+            <div className="buttonContainer">
+                <button onClick={forwardOnePage}>Go forward</button>
+            </div>
+        </div>
+        <div className="buttonContainer inputGroup">
+            <label className="xlabel" htmlFor="pageGoTo">Page  (0-{Math.floor(dataLength / elementsPerList)}):</label>
+            <input onChange={whatPageChange} value={whatPage} id="pageGoTo" type="number" min={0} max={dataLength / elementsPerList} />
             <button onClick={goToAnywhere}>Go</button>
         </div>
     </div>

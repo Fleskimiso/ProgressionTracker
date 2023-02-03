@@ -59,12 +59,14 @@ export const WorkoutsPage = () => {
         }
     }, [])
 
-    return <div>
-        <div> Title all your workouts i guess </div>
+    return <div className="mainContainer">
+        {/* should your last x workouts   */}
+        {/* maybe might add customization to list from 2 to 30 per page... */}
+        <div className="singleContentItem"> Your last {10}  workouts </div>
         {workoutsState.workouts && <CardList loadData={loadData} dataLength={allWorkoutsLen === undefined ? 0 : allWorkoutsLen}
             renderItem={WorkoutCard}
             keyExtractor={keyExtractor}
             data={workoutsState.workouts} />}
-        <div>{workoutsState.message}</div>
+        <div className="infoItem">{workoutsState.message}</div>
     </div>
 }

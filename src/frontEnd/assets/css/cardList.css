@@ -1,0 +1,101 @@
+@import url(colors.css);
+.cardListContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    max-width: 77rem;
+    min-width: 29rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+.cardList {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.card {
+    width: 14rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 1rem;
+    padding: 0.5rem;
+}
+.cardContent {
+    padding: 0.5rem;
+}
+.cardVerticalBorder {
+    display: flex;
+    flex-direction: row;
+}
+.topCardBorder {
+    min-height: 8px;
+    background-image: linear-gradient(to right, var(--medium-blue), var(--orchid-crayola),var(--medium-blue));
+    background-size: 200% 100%;
+    animation: topBorderAnimation 1.5s linear  infinite ;
+}
+.rightCardBorder {
+    margin-left: auto;
+    min-width: 8px;
+    background-image: linear-gradient(to bottom, var(--orchid-crayola),var(--medium-blue),var(--orchid-crayola)  );
+    background-size: 100% 200%;
+    animation: rightBorderAnimation 1.5s linear  infinite ;
+}
+.bottomCardBorder {
+    min-height: 8px;
+    background-image: linear-gradient(to right, var(--orchid-crayola),var(--medium-blue),var(--orchid-crayola));
+    background-size: 200% 100%;
+    animation: bottomBorderAnimation 1.5s linear  infinite ;
+}
+.leftCardBorder {
+    min-width: 8px;
+    background-image: linear-gradient(to top,  var(--medium-blue), var(--orchid-crayola),var(--medium-blue));
+    background-size: 100% 200%;
+    animation: leftBorderAnimation 1.5s linear  infinite ;
+}
+
+.cardContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.xlabel {
+    margin-right: 1rem;
+}
+@keyframes topBorderAnimation {
+    0% {
+        background-position: 0% 0%;
+    }
+    100% {
+        background-position: 200% 0%;
+    }
+    
+   
+}
+@keyframes rightBorderAnimation {
+    0% {
+        background-position: 0% 0%;
+    }
+    100% {
+        background-position: 0% 200%;
+    }
+}
+@keyframes bottomBorderAnimation {
+    0% {
+		background-position: 200% 0%;
+	}
+	100% {
+		background-position: 0% 0%;
+	}
+}
+@keyframes leftBorderAnimation {
+    0% {
+		background-position: 0% 200%;
+	}
+	100% {
+		background-position: 0% 0%;
+	}
+}

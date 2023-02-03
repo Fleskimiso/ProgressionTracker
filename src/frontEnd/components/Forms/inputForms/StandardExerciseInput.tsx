@@ -8,7 +8,7 @@ export const StandardExerciseInput = (props: { exerciseType: "standard" }) => {
 
     const dispatch = useDispatch();
     //repetitions
-    const [reps, setReps] = useState(0);
+    const [reps, setReps] = useState(1);
     // additional weight
     const [weight, setWeight] = useState(0);
     //current exercise Sets
@@ -38,6 +38,30 @@ export const StandardExerciseInput = (props: { exerciseType: "standard" }) => {
         e.preventDefault();
         dispatch(workoutFormSlice.actions.submitStandardExercise());
     }
+    const upReps = (e: React.MouseEvent<HTMLButtonElement>) => { 
+        e.preventDefault();
+        e.stopPropagation();
+            setReps(reps+1);
+    }
+    const downReps =(e: React.MouseEvent<HTMLButtonElement>) => { 
+        e.preventDefault();
+        e.stopPropagation();
+            if(reps > 1) {
+                setReps(reps-1);
+            }
+    }
+    const upWeight = (e: React.MouseEvent<HTMLButtonElement>) => { 
+        e.preventDefault();
+        e.stopPropagation();
+        setWeight(weight+1);
+    }
+    const downWeight = (e: React.MouseEvent<HTMLButtonElement>) => { 
+        e.preventDefault();
+        e.stopPropagation();
+        if(weight > 1){
+        setWeight(weight-1)
+        }
+    }
 
     return <div className="exerciseInput">
         <ExerciseNameInput exerciseType={props.exerciseType} />
@@ -46,21 +70,21 @@ export const StandardExerciseInput = (props: { exerciseType: "standard" }) => {
             <div className="inputGroup formSimpleInput">
                 <div className="spinContainer">
                     <label htmlFor="reps">Repetitions number:  </label>
-                    <button className="spinButton">Up</button>
+                    <button onClick={upReps} className="spinButton">Up</button>
                 </div>
                 <div className="spinInputContainer">
                     <input onChange={handleRepsChange} value={reps} type="number" id="reps" name="reps" />
-                    <button className="spinButton">Down</button>
+                    <button onClick={downReps} className="spinButton">Down</button>
                 </div>
             </div>
             <div className="inputGroup formSimpleInput">
                 <div className="spinContainer">
                     <label htmlFor="weight">Additional Weight (kg):   </label>
-                    <button className="spinButton">Up </button>
+                    <button onClick={upWeight} className="spinButton">Up </button>
                 </div>
                 <div className="spinInputContainer">
                     <input onChange={handleWeightChange} value={weight} type="number" id="weight" name="weight" />
-                    <button className="spinButton">Down</button>
+                    <button onClick={downWeight} className="spinButton">Down</button>
                 </div>
             </div>
         </div>
