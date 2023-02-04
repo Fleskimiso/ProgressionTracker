@@ -19,14 +19,14 @@ export const PlanPage = () => {
                 if (typeof resp.payload === "string") {
                     dispatch(workoutFormSlice.actions.setError(resp.payload));
                 }
-            }else {
+            } else {
                 if (resp.payload && typeof resp.payload !== "string") {
                     //destructuring the payload to modify the plan localy
                     setPlan(JSON.parse(JSON.stringify(resp.payload)));
                 }
             }
         })
-    },[]);
+    }, []);
 
     const [plan, setPlan] = useState<IPlan>({
         currentDay: 1,
@@ -116,6 +116,7 @@ export const PlanPage = () => {
         }
     }
     const submitPlan = () => {
+        //data submiting validation 
         dispatch(editPlanThunk(plan)).then(resp => {
             if (resp.meta.requestStatus === "fulfilled") {
                 navigate("/")
@@ -127,49 +128,54 @@ export const PlanPage = () => {
         })
     }
 
-    return <div>
-        Edit Your Workout Plan Here
-        <div>
+    return <div className="mainPlanContainer">
+        <div className="singlePlanItem">Edit Your Workout Plan Here</div>
+        <div className="singlePlanItem">
             <label htmlFor="days">For how many days: </label>
-            <input type="number" id="days" value={plan.workouts.length} onChange={changeDays} />
+            <input className="planInput" type="number" id="days" value={plan.workouts.length} onChange={changeDays} />
         </div>
 
-        <div>
+        <div className="singlePlanItem">
+            <div> Current set (1-{plan.workouts[currentW].exercises.length}): {currentSet + 1} </div>
+            <button className="planButton" onClick={setPreviousSet}>Previous Set</button>
+            <button className="planButton" onClick={setNextSet}>Next Set</button>
+        </div>
+        <div className="singlePlanItem">
 
-            <div>
+            <div className="singlePlanItem">
                 <label htmlFor="name">Exercise Name: </label>
-                <select onChange={changeName} value={plan.workouts[currentW].exercises[currentSet].exercise} id="name" >
+                <select className="planInput" onChange={changeName} value={plan.workouts[currentW].exercises[currentSet].exercise} id="name" >
                     {exercises.map(ex => <option key={ex.name} value={
                         ex.name
                     }>{ex.name}</option>)}
                 </select>
             </div>
-            <div>
+            <div className="singlePlanItem">
                 <label htmlFor="setsNumber">Sets: </label>
-                <input value={plan.workouts[currentW].exercises[currentSet].sets} type="number" id="sets" onChange={changeSetsNumber} />
+                <input className="planInput" value={plan.workouts[currentW].exercises[currentSet].sets} type="number" id="sets" onChange={changeSetsNumber} />
             </div>
-            <button onClick={addSet}>Add Additional Set</button>
+
+        </div>
+        <div className="singlePlanItem">
+            <button className="planButton" onClick={addSet}>Add Additional Exercise</button>
         </div>
 
-        <div>
-            <div> Current set (1-{plan.workouts[currentW].exercises.length}): {currentSet + 1} </div>
-            <button onClick={setPreviousSet}>Previous Set</button>
-            <button onClick={setNextSet}>Next Set</button>
-        </div>
 
-        <div>
+        <div className="singlePlanItem">
             <div>Current day (1-{plan.workouts.length}): {currentW + 1} </div>
-            <button onClick={setPreviousDay} >Previous Day</button>
-            <button onClick={setNextDay} >Next Day</button>
+            <button className="planButton" onClick={setPreviousDay} >Previous Day</button>
+            <button className="planButton" onClick={setNextDay} >Next Day</button>
         </div>
-        <div>
-            <div>Current Plan: </div>
-            {plan.workouts.map(workout => {
-                return <PlanDayCard key={workout.day} workoutDay={workout} />
-            })}
+        <div className="multiplePlanItem">
+            <div className="singlePlanItem">Current Plan: </div>
+            <div className="planDayList">
+                {plan.workouts.map(workout => {
+                    return <PlanDayCard key={workout.day} workoutDay={workout} />
+                })}
+            </div>
         </div>
-        <div>
-            <button onClick={submitPlan}>Edit plan </button>
+        <div className="singlePlanItem">
+            <button className="planButton" onClick={submitPlan}>Edit plan </button>
         </div>
     </div>
 }

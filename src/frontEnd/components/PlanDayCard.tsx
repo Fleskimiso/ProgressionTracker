@@ -10,13 +10,12 @@ type workoutDayType = {
 
 export const PlanDayCard = ({ workoutDay }: { workoutDay: workoutDayType }) => {
 
-    return <div>
+    return <div className="planCard">
         Day: {workoutDay.day}
         <div>
-            {workoutDay.exercises.map(exercise => {
+            {workoutDay.exercises.map((exercise,index) => {
                 return <div key={exercise.exercise}>
-                    <div>Exercise name: {exercise.exercise}</div>
-                    <div>Sets: {exercise.sets}</div>
+                   {`${index+1}.`} {exercise.exercise} x{exercise.sets}
                 </div>
             })}
         </div>

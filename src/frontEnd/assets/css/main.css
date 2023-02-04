@@ -5,6 +5,7 @@
 @import url(exerciseList.css);
 @import url(cardDetails.css);
 @import url(cardList.css);
+@import url(planPage.css);
 html{
   font-family: Arial, Helvetica, sans-serif;
 }
