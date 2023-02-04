@@ -16,12 +16,12 @@ export const CardList = <T extends unknown>({ dataLength, loadData, renderItem, 
 
     //current cursor position
     const [currentIndex, setCurrentIndex] = useState(0);
-    //elements to diplay pet page
+    //elements to display per page
     const [elementsPerList, setelementsPerList] = useState(10);
     //current list
     const [currentList, setcurrentList] = useState<T[]>([]);
     //what page to go
-    const [whatPage, setwhatPage] = useState(0);
+    const [whatPage, setwhatPage] = useState("1");
 
     //reload list on data change 
     useEffect(() => {
@@ -37,7 +37,14 @@ export const CardList = <T extends unknown>({ dataLength, loadData, renderItem, 
 
     const whatPageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
-        setwhatPage(Number(e.target.value));
+        setwhatPage(e.target.value);
+    }
+    function getWhatPageValue() {
+        const parsedValue = parseInt(whatPage);
+        if (!Number.isNaN(parsedValue) && parsedValue >= 1 && parsedValue <= Math.ceil(dataLength / elementsPerList)) {
+            return parsedValue-1;
+        } 
+        return false;
     }
 
     const backOnePage = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -51,7 +58,9 @@ export const CardList = <T extends unknown>({ dataLength, loadData, renderItem, 
     }
     const forwardOnePage = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        if (currentIndex < dataLength) {
+        console.log(currentIndex);
+        
+        if (currentIndex + elementsPerList < dataLength) {
             loadData(elementsPerList, currentIndex + elementsPerList).then(() => {
                 setCurrentIndex(currentIndex + elementsPerList);
             });
@@ -59,10 +68,13 @@ export const CardList = <T extends unknown>({ dataLength, loadData, renderItem, 
     }
     const goToAnywhere = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        loadData(elementsPerList, whatPage * elementsPerList).then(() => {
-            setCurrentIndex(whatPage * elementsPerList);
-        });
-
+        const whatPageVal = getWhatPageValue();
+        if(whatPageVal !== false) {
+            loadData(elementsPerList, whatPageVal * elementsPerList).then(() => {
+                setCurrentIndex(whatPageVal * elementsPerList);
+            });
+        }
+       
     }
     //implement pagination
     return <div className="cardListContainer">
@@ -86,8 +98,8 @@ export const CardList = <T extends unknown>({ dataLength, loadData, renderItem, 
             </div>
         </div>
         <div className="buttonContainer inputGroup">
-            <label className="xlabel" htmlFor="pageGoTo">Page  (0-{Math.floor(dataLength / elementsPerList)}):</label>
-            <input onChange={whatPageChange} value={whatPage} id="pageGoTo" type="number" min={0} max={dataLength / elementsPerList} />
+            <label className="xlabel" htmlFor="pageGoTo">Page  (1-{1+Math.floor(dataLength / elementsPerList)}):</label>
+            <input onChange={whatPageChange} value={whatPage} id="pageGoTo" type="text"/>
             <button onClick={goToAnywhere}>Go</button>
         </div>
     </div>
