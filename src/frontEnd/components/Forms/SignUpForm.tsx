@@ -55,27 +55,29 @@ export const SignUpForm = () => {
     }
 
     return <div>
-        <form action="/api/signup">
-            <div>
+        <form className="authFormContainer" action="/api/signup">
+            <div className="singleFormItem">
                 <label htmlFor="nick">Nick: </label>
-                <input value={nick} onChange={onnickChange} type="nick" name="nick" id="nick" />
+                <input className="planInput" value={nick} onChange={onnickChange} type="nick" name="nick" id="nick" />
             </div>
-            <div>
+            <div className="singleFormItem">
                 <label htmlFor="email">Email: </label>
-                <input value={email} onChange={onemailChange} type="email" name="email" id="email" />
+                <input className="planInput" value={email} onChange={onemailChange} type="email" name="email" id="email" />
             </div>
-            <div>
+            <div className="singleFormItem">
                 <label htmlFor="password">Password: </label>
-                <input value={password} onChange={onpasswordChange} type="password" name="password" id="password" />
+                <input className="planInput" value={password} onChange={onpasswordChange} type="password" name="password" id="password" />
             </div>
-            <div>
+            <div className="singleFormItem">
                 <label htmlFor="passwordRetyped">Re-enter your password: </label>
-                <input value={passwordRetyped} onChange={onpasswordRetypedChange}
+                <input className="planInput" value={passwordRetyped} onChange={onpasswordRetypedChange}
                     type="passwordRetyped" name="passwordRetyped" id="passwordRetyped" />
             </div>
-            <button type="button" onClick={onFormSubmit}>
+            <div className="singleFormItem">
+            <button className="planButton" type="button" onClick={onFormSubmit}>
                 Submit
             </button>
+            </div>
         </form>
     </div>
 }

@@ -39,22 +39,24 @@ export const LoginForm = () => {
     }
 
     // div for styling
-    return <div>
+    return <div >
         {/* login form */}
-        <form  action="/api/login" method="post">
+        <form  className="authFormContainer" action="/api/login" method="post">
             {/* email input  */}
-            <div>
+            <div className="singleFormItem">
                 <label htmlFor="email">Email: </label>
-                <input value={email} type="email" id="email" name="email" onChange={onemailChange} />
+                <input className="planInput" value={email} type="email" id="email" name="email" onChange={onemailChange} />
             </div>
             {/* password input */}
-            <div>   
+            <div className="singleFormItem">   
                 <label htmlFor="password">Password: </label>
-                <input value={password} onChange={onpasswordChange} type="password" id="password" name="password" />
+                <input className="planInput" value={password} onChange={onpasswordChange} type="password" id="password" name="password" />
             </div>
-            <button onClick={onFormSubmit} type="button">
+            <div className="singleFormItem">
+            <button className="planButton" onClick={onFormSubmit} type="button">
                 Submit
             </button>
+            </div>
             
         </form>
     </div>

@@ -6,6 +6,7 @@
 @import url(cardDetails.css);
 @import url(cardList.css);
 @import url(planPage.css);
+@import url(authForm.css);
 html{
   font-family: Arial, Helvetica, sans-serif;
 }

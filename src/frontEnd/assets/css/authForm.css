@@ -1,0 +1,42 @@
+.authFormContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    padding: 2rem;
+    border: 2px solid var(--purple-plum);
+    border-radius: 20%;
+    box-shadow: 5px 5px 20px 10px var(--purple-plum);
+}
+.authFormContainer:last-child {
+    padding-bottom: 0px;
+}
+.title {
+    padding: 1rem;
+    font-size: large;
+    margin-bottom: 2rem;
+}
+.singleFormItem {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-bottom: 1rem;
+}
+.singleFormItem button {
+    margin-left: auto;
+    margin-right: auto;
+}
+.singleFormItem label {
+    margin-right: 1rem;
+}
+@media screen and (max-width: 768px) {
+    .singleFormItem {
+        display: flex;
+        flex-direction: column;
+    }
+    .singleFormItem label {
+        margin-bottom: 0.5rem;
+    }
+}
