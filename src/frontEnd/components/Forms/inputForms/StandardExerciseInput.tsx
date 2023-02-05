@@ -68,7 +68,7 @@ export const StandardExerciseInput = (props: { exerciseType: "standard" }) => {
 
         <div  >
             <div className="inputGroup formSimpleInput">
-                <div className="spinContainer">
+                <div className="spinInputContainer">
                     <label htmlFor="reps">Repetitions number:  </label>
                     <button onClick={upReps} className="spinButton">Up</button>
                 </div>
@@ -78,7 +78,7 @@ export const StandardExerciseInput = (props: { exerciseType: "standard" }) => {
                 </div>
             </div>
             <div className="inputGroup formSimpleInput">
-                <div className="spinContainer">
+                <div className="spinInputContainer">
                     <label htmlFor="weight">Additional Weight (kg):   </label>
                     <button onClick={upWeight} className="spinButton">Up </button>
                 </div>

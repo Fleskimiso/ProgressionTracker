@@ -84,7 +84,7 @@ export const IzometricExerciseInput = (props: { exerciseType: "izometric" }) => 
     return <div className="exerciseInput">
         <ExerciseNameInput exerciseType={props.exerciseType} />
         <div className="inputGroup formSimpleInput">
-            <div className="spinContainer">
+            <div className="spinInputContainer">
                 <label htmlFor="holdTime">Hold time (in seconds): </label>
                 <button onClick={upHoldTime} className="spinButton">Up</button>
             </div>
@@ -94,7 +94,7 @@ export const IzometricExerciseInput = (props: { exerciseType: "izometric" }) => 
             </div>
         </div>
         <div className="inputGroup formSimpleInput">
-            <div className="spinContainer">
+            <div className="spinInputContainer">
                 <label htmlFor="weight">Weight (kg): </label>
                 <button onClick={upWeight} className="spinButton">Up</button></div>
             <div className="spinInputContainer">

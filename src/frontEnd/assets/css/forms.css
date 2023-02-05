@@ -44,6 +44,14 @@
     flex-direction: row;
     justify-content: space-between;
 }
+.spinInputContainer button {
+  color: black;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
 .spinInputContainer input {
     margin-left: 5rem;
     text-align: center;
@@ -110,6 +118,7 @@ input[type=number] {
     border: 2px solid var(--pastel-pink);
     border-radius: 15%;
     width: 10rem;
+    text-align: center;
 }
 .exerciseInput {
     display: flex;
