@@ -109,7 +109,7 @@ export const WorkoutForm = () => {
 
     //To do styling
     return <div className="">
-        <div className="singleContentItem workoutLabel">
+        <div className="workoutLabel">
             <span>
                 Add your Workout
             </span>

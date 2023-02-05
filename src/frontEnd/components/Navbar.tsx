@@ -39,6 +39,8 @@ export const Navbar = () => {
     }
 
     return <div className="navbar">
+        
+        <div className="navbarRow">
         <div className="mobileHamburger" onClick={changeMobileClasses} >
         <div className="pane"></div>
         <div className="pane"></div>
@@ -63,5 +65,6 @@ export const Navbar = () => {
         {user._id !== "" &&
             <button className={`navbar-button navbar-item  ${mobileLinkClass}`}  onClick={logout}>Logout</button>
         }
+        </div>
     </div>
 }

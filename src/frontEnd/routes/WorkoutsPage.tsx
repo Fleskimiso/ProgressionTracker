@@ -23,14 +23,14 @@ export const WorkoutsPage = () => {
             //load data only when it's not present or there are null values in some places
             //checks for null values
             let j = limit;
-            for(let i=offset,z=limit; i<workoutsState.workouts.length && z>0 ; i++, z-- ){
+            for (let i = offset, z = limit; i < workoutsState.workouts.length && z > 0; i++, z--) {
                 if (workoutsState.workouts[i] !== null) {
-                    j-=1;
+                    j -= 1;
                 }
-            }            
+            }
             //if all data is avaible do not make request
-            if(j > 0){
-                await dispatch(getWorkoutsThunk({limit, offset}));
+            if (j > 0) {
+                await dispatch(getWorkoutsThunk({ limit, offset }));
             }
 
         } catch (error) {
@@ -46,7 +46,7 @@ export const WorkoutsPage = () => {
 
     useEffect(() => {
         if (workoutsState.shouldUpdate) {
-            dispatch(getWorkoutsThunk({limit: 10,offset: 0})).then(resp => {
+            dispatch(getWorkoutsThunk({ limit: 10, offset: 0 })).then(resp => {
                 if (resp.meta.requestStatus === "fulfilled") {
                     //do not make request on another component mount
                     dispatch(workoutsSlice.actions.setShouldUpdate(false));
@@ -62,7 +62,8 @@ export const WorkoutsPage = () => {
     return <div className="mainContainer">
         {/* should your last x workouts   */}
         {/* maybe might add customization to list from 2 to 30 per page... */}
-        <div className="singleContentItem"> Your last {10}  workouts </div>
+        <div className="singlePlanItem"> <div className="singleContentItem">
+            Your last {10}  workouts</div> </div>
         {workoutsState.workouts && <CardList loadData={loadData} dataLength={allWorkoutsLen === undefined ? 0 : allWorkoutsLen}
             renderItem={WorkoutCard}
             keyExtractor={keyExtractor}

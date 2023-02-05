@@ -9,6 +9,14 @@
 }
 .workoutLabel {
     width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding-bottom: 0.6rem;
+    margin-top: 1rem;
+    border-bottom: 1px solid var(--purple-plum);
 }
 .timeFormContent {
     width: 100%;
@@ -62,12 +70,14 @@ input[type=number] {
     justify-content: left;
 }
 .inputGroup select {
+  color: black;
     width: fit-content;
     background-color: var(--orchid-crayola);
     border: 2px solid var(--african-violet);
     border-radius: 15%;   
 }
 .inputGroup input {
+  color: black;
     width: fit-content;
     background-color: var(--orchid-crayola);
     border: 2px solid var(--african-violet);
@@ -130,6 +140,7 @@ input[type=number] {
     align-items: center;
 }
 #dateInputGroup input {
+  color: black;
     margin-left: 1rem;
     margin-right: none;
     border: 2px solid var(--african-violet);

@@ -97,10 +97,12 @@ export const CardList = <T extends unknown>({ dataLength, loadData, renderItem, 
                 <button onClick={forwardOnePage}>Go forward</button>
             </div>
         </div>
-        <div className="buttonContainer inputGroup">
+        <div className="inputGroup">
             <label className="xlabel" htmlFor="pageGoTo">Page  (1-{1+Math.floor(dataLength / elementsPerList)}):</label>
             <input onChange={whatPageChange} value={whatPage} id="pageGoTo" type="text"/>
-            <button onClick={goToAnywhere}>Go</button>
+        </div>
+        <div className="singlePlanItem">
+        <button className="planButton" onClick={goToAnywhere}>Go</button>
         </div>
     </div>
 }

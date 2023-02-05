@@ -4,12 +4,18 @@
     display: flex;
     flex-direction: row;
     justify-content: left;
-    padding: 0.5rem;
     padding-top: 1rem;
     padding-bottom: 1rem;
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.5rem;
     background-color: var(--african-violet);
-    align-items: center;
+    align-items: flex-start;
+}
+.navbarRow {
+    flex-direction: row;
+    display: flex;
+    justify-content: left;
+    flex-wrap: wrap;
+    max-width: 90%;
 }
 
 .pane {
@@ -34,6 +40,10 @@
     transition: all 1s linear;
     animation: rot 2s normal;
     animation-delay: 1s;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }
 
 .navbar-link {
@@ -42,6 +52,10 @@
 }
 .navbar-button {
     background-color: var(--orchid-crayola);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }
 
 .navbar-button:hover {
@@ -66,28 +80,34 @@
 
 @media only screen and (orientation: portrait) {
     .mobileHamburger {
+        margin-left: 1rem;
         display: block;
         padding-left: 0.5rem;
         padding-right: 0.5rem;
-        margin-top: 20px;
     }
     .navbar-item-show {
         display: block;
-        margin-top: 1rem;
+        /* margin-top: 1rem; */
         text-align: center;
         animation-delay: 0s;
     }
     .navbar-item-hide {
         display: none;
     }
+    .navbar-item {
+        margin: 0.5rem;
+    }
     .navbar {
-        flex-direction: column;
+        flex-direction: row;
         width: min-content;
-        position: sticky;
-        top: 0;
-        left: 0;
-        height: 100vh;
-        margin-bottom: -5px;
+        position: static;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+    }
+    .navbarRow {
+        justify-content: left;
+        align-items: center;
     }
     
 }

@@ -2,13 +2,16 @@
 
 .mainPlanContainer {
     position: relative;
-    width: 500px;
+    width: 600px;
     display: flex;
     flex-direction: column;
     margin-top: 2rem;
     margin-left: auto;
     margin-right: auto;
-    padding: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-left: 0.5rem;
+    padding-right:  0.4rem;
     justify-content: center;
     transition: all 1s linear;
     /* border: 2px solid black;
@@ -23,6 +26,8 @@
     inset: 0;
     border-radius: 15%;
     padding: 5px;
+    margin-right: auto;
+    margin-left: auto;
     background: linear-gradient(135deg, var(--pastel-pink), var(--medium-blue)) ;
    
     -webkit-mask:
@@ -33,6 +38,11 @@
     box-shadow: inset 4px 4px 50px 10px var(--orchid-crayola);
     z-index: -1;
 }
+.planItemsContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
 
 .singlePlanItem {
     display: flex;
@@ -41,6 +51,20 @@
     align-items: center;
     margin-top: 0.4rem;
     margin-bottom: 0.4rem;
+}
+.planButtonsContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+.planButtonsContainer button {
+    margin-right: 2rem;
+}
+.singlePlanItem label {
+    margin-right: 0.5rem;
+}
+.singlePlanItem select {
+    color: black;
 }
 
 .planInput {
@@ -58,7 +82,8 @@
 .planButton {
     border: 2px solid var(--orchid-crayola);
     border-radius: 15%;
-    padding: 0.4rem;
+    padding: 0.5rem;
+    color: black;
     background-color: var(--purple-plum);
     box-shadow: 3px 4px 15px 3px var(--orchid-crayola);
 }
@@ -77,9 +102,17 @@
 
 @media only screen and (orientation: portrait) and (max-width: 768px) {
     .mainPlanContainer {
-        max-width: 400px;
-        width: fit-content;
         min-width: 300px;
+        width: 330px;
+        margin-left: auto;
+        margin-right: auto;
+        justify-content: space-between;
+    }
+    .planItemsContainer {
+        flex-direction: column;
+    }
+    .planButtonsContainer button {
+        margin-right: 0;
     }
 
 }

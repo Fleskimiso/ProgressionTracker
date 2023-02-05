@@ -7,25 +7,32 @@
 @import url(cardList.css);
 @import url(planPage.css);
 @import url(authForm.css);
-html{
+
+html {
   font-family: Arial, Helvetica, sans-serif;
+  color: black;
+  text-decoration: none;
 }
+
 body {
-    background-color: rgb(228, 217, 229);
-    margin: 0;
+  background-color: rgb(228, 217, 229);
+  margin: 0;
+  padding-bottom: 30px;
 }
 
 .mainContainer {
-  display: flex;
+  /* display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
 }
+
 .rowContainer {
   display: flex;
   flex-direction: row;
   justify-content: center;
 }
+
 .alignSelf {
   margin-left: auto;
   margin-right: auto;
@@ -34,7 +41,12 @@ body {
 .mainContent {
   margin-left: auto;
   margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
+
 .singleContentItem {
   padding: 10px;
   display: flex;
@@ -44,13 +56,16 @@ body {
   margin-bottom: 5px;
   align-items: center;
 }
+
 @media only screen and (orientation: portrait) {
-    html {
-      font-size: 12px;
-    }
-    .app-react-root {
-        display: flex;
-        flex-direction: row;
-        justify-content: left;
-    }
+  html {
+    font-size: 12px;
   }
+
+  .app-react-root {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+}

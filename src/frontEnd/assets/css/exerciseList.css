@@ -13,7 +13,7 @@
     font-weight: bold;
     text-align: center;
     transition: all 2s linear;
-
+    margin: 0.5rem;
 }
 
 .exerciseName {
@@ -68,6 +68,6 @@
 @media only screen and (orientation: portrait) {
     .exerciseContainer {
         min-height: 100px;
-        min-width: 200px;
+        min-width: 150px;
     }
 }
