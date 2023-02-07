@@ -14,7 +14,7 @@ export const planSlice = createSlice({
     initialState: initialPlanState,
     name: "plan",
     reducers: {
-
+        
     }, extraReducers(builder) {
         builder.addCase(getPlanThunk.fulfilled, (state, action) => {
             if (action.payload) {
@@ -32,7 +32,8 @@ export const planSlice = createSlice({
             }
         })
         builder.addCase(editPlanThunk.fulfilled, (state, action) => {
-            state.plan = action.meta.arg;
+
+            state.plan = action.meta.arg; 
         })
     }
 })
