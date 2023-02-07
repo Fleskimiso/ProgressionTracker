@@ -128,7 +128,8 @@ export const PlanPage = () => {
         })
     }
 
-    return <div className="mainPlanContainer">
+    return <div>
+        <div className="mainPlanContainer">
         <div className="singlePlanItem">Edit Your Workout Plan Here</div>
         <div className="singlePlanItem">
             <label htmlFor="days">For how many days: </label>
@@ -181,5 +182,9 @@ export const PlanPage = () => {
         <div className="singlePlanItem">
             <button className="planButton" onClick={submitPlan}>Edit plan </button>
         </div>
+    </div>
+    <div className="shadowInfo">
+        Note: If you need to add new exercise do it from the "Add Workout" Form
+    </div>
     </div>
 }

@@ -20,6 +20,7 @@ import "./assets/css/root.css"
 
 
 
+
 //main app 
 export const App = (): JSX.Element =>{
    
@@ -53,3 +54,17 @@ if(domNode) {
     <App/>
     </React.StrictMode>)
 }
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker
+        .register('sw.js')
+        .then(function(registration) {
+          console.log('[Service Worker] Registered');
+          console.log(registration)
+        })
+        .catch(function(err) {
+          console.log('[Service Worker] Registration failed: ', err);
+        });
+    });
+  }
+  

@@ -56,6 +56,10 @@ body {
   margin-bottom: 5px;
   align-items: center;
 }
+.shadowInfo {
+  font-size: 12px;
+  margin-top: 5rem;
+}
 
 @media only screen and (orientation: portrait) {
   html {

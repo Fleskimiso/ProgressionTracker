@@ -1,6 +1,5 @@
 import React, { useEffect } from "react"
 import { useAppDispatch, useAppSelector } from "../store/hooks"
-import { planSlice } from "../store/slices/PlanSlice";
 import { workoutFormSlice } from "../store/slices/WorkoutFormSlice";
 import { getUserLoginThunk } from "../store/thunks/getUserLoginThunk";
 import { editPlanThunk } from "../store/thunks/plan/editPlanThunk";
