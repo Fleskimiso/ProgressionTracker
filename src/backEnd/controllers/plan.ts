@@ -1,9 +1,10 @@
-import express, {Request, Response} from "express";
+import express, {NextFunction, Request, Response} from "express";
 import { IPlan } from "../../common/common";
 import { UserModel } from "../models/UserModel";
 import {IGetPlanResponse, IPutPlanRequest} from "../../common/responseTypes/plan"
 import { IErrorResponse } from "../../common/responseTypes/auth";
 import { PlanModel } from "../models/PlanModel";
+import { planFormSchema } from "../validators/plan";
 
 export const getPlan = async (req: Request, res: Response<IGetPlanResponse| IErrorResponse> ) =>{
     if(req.session.currentUser) {
@@ -47,4 +48,11 @@ export const putPlan = async (req: Request<{},{},IPutPlanRequest>, res: Response
            res.status(500).json({message: "Plan update failed"});
         }
     }              
+}
+export const validatePlan = (req: Request<{},{},IPutPlanRequest>, res: Response<IErrorResponse>, next: NextFunction ) =>{
+    const {error} = planFormSchema.validate(req.body);
+    if(!error) {
+        return next();
+    }
+    res.status(400).json({message: error?.message});
 }

@@ -1,8 +1,9 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { IErrorResponse, ILoginRequest, ILoginResponse, ISignupRequest, ISignUpResponse } from "../../common/responseTypes/auth";
 import { PlanModel } from "../models/PlanModel";
 import { UserModel } from "../models/UserModel";
 import * as sessionTypes from "../types/session"; // import session type
+import { loginFormSchema, signUpFormSchema } from "../validators/auth";
 
 export const signup = async (req: Request<{}, {}, ISignupRequest>, res: Response<ISignUpResponse | IErrorResponse>) => {
     if (req.body.email && req.body.nick && req.body.password) { //check if they exist
@@ -90,5 +91,22 @@ export const getLoggedUser = async (req: Request, res: Response<IErrorResponse |
     } else {
         res.status(500).json({ message: "Internal Server Error" });
     }
+
+}
+export const validateLogin = (req: Request<{}, {}, ILoginRequest>, res: Response<ILoginResponse | IErrorResponse>,next: NextFunction)  =>{
+    const {error} = loginFormSchema.validate(req.body);
+    console.log(req.body);
+    if(!error){
+     return next();
+    }
+    res.status(400).json({message: error?.message})
+
+}
+export const validateSignUp = (req: Request<{}, {}, ISignupRequest>, res: Response<ILoginResponse | IErrorResponse>,next: NextFunction) =>{
+    const {error} = signUpFormSchema.validate(req.body);
+    if(!error){
+        return next();
+    }
+    res.status(400).json({message: error?.message});
 
 }

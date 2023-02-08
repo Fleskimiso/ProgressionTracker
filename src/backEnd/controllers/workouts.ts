@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { Types } from "mongoose";
 import { Exercise, IModifiedWorkout, IWorkout } from "../../common/common";
 import { IErrorResponse } from "../../common/responseTypes/auth";
@@ -6,6 +6,7 @@ import { ISubmitExerciseNameRequest, IWorkoutRequest, IWorkoutResponse } from ".
 import { ExerciseModel } from "../models/ExerciseModel";
 import { IUser, UserModel } from "../models/UserModel";
 import { WorkoutModel } from "../models/WorkoutModel";
+import { workoutFormSchema } from "../validators/workout";
 
 export const postWorkout = async (req: Request<{}, {}, IWorkoutRequest>, res: Response<IErrorResponse>) => {
   try {
@@ -100,8 +101,12 @@ export const getWorkouts = async (req: Request<{},{},{},{ limit ?: string, offse
     res.status(500).json({
       message: "Error happened while getting workouts"
     });
-
   }
-
-
+}
+export const validateWorkout = (req: Request<{}, {}, IWorkoutRequest>, res: Response<IErrorResponse>, next: NextFunction) => {
+  const {error} = workoutFormSchema.validate(req.body);
+  if(!error) {
+    return next();
+  }
+  res.status(400).json({message: error?.message});
 }
