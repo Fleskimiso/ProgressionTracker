@@ -29,6 +29,7 @@ export const WorkoutsPage = () => {
                 }
             }
             //if all data is avaible do not make request
+            //...
             if (j > 0) {
                 await dispatch(getWorkoutsThunk({ limit, offset }));
             }

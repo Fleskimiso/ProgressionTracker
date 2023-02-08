@@ -13,3 +13,6 @@ export interface IGetExercisesResponse {
 export interface IWorkoutResponse {
     workouts: IModifiedWorkout[]
 }
+export interface IDeleteWorkoutRequest {
+    id: string
+}

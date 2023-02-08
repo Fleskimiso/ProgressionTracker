@@ -137,7 +137,7 @@ export const PlanPage = () => {
         </div>
 
         <div className="planItemsContainer">
-            <div className="singlePlanItem"> Current set (1-{plan.workouts[currentW].exercises.length}): {currentSet + 1} </div>
+            <div className="singlePlanItem"><b> Current set (1-{plan.workouts[currentW].exercises.length}): {currentSet + 1}</b> </div>
             <div className="planButtonsContainer">
             <button className="planButton" onClick={setPreviousSet}>Previous Set</button>
             <button className="planButton" onClick={setNextSet}>Next Set</button>
@@ -165,14 +165,14 @@ export const PlanPage = () => {
 
 
         <div className="planItemsContainer">
-            <div className="singlePlanItem">Current day (1-{plan.workouts.length}): {currentW + 1} </div>
+            <div className="singlePlanItem"><b>Current day (1-{plan.workouts.length}): {currentW + 1}</b> </div>
             <div className="planButtonsContainer">
             <button className="planButton" onClick={setPreviousDay} >Previous Day</button>
             <button className="planButton" onClick={setNextDay} >Next Day</button>
             </div>
         </div>
         <div className="multiplePlanItem">
-            <div className="singlePlanItem">Current Plan: </div>
+            <div className="singlePlanItem"><b>Current Plan: </b></div>
             <div className="planDayList">
                 {plan.workouts.map(workout => {
                     return <PlanDayCard key={workout.day} workoutDay={workout} />

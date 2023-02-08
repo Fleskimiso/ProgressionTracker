@@ -52,6 +52,7 @@ export const CardList = <T extends unknown>({ dataLength, loadData, renderItem, 
         if (currentIndex > 0) {
             loadData(elementsPerList, currentIndex - elementsPerList).then(() => {
                 setCurrentIndex(currentIndex - elementsPerList);
+                setwhatPage(String(Number(whatPage)-1));
             });
 
         }
@@ -63,6 +64,7 @@ export const CardList = <T extends unknown>({ dataLength, loadData, renderItem, 
         if (currentIndex + elementsPerList < dataLength) {
             loadData(elementsPerList, currentIndex + elementsPerList).then(() => {
                 setCurrentIndex(currentIndex + elementsPerList);
+                setwhatPage(String(Number(whatPage)+1));
             });
         }
     }

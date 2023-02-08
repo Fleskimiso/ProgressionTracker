@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { User } from "../../types/user";
 import { getUserLoginThunk } from "../thunks/getUserLoginThunk";
 import { loginUserThunk } from "../thunks/logInUserThunk";
@@ -17,7 +17,11 @@ export const userSlice = createSlice({
     name: "user",
     initialState,
     reducers: {
-        
+        reduceWorkout(state,action: PayloadAction<void>) {
+            if(state.wLength) {
+                state.wLength -=1;
+            }
+        }
     },
     extraReducers(builder) {
         builder.addCase(signUpUserThunk.fulfilled, (state, action) => {

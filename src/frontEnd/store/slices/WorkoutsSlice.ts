@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IModifiedWorkout} from "../../../common/common"
 import { getWorkoutsThunk } from "../thunks/workout/getWorkoutsThunk";
 import immutable from "immutable"
+import { deleteWorkoutThunk } from "../thunks/workout/deleteWorkoutThunk";
 
 //add caching maybe watch when the workouts are added ...
 const initialState : { workouts: (IModifiedWorkout|null)[], shouldUpdate: boolean, message: string }= {
@@ -31,6 +32,10 @@ export const workoutsSlice = createSlice({
         });
         builder.addCase(getWorkoutsThunk.pending, (state,action) =>{
             state.message = "Loading workouts..."
+        })
+        builder.addCase(deleteWorkoutThunk.fulfilled, (state,action) =>{
+            state.workouts = state.workouts.filter(workout => workout?._id !== action.meta.arg )
+            state.shouldUpdate = true;
         })
     },
 })
