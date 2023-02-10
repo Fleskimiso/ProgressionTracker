@@ -91,10 +91,10 @@ export const getLoggedUser = async (req: Request, res: Response<IErrorResponse |
     if (user) {
         req.session.currentUser = user;
         res.status(200).json({
-            _id: req.session.currentUser._id.toString(),
-            email: req.session.currentUser.email,
-            nick: req.session.currentUser.nick,
-            wLength: req.session.currentUser.workouts.length
+            _id: user._id.toString(),
+            email: user.email,
+            nick: user.nick,
+            wLength: user.workouts.length
         });
     } else {
         res.status(500).json({ message: "Internal Server Error" });

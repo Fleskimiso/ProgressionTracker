@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { submitWorkoutThunk } from "../../store/thunks/workout/submitWorkoutThunk";
 import { getExercisesThunk } from "../../store/thunks/workout/getExercisesThunk";
 import { WorkoutFormState } from "../../types/workoutForm";
+import { workoutsSlice } from "../../store/slices/WorkoutsSlice";
 // import timePicker from "react-time-picker"
 
 export const WorkoutForm = () => {
@@ -68,9 +69,11 @@ export const WorkoutForm = () => {
      * dispatches `submitWorkout` action
      */
     const submitWorkout = () => {
-        console.log("clcliking");
         dispatch(submitWorkoutThunk()).then(resp => {
             if (resp.meta.requestStatus === "fulfilled") {
+                dispatch(workoutsSlice.actions.setShouldUpdate(true));
+                localStorage.removeItem("workoutFormData");
+                workoutFormSlice.actions.clearWorkoutForm();
                 navigate("/")
             }
         });

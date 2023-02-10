@@ -10,9 +10,9 @@ const WorkoutSchema = new mongoose.Schema<IWorkout>({
     duration: String,
     izometricExercises: [
         {
-            exercise: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "Exercise"
+            exerciseName: {
+                type: String,
+                required: true
             },
             sets: [{
                 holdsTime: [{
@@ -26,9 +26,9 @@ const WorkoutSchema = new mongoose.Schema<IWorkout>({
         }
     ],
     standardExercises: [{
-        exercise: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Exercise"
+        exerciseName: {
+            type: String,
+            required: true
         },
 
         sets: [{

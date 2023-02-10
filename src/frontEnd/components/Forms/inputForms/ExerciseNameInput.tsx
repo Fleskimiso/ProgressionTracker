@@ -72,6 +72,8 @@ export const ExerciseNameInput = (props: { exerciseType: "standard" | "izometric
         if(currentIzometricExerciseName === "") {
             exerciseList.every(exercise =>{
                  if(exercise.type === "izometric"){
+                    console.log("I should beSETTTT");
+                    
                      dispatch(workoutFormSlice.actions.changeCurrentExerciseName({
                          exerciseType: "izometric",
                          name: exercise.name

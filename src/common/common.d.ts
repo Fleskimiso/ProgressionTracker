@@ -32,14 +32,14 @@ export interface IWorkout {
     day: Date,
     duration: string,
     izometricExercises: {
-        exercise: mongoose.Types.ObjectId,
+        exerciseName: string,
         sets: {
             weight: number,
             holdsTime: number[]
         }[]
     }[],
     standardExercises: {
-        exercise: mongoose.Types.ObjectId,
+        exerciseName: string,
         sets: {
             weight: number,
             repetitions: number
@@ -50,10 +50,7 @@ export interface IWorkout {
  * @param day ISO string date
  */
 export interface IModifiedIzometricExercise {
-    exercise: {
-        name: string,
-        type: "izometric"
-    },
+    exerciseName: string,
     sets: {
         weight: number,
         holdsTime: number[]
@@ -61,10 +58,7 @@ export interface IModifiedIzometricExercise {
 }
 
 export interface IModifiedStandardExercise {
-    exercise: {
-        name: string,
-        type: "standard"
-    },
+    exerciseName: string,
     sets: {
         weight: number,
         repetitions: number

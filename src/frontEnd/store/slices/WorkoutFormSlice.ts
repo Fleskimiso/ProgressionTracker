@@ -96,12 +96,15 @@ export const workoutFormSlice = createSlice({
             }
             //push the copy 
             state.standardExercises.push({ sets: state.currentStandardExercise.sets,
-            exercise: {
-                name: state.currentStandardExercise.name,
-                type: "standard"
-            } });
+            exerciseName: state.currentStandardExercise.name});
             state.currentStandardExercise.name = "";
             state.currentStandardExercise.sets = [];
+        },
+        deleteStandardExercise: (state,action: PayloadAction<number>) =>{
+            state.standardExercises.splice(action.payload,1);
+        },
+        deleteIzometricExercise: (state,action: PayloadAction<number>) =>{
+            state.izometricExercises.splice(action.payload,1)
         },
         submitIzometricExercise: (state, action: PayloadAction<void>) => {
             if (state.currentIzometricExercise.sets.length === 0) {
@@ -114,10 +117,7 @@ export const workoutFormSlice = createSlice({
             }
             //push the copy 
             state.izometricExercises.push({ sets: state.currentIzometricExercise.sets, 
-            exercise: {
-                name: state.currentIzometricExercise.name,
-                type: "izometric"
-            } });
+            exerciseName: state.currentIzometricExercise.name });
             state.currentIzometricExercise.name = "";
             state.currentIzometricExercise.sets = [];
         },
