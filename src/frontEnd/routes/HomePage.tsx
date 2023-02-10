@@ -13,10 +13,18 @@ export const HomePage = (): JSX.Element => {
     const user = useAppSelector(state => state.user.nick)
     const userPlan = useAppSelector(state => state.plan.plan)
 
+    function doesHttpOnlySessionCookieExist(cookiename: string) {
+        const d = new Date();
+        d.setTime(d.getTime() + (1000));
+        const expires = "expires=" + d.toUTCString();
+      
+        document.cookie = cookiename + "=new_value;path=/;" + expires;
+        return document.cookie.indexOf(cookiename + '=') == -1;
+      }
 
     //try to login user if the user didn't logout
     useEffect(() => {
-        if (!explicitLogout) {
+        if (!explicitLogout && doesHttpOnlySessionCookieExist("connect.sid") ) {
             dispatch(getUserLoginThunk()).then(resp => {
                 dispatch(getExercisesThunk());
                 dispatch(getPlanThunk()).then(planResp => {

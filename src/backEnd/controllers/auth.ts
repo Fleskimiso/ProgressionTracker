@@ -70,9 +70,17 @@ export const login = async (req: Request<{}, {}, ILoginRequest>, res: Response<I
 export const logout = async (req: Request, res: Response<IErrorResponse>) => {
     req.logout({ keepSessionInfo: false }, (err) => {
         if (err) {
+             //clear the cookie on the logout
             res.status(500).json({ message: "Internal Server Error" });
         } else {
-            res.status(200).send();
+            req.session.destroy(( Serr) =>{
+                if(Serr) {
+                    res.clearCookie("connect.sid")
+                    res.status(500).json({ message: "Internal Server Error" });
+                } else {
+                    res.status(200).send();
+                }
+            });
         }
     })
 }
@@ -95,7 +103,6 @@ export const getLoggedUser = async (req: Request, res: Response<IErrorResponse |
 }
 export const validateLogin = (req: Request<{}, {}, ILoginRequest>, res: Response<ILoginResponse | IErrorResponse>,next: NextFunction)  =>{
     const {error} = loginFormSchema.validate(req.body);
-    console.log(req.body);
     if(!error){
      return next();
     }

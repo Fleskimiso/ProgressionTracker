@@ -26,31 +26,3 @@ export const workoutFormSchema = Joi.object<IWorkoutRequest>({
     }))
 })
 
-/**
- *  day: number,
-    duration: string,
-    izometricExercises: IModifiedIzometricExercise[],
-    standardExercises: IModifiedStandardExercise[]
- */
-
-/**export interface IModifiedIzometricExercise {
-    exercise: {
-        name: string,
-        type: "izometric"
-    },
-    sets: {
-        weight: number,
-        holdsTime: number[]
-    }[]
-}
-
-export interface IModifiedStandardExercise {
-    exercise: {
-        name: string,
-        type: "standard"
-    },
-    sets: {
-        weight: number,
-        repetitions: number
-    }[]
-} */

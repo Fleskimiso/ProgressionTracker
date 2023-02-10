@@ -101,8 +101,6 @@ app.use("/api", exerciseRouter);
 app.use("/api", planRouter);
 
 app.get("/", (req: express.Request,res) =>{
-  console.log("Current user");
-    console.log(req.session.currentUser);
     
    // console.log(req.session.passport);
     res.json({ flag: "Success"});

@@ -14,7 +14,9 @@ export const planSlice = createSlice({
     initialState: initialPlanState,
     name: "plan",
     reducers: {
-        
+        clearPlan: (state,action: PayloadAction<void>) =>{
+            state.plan = initialPlanState.plan;
+        }
     }, extraReducers(builder) {
         builder.addCase(getPlanThunk.fulfilled, (state, action) => {
             if (action.payload) {

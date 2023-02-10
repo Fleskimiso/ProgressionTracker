@@ -127,6 +127,10 @@ export const PlanPage = () => {
             }
         })
     }
+    const naviagateToExercises = (e: React.MouseEvent<HTMLButtonElement>) =>{
+        e.preventDefault();
+        navigate("/exercises");
+    }
 
     return <div>
         <div className="mainPlanContainer">
@@ -160,6 +164,7 @@ export const PlanPage = () => {
 
         </div>
         <div className="singlePlanItem">
+            <button className="planButton linkButton" onClick={naviagateToExercises}>Add name to list</button>
             <button className="planButton" onClick={addSet}>Add Additional Exercise</button>
         </div>
 

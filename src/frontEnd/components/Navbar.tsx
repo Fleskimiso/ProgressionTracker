@@ -2,7 +2,7 @@ import * as React from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { useAppDispatch, useAppSelector } from "../store/hooks"
 import { exerciseListSlice } from "../store/slices/ExerciseListSlice";
-import { userSlice } from "../store/slices/UserSlice";
+import { planSlice } from "../store/slices/PlanSlice";
 import { workoutFormSlice } from "../store/slices/WorkoutFormSlice";
 import { logoutUserThunk } from "../store/thunks/logoutUserthunk";
 
@@ -19,6 +19,7 @@ export const Navbar = () => {
             if (resp.meta.requestStatus === "fulfilled") {
                 dispatch(workoutFormSlice.actions.clearWorkoutForm());
                 dispatch(exerciseListSlice.actions.clear());
+                dispatch(planSlice.actions.clearPlan())
                 navigate("/");
                 localStorage.clear();
             } else {

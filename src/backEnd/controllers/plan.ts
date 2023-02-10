@@ -11,7 +11,6 @@ export const getPlan = async (req: Request, res: Response<IGetPlanResponse| IErr
         try {
             const user  = await UserModel.findById(req.session.currentUser?._id)
             .populate<{plan :IPlan}>("plan");
-            console.log(user?.plan);
             if(user) {
                 return res.status(200).json({
                     plan: user.plan 
@@ -36,7 +35,6 @@ export const putPlan = async (req: Request<{},{},IPutPlanRequest>, res: Response
                 userPlan.currentDay = req.body.plan.currentDay;
                 userPlan.workouts= req.body.plan.workouts;
                 await userPlan.save();
-                console.log(userPlan);               
                 return res.status(200).json({
                     message: "plan updated"
                 });

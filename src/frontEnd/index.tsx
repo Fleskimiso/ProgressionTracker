@@ -17,6 +17,7 @@ import { WorkoutsPage } from "./routes/WorkoutsPage";
 import { WorkoutDetailsPage } from "./routes/WorkoutDetailsPage";
  
 import "./assets/css/root.css"
+import { ExercisePage } from "./routes/ExercisePage";
 
 
 
@@ -38,6 +39,7 @@ export const App = (): JSX.Element =>{
                 <Route path="/plans" element={<PlanPage/>} />
                 <Route path="/workouts" element={<WorkoutsPage/>} />
                 <Route path="/workouts/:id" element={<WorkoutDetailsPage/>} />
+                <Route path="/exercises" element={<ExercisePage/>} />
             </Routes>
             <InformationTable/>
             </div>

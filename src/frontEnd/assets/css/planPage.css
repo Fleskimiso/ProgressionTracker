@@ -14,13 +14,15 @@
     padding-right:  0.4rem;
     justify-content: center;
     transition: all 1s linear;
+    border: 5px solid var(--purple-plum);
+    border-radius: 15%;
     /* border: 2px solid black;
     border-image: linear-gradient( var(--medium-blue), var(--orchid-crayola));
     border-image-slice: 1;
     border-radius: 15%; */
 }
 
-.mainPlanContainer::before {
+/* .mainPlanContainer::before {
     content: "";
     position: absolute;
     inset: 0;
@@ -37,7 +39,7 @@
     mask-composite: exclude;
     box-shadow: inset 4px 4px 50px 10px var(--orchid-crayola);
     z-index: -1;
-}
+} */
 .planItemsContainer {
     display: flex;
     flex-direction: row;

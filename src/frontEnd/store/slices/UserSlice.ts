@@ -17,6 +17,9 @@ export const userSlice = createSlice({
     name: "user",
     initialState,
     reducers: {
+        setExpilicitLogout: (state,action: PayloadAction<boolean>) =>{
+            state.explicitLogout = false;
+        },
         reduceWorkout(state,action: PayloadAction<void>) {
             if(state.wLength) {
                 state.wLength -=1;

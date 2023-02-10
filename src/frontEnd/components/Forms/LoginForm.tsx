@@ -2,6 +2,7 @@ import axios from "axios"
 import React, {useState} from "react"
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../store/hooks"
+import { userSlice } from "../../store/slices/UserSlice";
 import { workoutFormSlice } from "../../store/slices/WorkoutFormSlice";
 import { loginUserThunk } from "../../store/thunks/logInUserThunk";
 
@@ -27,6 +28,7 @@ export const LoginForm = () => {
         // TODO email and password check...
         dispatch(loginUserThunk({email,password})).then(resp =>{
             if(resp.meta.requestStatus === "fulfilled"){
+                dispatch(userSlice.actions.setExpilicitLogout(false));
                 navigate("/");
             }else{
                 if(typeof resp.payload === "string"){
