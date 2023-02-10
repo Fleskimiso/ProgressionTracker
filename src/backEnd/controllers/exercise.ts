@@ -6,6 +6,7 @@ import { ExerciseModel } from "../models/ExerciseModel";
 import { Exercise } from "../../common/common";
 import { exerciseFormSchema } from "../validators/exercise";
 import { nextTick } from "process";
+import mongoose from "mongoose";
 export const postExercises = async (req: Request<{}, {}, ISubmitExerciseNameRequest>,
     res: Response<IErrorResponse | Exercise>) => {
     try {
@@ -59,11 +60,35 @@ export const getExercises = async (req: Request, res: Response<IGetExercisesResp
         return res.status(500).json({ message: "Server error happened during getting exercise list" });
     }
 }
+export const deleteExercise = async (req: Request, res: Response<IErrorResponse>) => {
+    try {
+        if (req.session.currentUser) {
+            const currentUserDoc = await UserModel.findById(req.session.currentUser._id);
+            if (currentUserDoc && req.params.id) {
+                if (currentUserDoc.exercises.includes(new mongoose.Types.ObjectId(req.params.id))) {
+                    await UserModel.findByIdAndUpdate(req.session.currentUser, {
+                        $pull: {
+                            exercises: req.params.id
+                        }
+                    });
+                    await ExerciseModel.deleteOne({
+                        _id: req.params.id
+                    });
+                    return res.status(200).send();
+                }
+            }
+        }
+    } catch (e) {
+        return res.status(500).json({ message: "Server error happened during deleting exercise" });
+    }
+}
+
+
 export const validateExercise = (req: Request<{}, {}, ISubmitExerciseNameRequest>,
     res: Response<IErrorResponse | Exercise>, next: NextFunction) => {
-        const {error} = exerciseFormSchema.validate(req.body);
-        if(!error) {
-            return next();
-        }
-        return res.status(400).json({message: error?.message});
+    const { error } = exerciseFormSchema.validate(req.body);
+    if (!error) {
+        return next();
+    }
+    return res.status(400).json({ message: error?.message });
 }

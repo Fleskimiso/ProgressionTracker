@@ -46,6 +46,15 @@
     transition: all 2s linear;
 
 }
+.singleExercise {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+.singleExercise span {
+    margin-right: 0.5rem;
+}
 
 .setsContainer {
     margin: auto;

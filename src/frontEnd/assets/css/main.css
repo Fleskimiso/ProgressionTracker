@@ -21,12 +21,7 @@ body {
   padding-bottom: 30px;
 }
 
-.mainContainer {
-  /* display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center; */
-}
+
 
 .rowContainer {
   display: flex;
