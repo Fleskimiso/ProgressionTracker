@@ -44,6 +44,9 @@ export const workoutFormSlice = createSlice({
     name: "workoutForm",
     initialState: initialWorkoutFormState,
     reducers: {
+        clearMessage: (state, action: PayloadAction<void>)=>{
+            state.message = "";
+        },
         setError: (state, action: PayloadAction<string>) => {
             state.error = action.payload;
         },
