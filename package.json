@@ -8,7 +8,9 @@
     "start:frontEndDevelopment": "webpack-dev-server --config webpack.config.js",
     "start:backEndDevelopment": "nodemon --exec ts-node --project src/backEnd/tsconfig.json  src/backEnd/index.ts",
     "build:FrontEnd": "webpack --config webpack.prod.js",
-    "start": "concurrently npm:start:*"
+    "build": "rm -r build/ && webpack --config webpack.prod.js && tsc -p src/backEnd/tsconfig.json && cp -r src/backEnd/frontDist build/",
+    "start": "node build/index.js",
+    "startDev": "concurrently npm:start:*"
   },
   "repository": {
     "type": "git",

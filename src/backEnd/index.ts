@@ -106,6 +106,10 @@ app.use("/api", WorkoutRouter);
 app.use("/api", exerciseRouter);
 app.use("/api", planRouter);
 
+app.get("/sw.js", (req,res) =>{
+  res.sendFile(__dirname + "/frontDist/sw.js");
+});
+
 app.get("/", (req: express.Request, res) => {
   res.sendFile(__dirname + "/frontDist/index.html");
 });

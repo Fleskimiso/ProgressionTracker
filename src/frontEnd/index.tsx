@@ -59,7 +59,7 @@ if(domNode) {
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', function() {
       navigator.serviceWorker
-        .register('/static/sw.js')
+        .register('/sw.js')
         .then(function(registration) {
           console.log('[Service Worker] Registered');
           console.log(registration)
