@@ -4,11 +4,63 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="assets/logo128.png">
+    <meta name="theme-color" content="#000000">
+    <link rel="shortcut icon" href="/static/assets/logo128.png" type="image/x-icon">
+    <link rel="manifest" type="application/manifest+json" href="/static/manifest.json">
+    <link rel="apple-touch-icon" sizes="128x128" href="/static/assets/logo128.png" />
     <title>Progression Tracker</title>
 </head>
 <body>
     <div id="root">
 
     </div>
+    <!-- run this script once -->
+    <!-- <script>
+import("https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js").then(resp =>{
+    for(let i=0; i<20; i++){
+    window.axios.post("/api/workouts", {
+        day: Date.now(),
+        duration: `${Math.floor(Math.random()*24)}:${Math.floor(Math.random()*60)}`,
+        izometricExercises: [{
+            name: "plank",
+            sets: [{
+                weight: 2,
+                holdsTime: [5,5,5]
+            },{
+                weight: 0,
+                holdsTime: [5,5,5]
+            },{
+                weight: 6,
+                holdsTime: [5,5,5,4,6]
+            },{
+                weight: 0,
+                holdsTime: [5]
+            }]
+        }],
+        standardExercises: [{
+            name: "pull up",
+            sets: [{
+                weight: 2,
+                repetitions: 6
+            },{
+                weight: 0,
+                repetitions: 6
+            },{
+                weight: 6,
+                repetitions: 6
+            },{
+                weight: 0,
+                repetitions: 6
+            }]
+        }]
+    })
+}
+})
+
+    </script> -->
 </body>
 </html>

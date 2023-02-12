@@ -1,3 +1,5 @@
+import { IModifiedIzometricExercise, IModifiedStandardExercise } from "../../common/common"
+
 export interface IIzometricExercise {
     name: string
     sets: IIzometricExerciseSet[]
@@ -19,11 +21,12 @@ export interface IWorkoutForm {
     day: number,
     startTime: string,
     endTime: string,
-    izometricExercises: IIzometricExercise[],
-    standardExercises: IStandardExercise[],
+    izometricExercises: IModifiedIzometricExercise[],
+    standardExercises: IModifiedStandardExercise[],
     currentStandardExercise: IStandardExercise,
     currentIzometricExercise: IIzometricExercise,
     error: string,
     message: string
 }
 export type WorkoutFormState = IWorkoutForm
+

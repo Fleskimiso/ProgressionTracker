@@ -8,7 +8,7 @@ export const StandardExerciseInput = (props: { exerciseType: "standard" }) => {
 
     const dispatch = useDispatch();
     //repetitions
-    const [reps, setReps] = useState(0);
+    const [reps, setReps] = useState(1);
     // additional weight
     const [weight, setWeight] = useState(0);
     //current exercise Sets
@@ -38,36 +38,78 @@ export const StandardExerciseInput = (props: { exerciseType: "standard" }) => {
         e.preventDefault();
         dispatch(workoutFormSlice.actions.submitStandardExercise());
     }
+    const upReps = (e: React.MouseEvent<HTMLButtonElement>) => { 
+        e.preventDefault();
+        e.stopPropagation();
+            setReps(reps+1);
+    }
+    const downReps =(e: React.MouseEvent<HTMLButtonElement>) => { 
+        e.preventDefault();
+        e.stopPropagation();
+            if(reps > 1) {
+                setReps(reps-1);
+            }
+    }
+    const upWeight = (e: React.MouseEvent<HTMLButtonElement>) => { 
+        e.preventDefault();
+        e.stopPropagation();
+        setWeight(weight+1);
+    }
+    const downWeight = (e: React.MouseEvent<HTMLButtonElement>) => { 
+        e.preventDefault();
+        e.stopPropagation();
+        if(weight > 1){
+        setWeight(weight-1)
+        }
+    }
 
-    return <div style={{ border: "2px black solid", margin: "2rem" }}>
+    return <div className="exerciseInput">
         <ExerciseNameInput exerciseType={props.exerciseType} />
 
-        <div>
-            <label htmlFor="reps">Repetitions number:  </label>
-            <input onChange={handleRepsChange} value={reps} type="number" id="reps" name="reps" />
+        <div  >
+            <div className="inputGroup formSimpleInput">
+                <div className="spinInputContainer">
+                    <label htmlFor="reps">Repetitions number:  </label>
+                    <button onClick={upReps} className="spinButton">Up</button>
+                </div>
+                <div className="spinInputContainer">
+                    <input onChange={handleRepsChange} value={reps} type="number" id="reps" name="reps" />
+                    <button onClick={downReps} className="spinButton">Down</button>
+                </div>
+            </div>
+            <div className="inputGroup formSimpleInput">
+                <div className="spinInputContainer">
+                    <label htmlFor="weight">Additional Weight (kg):   </label>
+                    <button onClick={upWeight} className="spinButton">Up </button>
+                </div>
+                <div className="spinInputContainer">
+                    <input onChange={handleWeightChange} value={weight} type="number" id="weight" name="weight" />
+                    <button onClick={downWeight} className="spinButton">Down</button>
+                </div>
+            </div>
         </div>
-        <div>
-            <label htmlFor="weight">Additional Weight (kg):  </label>
-            <input onChange={handleWeightChange} value={weight} type="number" id="weight" name="weight" />
-        </div>
-        <div>
-            <button type="button" onClick={submitSet} >Add Set</button>
+
+        <div className="buttonsContainer">
+            <div className="buttonContainer">
+                <button type="button" onClick={submitSet} >Add Set</button>
+            </div>
+            <div className="buttonContainer">
+                <button type="button" onClick={submitExercise}>
+                    Submit exercise
+                </button>
+            </div>
         </div>
         <div>
             {/* display current sets */}
             {
                 // to do removing on the click 
                 exerciseSets.map((set, index) => {
-                    return <div  key={index}>
+                    return <div key={index}>
                         Set {index + 1}: {set.repetitions} Repetitions 
-                        {set.weight === 0 ? "" : ` with ${set.weight} kg`}
+                        {set.weight === 0 ? "" : `  with ${set.weight} kg`}
                     </div>
                 })
             }
         </div>
-        <button type="button" onClick={submitExercise}>
-            Submit exercise
-        </button>
-
     </div>
 }

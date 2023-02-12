@@ -7,7 +7,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start:frontEndDevelopment": "webpack-dev-server --config webpack.config.js",
     "start:backEndDevelopment": "nodemon --exec ts-node --project src/backEnd/tsconfig.json  src/backEnd/index.ts",
-    "start": "concurrently npm:start:*"
+    "build:FrontEnd": "webpack --config webpack.prod.js",
+    "build": "rm -r build/ && webpack --config webpack.prod.js && tsc -p src/backEnd/tsconfig.json && cp -r src/backEnd/frontDist build/",
+    "start": "node build/index.js",
+    "startDev": "concurrently npm:start:*"
   },
   "repository": {
     "type": "git",
@@ -22,6 +25,7 @@
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.1",
     "@types/express": "^4.17.15",
+    "@types/joi": "^17.2.3",
     "@types/mongoose": "^5.11.97",
     "@types/node": "^18.11.18",
     "@types/react": "^18.0.26",
@@ -29,11 +33,21 @@
     "@types/react-time-picker": "^4.0.3",
     "axios": "^1.2.2",
     "concurrently": "^7.6.0",
+    "connect-mongo": "^4.6.0",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
     "css-loader": "^6.7.3",
+    "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "express-session": "^1.17.3",
     "html-webpack-plugin": "^5.5.0",
+    "immutable": "^4.2.2",
+    "joi": "^17.7.0",
     "mongoose": "^6.8.3",
     "nodemon": "^2.0.20",
+    "passport": "^0.6.0",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^7.1.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",
@@ -46,5 +60,12 @@
     "webpack": "^5.75.0",
     "webpack-cli": "^5.0.1",
     "webpack-dev-server": "^4.11.1"
+  },
+  "devDependencies": {
+    "@types/cookie-parser": "^1.4.3",
+    "@types/cors": "^2.8.13",
+    "@types/express-session": "^1.17.5",
+    "@types/passport": "^1.0.11",
+    "@types/passport-local": "^1.0.35"
   }
 }

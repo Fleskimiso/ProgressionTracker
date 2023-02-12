@@ -1,9 +1,26 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { IIzometricExerciseSet, IStandardExerciseSet, WorkoutFormState } from '../../types/workoutForm';
-import { submitWorkoutThunk } from '../thunks/submitWorkoutThunk';
+import { submitWorkoutThunk } from '../thunks/workout/submitWorkoutThunk';
 
 
+const clearWorkout = (state: WorkoutFormState) =>{
+    state.endTime = "";
+            state.startTime = "";
+            state.standardExercises = [];
+            state.izometricExercises = [];
+            state.currentStandardExercise = {
+                name: "",
+                sets: []
+            };
+            state.currentIzometricExercise = {
+                name: "",
+                sets: []
+            };
+            state.error = "";
+            state.message = "";
+            state.day = Date.now();  
+}
 
 const initialWorkoutFormState: WorkoutFormState = {
     day: Date.now(),
@@ -27,6 +44,9 @@ export const workoutFormSlice = createSlice({
     name: "workoutForm",
     initialState: initialWorkoutFormState,
     reducers: {
+        clearMessage: (state, action: PayloadAction<void>)=>{
+            state.message = "";
+        },
         setError: (state, action: PayloadAction<string>) => {
             state.error = action.payload;
         },
@@ -75,9 +95,16 @@ export const workoutFormSlice = createSlice({
                 return;
             }
             //push the copy 
-            state.standardExercises.push({ ...state.currentStandardExercise });
+            state.standardExercises.push({ sets: state.currentStandardExercise.sets,
+            exerciseName: state.currentStandardExercise.name});
             state.currentStandardExercise.name = "";
             state.currentStandardExercise.sets = [];
+        },
+        deleteStandardExercise: (state,action: PayloadAction<number>) =>{
+            state.standardExercises.splice(action.payload,1);
+        },
+        deleteIzometricExercise: (state,action: PayloadAction<number>) =>{
+            state.izometricExercises.splice(action.payload,1)
         },
         submitIzometricExercise: (state, action: PayloadAction<void>) => {
             if (state.currentIzometricExercise.sets.length === 0) {
@@ -89,17 +116,31 @@ export const workoutFormSlice = createSlice({
                 return;
             }
             //push the copy 
-            state.izometricExercises.push({ ...state.currentIzometricExercise });
+            state.izometricExercises.push({ sets: state.currentIzometricExercise.sets, 
+            exerciseName: state.currentIzometricExercise.name });
             state.currentIzometricExercise.name = "";
             state.currentIzometricExercise.sets = [];
         },
-
+        setCacheWorkout: (state, action: PayloadAction<WorkoutFormState>) =>{
+            state.endTime = action.payload.endTime;
+            state.startTime = action.payload.startTime;
+            state.standardExercises = action.payload.standardExercises;
+            state.izometricExercises = action.payload.izometricExercises;
+            state.currentStandardExercise = action.payload.currentStandardExercise;
+            state.currentIzometricExercise = action.payload.currentIzometricExercise;
+            state.error = action.payload.error;
+            state.message = action.payload.message;
+            state.day = action.payload.day;
+        },
+        clearWorkoutForm: (state,action: PayloadAction<void>) =>{
+                clearWorkout(state);
+        }
     },
     extraReducers: (builder) => {
         builder.addCase(submitWorkoutThunk.fulfilled, (state, action) => {
             if(typeof action.payload === "number"){
                 if(action.payload === 200)  {
-                    //delete the whole current workout TODO
+                   clearWorkout(state);
                 }
             }
             state.message = ""

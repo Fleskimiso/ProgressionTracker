@@ -1,17 +1,15 @@
 import mongoose from "mongoose";
+import passportLocalMongoose from "passport-local-mongoose";
 
-interface IUser {
+export interface IUser extends mongoose.Document {
     email: string
     nick: string
-    workouts: [
-        mongoose.Types.ObjectId
-    ],
-    plans: [
-        mongoose.Types.ObjectId
-    ],
-    exercises: [
-        mongoose.Types.ObjectId
-    ]
+    workouts: mongoose.Types.ObjectId[]
+,
+    plan: mongoose.Types.ObjectId
+    ,
+    exercises:  mongoose.Types.ObjectId[]
+    
 }
 
 /**
@@ -31,10 +29,15 @@ const UserSchema = new mongoose.Schema<IUser>({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Workout"
     }],
-    plans: [{
+    plan: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Plan"
+    },
+    exercises: [{ 
+        type: mongoose.Schema.Types.ObjectId,
+    ref: "Exercise"
     }]
 })
+UserSchema.plugin(passportLocalMongoose, {usernameField: "email"});
 
 export const UserModel = mongoose.model<IUser>("User", UserSchema);

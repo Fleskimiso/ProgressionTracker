@@ -17,7 +17,7 @@ module.exports = {
         exclude: /node_modules/
       },
       {
-        test: /\.css$/i,
+        test: /\.css$/,
         use: ["style-loader", "css-loader"],
       },
     ]
@@ -38,12 +38,13 @@ module.exports = {
     },
     historyApiFallback: true,
     proxy: {
-      "/api": "http://localhost:3000" 
+      "/api": "http://192.168.1.7:3000",
+      changeOrigin: true,
     }
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "./src/frontEnd/index.html"
+      template: "./src/frontEnd/index.html",
     })
   ],
   mode: "development",

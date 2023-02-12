@@ -1,19 +1,18 @@
+import { IExercise, IModifiedIzometricExercise, IModifiedStandardExercise, IModifiedWorkout, IWorkout } from "../common"
+
 export interface IWorkoutRequest  {
-    day: Number,
+    day: number,
     duration: string,
-    izometricsExercises: {
-        name: string,
-        sets: {
-            weight: number,
-            holdsTime: number[]
-        }[]
-    }[],
-    standardExercises: {
-        name: string,
-        sets: {
-            weight: number,
-            repetitions: number
-        }[]
-    }[]
+    izometricExercises: IModifiedIzometricExercise[],
+    standardExercises: IModifiedStandardExercise[]
 }
-//change
+export interface ISubmitExerciseNameRequest extends IExercise{}
+export interface IGetExercisesResponse {
+    exercises: IExercise[]
+}
+export interface IWorkoutResponse {
+    workouts: IModifiedWorkout[]
+}
+export interface IDeleteWorkoutRequest {
+    id: string
+}

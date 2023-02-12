@@ -10,7 +10,7 @@ export const IzometricExerciseInput = (props: { exerciseType: "izometric" }) => 
 
     const dispatch = useDispatch();
     //izometric exercises sets
-    const sets = useSelector((state: RootState) =>{ return state.workoutForm.currentIzometricExercise.sets})
+    const sets = useSelector((state: RootState) => { return state.workoutForm.currentIzometricExercise.sets })
     // just a hold in seconds
     const [holdTime, setholdTime] = useState(0);
     // array of holds
@@ -34,10 +34,10 @@ export const IzometricExerciseInput = (props: { exerciseType: "izometric" }) => 
     /**
      * dispatches a submitIzometricSet action
      */
-    const submitSet = (e: React.MouseEvent<HTMLButtonElement>) =>{
+    const submitSet = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         e.stopPropagation();
-        if(holdsTime.length > 0){
+        if (holdsTime.length > 0) {
             dispatch(workoutFormSlice.actions.addIzometricSet({
                 holdsTime,
                 weight
@@ -48,7 +48,7 @@ export const IzometricExerciseInput = (props: { exerciseType: "izometric" }) => 
     /**
      * dispatches `addIzometricExercise` action
      */
-    const submitExercise = (e: React.MouseEvent<HTMLButtonElement>) =>{
+    const submitExercise = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         e.stopPropagation();
         dispatch(workoutFormSlice.actions.submitIzometricExercise());
@@ -56,37 +56,83 @@ export const IzometricExerciseInput = (props: { exerciseType: "izometric" }) => 
         setholdTime(0);
         setWeight(0);
     }
+    const upHoldTime = (e: React.MouseEvent<HTMLButtonElement>) => { 
+        e.preventDefault();
+        e.stopPropagation();
+            setholdTime(holdTime+1);
+    }
+    const downHoldTime =(e: React.MouseEvent<HTMLButtonElement>) => { 
+        e.preventDefault();
+        e.stopPropagation();
+            if(holdTime > 1) {
+                setholdTime(holdTime-1);
+            }
+    }
+    const upWeight = (e: React.MouseEvent<HTMLButtonElement>) => { 
+        e.preventDefault();
+        e.stopPropagation();
+        setWeight(weight+1);
+    }
+    const downWeight = (e: React.MouseEvent<HTMLButtonElement>) => { 
+        e.preventDefault();
+        e.stopPropagation();
+        if(weight > 1){
+        setWeight(weight-1)
+        }
+    }
 
-    return <div style={{ border: "2px black solid", margin: "2rem" }}>
+    return <div className="exerciseInput">
         <ExerciseNameInput exerciseType={props.exerciseType} />
-        <div>
-            <label htmlFor="holdTime">Hold time (in seconds): </label>
-            <input value={holdTime} onChange={onHoldTimeChange} type="number" name="holdTime" id="holdTime" />
-            <button type="button" onClick={addHold}>Add hold</button>
+        <div className="inputGroup formSimpleInput">
+            <div className="spinInputContainer">
+                <label htmlFor="holdTime">Hold time (in seconds): </label>
+                <button onClick={upHoldTime} className="spinButton">Up</button>
+            </div>
+            <div className="spinInputContainer">
+                <input value={holdTime} onChange={onHoldTimeChange} type="number" name="holdTime" id="holdTime" />
+                <button onClick={downHoldTime} className="spinButton">Down</button>
+            </div>
+        </div>
+        <div className="inputGroup formSimpleInput">
+            <div className="spinInputContainer">
+                <label htmlFor="weight">Weight (kg): </label>
+                <button onClick={upWeight} className="spinButton">Up</button></div>
+            <div className="spinInputContainer">
+                <input value={weight} onChange={onweightChange} type="number" name="weight" id="weight" />
+                <button onClick={downWeight} className="spinButton">Down</button>
+            </div>
+        </div>
+        <div className="buttonContainer">
+            <button className="button" type="button" onClick={addHold}>Add hold</button>
         </div>
         <div>
-            <label htmlFor="weight">Weight (kg): </label>
-            <input value={weight} onChange={onweightChange} type="number" name="weight" id="weight" />
+            Set holds: {holdsTime.map((hold) => { return hold + "s, " })}
         </div>
-        <div>
-            Holds: {holdsTime.map((hold) => {return hold+"s, " })}
+        <div className="buttonsContainer">
+            <div className="buttonContainer">
+                <button type="button" onClick={submitSet}>
+                    Submit set
+                </button>
+            </div>
+            <div className="buttonContainer">
+                <button onClick={submitExercise}>
+                    Submit exercise
+                </button>
+            </div>
         </div>
-        <button type="button" onClick={submitSet}>Submit set</button>
         <div>
             {/* displays current sets */}
             {
-                sets.map( (set,index) =>{
+                sets.map((set, index) => {
                     return <div key={index}>
-                        Set {index+1}: {set.holdsTime.map(hold =>{
-                            return hold+"s, ";
-                        })} 
-                        {set.weight === 0? "" : `with ${set.weight}kg`} 
+                        Set {index + 1}: {set.holdsTime.map(hold => {
+                            return hold + "s, ";
+                        })}
+                        {set.weight === 0 ? "" : `with ${set.weight}kg`}
                     </div>
                 })
             }
         </div>
-        <button onClick={submitExercise}>
-            Submit exercise
-        </button>
+
     </div>
 }

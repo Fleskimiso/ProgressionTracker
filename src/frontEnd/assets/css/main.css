@@ -1,9 +1,74 @@
-/* CSS HEX */
-/* css color palete which will be used for ui design */
-:root{
---purple: #531cb3ff;
---purple-plum: #944bbbff;
---african-violet: #aa7bc3ff;
---orchid-crayola: #cc92c2ff;
---pastel-pink: #dba8acff;
+/* in this file imports of all other files should go */
+@import url(navbar.css);
+@import url(forms.css);
+@import url(colors.css);
+@import url(exerciseList.css);
+@import url(cardDetails.css);
+@import url(cardList.css);
+@import url(planPage.css);
+@import url(authForm.css);
+@import url(info.css);
+
+html {
+  font-family: Arial, Helvetica, sans-serif;
+  color: black;
+  text-decoration: none;
+}
+
+body {
+  background-color: rgb(228, 217, 229);
+  margin: 0;
+  padding-bottom: 30px;
+}
+
+
+
+.rowContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.alignSelf {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.mainContent {
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.singleContentItem {
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  border-bottom: 1px solid var(--african-violet);
+  margin-bottom: 5px;
+  align-items: center;
+}
+.shadowInfo {
+  font-size: 12px;
+  margin-top: 5rem;
+}
+button {
+  cursor: pointer;
+}
+
+@media only screen and (orientation: portrait) {
+  html {
+    font-size: 12px;
+  }
+
+  .app-react-root {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
 }

@@ -1,0 +1,23 @@
+{
+    "short_name": "Progression Tracker",
+    "lang": "en",
+    "orientation": "portrait",
+    "name": "Progression Tracker",
+    "icons": [
+      {
+        "src": "/static/assets/logo128.png",
+        "sizes": "128x128",
+        "type": "image/png"
+      }, {
+        "src": "/static/assets/logo192.png",
+        "sizes": "192x192",
+        "type": "image/png",
+        "purpose": "any maskable"
+      }
+    ],
+    "start_url": "/",
+    "display": "standalone",
+    "theme_color": "#944bbb",
+    "background_color": "#944bbb"
+  }
+  

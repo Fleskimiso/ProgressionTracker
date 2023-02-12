@@ -1,0 +1,268 @@
+@import url(colors.css);
+
+.formSimpleInput {
+    display: flex;
+    flex-direction: column;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    margin-bottom: 0.3rem;
+}
+.workoutLabel {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding-bottom: 0.6rem;
+    margin-top: 1rem;
+    border-bottom: 1px solid var(--purple-plum);
+}
+.timeFormContent {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* border: 1px solid var(--african-violet); */
+    
+}
+.formContainer {
+    display: flex;
+  flex-direction: row;
+  justify-content: center;
+  transition: all 2s linear;
+}
+.spinContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+.spinInputContainer {
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.spinInputContainer button {
+  color: black;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.spinInputContainer input {
+    margin-left: 5rem;
+    text-align: center;
+}
+.spinContainer input {
+    margin-right: auto;
+}
+.spinButton {
+    width: 50px;
+    border: 2px solid var(--medium-blue);
+    background-color: var(--purple-plum);
+    border-radius: 20%;
+}
+input[type=number] { 
+    -moz-appearance: textfield;
+    appearance: textfield;
+    max-width: 2rem;
+    text-align: center;
+}
+.inputGroup {
+    margin-top: 3px;
+    margin-bottom: 3px;
+    display: flex;
+    justify-content: left;
+}
+.inputGroup select {
+  color: black;
+    width: fit-content;
+    background-color: var(--orchid-crayola);
+    border: 2px solid var(--african-violet);
+    border-radius: 15%;   
+}
+.inputGroup input {
+  color: black;
+    width: fit-content;
+    background-color: var(--orchid-crayola);
+    border: 2px solid var(--african-violet);
+    border-radius: 15%;
+}
+#exerciseNameInputGroup {
+    display: flex;
+    flex-direction: column;
+}
+.buttonsContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.buttonContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+.buttonContainer button {
+    font-size: 1rem;
+    color: black;
+    padding: 0.5rem;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    background-color: var(--purple-plum);
+    border: 2px solid var(--pastel-pink);
+    border-radius: 15%;
+    width: 10rem;
+    text-align: center;
+}
+.exerciseInput {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    transition: all 2s linear;
+}
+.fieldSetGroup {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    border: 2px solid var(--african-violet);
+    width: fit-content;
+    border-radius: 15%;
+    margin: auto;
+}
+#formTimeGroup {
+ justify-content: space-evenly;   
+}
+.timeLabel {
+    margin-bottom: 5px;
+}
+#dateInputGroup {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+}
+#dateInputGroup input {
+  color: black;
+    margin-left: 1rem;
+    margin-right: none;
+    border: 2px solid var(--african-violet);
+    border-radius: 15%;
+    padding: 0.5rem;
+    background-color: transparent;
+}
+
+/* copied styles from Time picker */
+.react-time-picker {
+    display: inline-flex;
+    position: relative;
+  }
+  .react-time-picker,
+  .react-time-picker *,
+  .react-time-picker *:before,
+  .react-time-picker *:after {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  .react-time-picker--disabled {
+    background-color: #f0f0f0;
+    color: #6d6d6d;
+  }
+  .react-time-picker__wrapper {
+    display: flex;
+    flex-grow: 1;
+    flex-shrink: 0;
+    border: 2px solid var(--african-violet);
+    border-radius: 15%;
+  }
+  .react-time-picker__inputGroup {
+    min-width: calc((4px * 3) +  0.54em * 6  +  0.217em * 2);
+    flex-grow: 1;
+    padding: 0.5rem 0.5rem;
+    box-sizing: content-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .react-time-picker__inputGroup__divider {
+    padding: 1px 0;
+    margin: 0 2px;
+    white-space: pre;
+  }
+  .react-time-picker__inputGroup__input {
+    min-width: 1.5rem;
+    position: relative;
+    padding: 5px  4px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    border: 0;
+    background: none;
+    font: inherit;
+    box-sizing: content-box;
+    appearance: textfield;
+    -webkit-appearance: textfield;
+  }
+  .react-time-picker__inputGroup__input::-webkit-outer-spin-button,
+  .react-time-picker__inputGroup__input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 2px;
+  }
+  .react-time-picker__inputGroup__input:invalid {
+    background: rgba(255, 0, 0, 0.1);
+  }
+  /* .react-time-picker__inputGroup__input--hasLeadingZero {
+    margin-left: -0.54em;
+    padding-left: calc(1px +  0.54em);
+  } */
+  .react-time-picker__inputGroup__leadingZero {
+    display: none;
+  }
+  .react-time-picker__inputGroup__amPm {
+    font: inherit;
+    appearance: menulist;
+  }
+  .react-time-picker__button {
+    border: 0;
+    background: transparent;
+    padding: 4px 6px;
+  }
+  .react-time-picker__button:enabled {
+    cursor: pointer;
+  }
+  .react-time-picker__button:enabled:hover .react-time-picker__button__icon,
+  .react-time-picker__button:enabled:focus .react-time-picker__button__icon {
+    stroke: #0078d7;
+  }
+  .react-time-picker__button:disabled .react-time-picker__button__icon {
+    stroke: #6d6d6d;
+  }
+  .react-time-picker__button svg {
+    display: inherit;
+  }
+  .react-time-picker__clock {
+    width: 200px;
+    height: 200px;
+    max-width: 100vw;
+    padding: 25px;
+    background-color: white;
+    border: thin solid #a0a096;
+    z-index: 1;
+  }
+  .react-time-picker__clock--closed {
+    display: none;
+  }
+  /* .react-time-picker__inputGroup__input react-time-picker__inputGroup__hour */
+  @media only screen and (orientation: portrait ) and (max-width: 768px) {
+    .formContainer {
+        flex-direction: column;
+        transition: all 2s linear;
+    }
+  }

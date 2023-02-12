@@ -1,0 +1,82 @@
+@import url(colors.css);
+
+.exerciseListContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    transition: all 2s linear;
+}
+
+.typeTitle {
+    font-weight: bold;
+    text-align: center;
+    transition: all 2s linear;
+    margin: 0.5rem;
+}
+
+.exerciseName {
+    font-weight: bold;
+    text-align: center;
+    margin-top: 15px;
+    padding-bottom: 10px;
+    transition: all 2s linear;
+
+}
+
+.exercisesContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 100%;
+    transition: all 2s linear;
+
+}
+
+.exerciseContainer {
+    padding: 0.5rem;
+    border: 2px solid var(--purple-plum);
+    margin: 0.5rem;
+    border-radius: 20%;
+    min-height: 150px;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    transition: all 2s linear;
+
+}
+.singleExercise {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+.singleExercise span {
+    margin-right: 0.5rem;
+}
+
+.setsContainer {
+    margin: auto;
+    transition: all 2s linear;
+
+}
+
+.setContainer {
+    display: flex;
+    transition: all 2s linear;
+
+}
+
+.repsContainer {
+    text-align: center;
+    margin-right: auto;
+    transition: all 2s linear;
+}
+
+@media only screen and (orientation: portrait) {
+    .exerciseContainer {
+        min-height: 100px;
+        min-width: 150px;
+    }
+}
