@@ -63,7 +63,7 @@ export const HomePage = (): JSX.Element => {
             
             <div className="singlePlanItem">Welcome back {user}</div>
             {/* <div> inline component, might move it out to different file  */}
-                { userPlan.workouts.length > 0 && userPlan.workouts[0].exercises.length > 0 && (()=>{
+                { userPlan.workouts.length > 0 && userPlan.workouts[0].exercises.length > 0 && userPlan.workouts[0].exercises[0].exercise != "" && (()=>{
                     return <div className="">
                         <div className="singlePlanItem"> Your next ({userPlan.currentDay}) workout day should be:  </div>
                         <ol className="planList"> {userPlan.workouts[userPlan.currentDay-1].exercises.map(exercise =>{

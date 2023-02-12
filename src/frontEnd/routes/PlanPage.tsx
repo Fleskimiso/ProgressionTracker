@@ -189,7 +189,7 @@ export const PlanPage = () => {
         </div>
     </div>
     <div className="shadowInfo">
-        Note: If you need to add new exercise do it from the "Add Workout" Form
+        {/* Note: If you need to add new exercise do it from the "Add Workout" Form */}
     </div>
     </div>
 }

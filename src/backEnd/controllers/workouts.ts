@@ -75,8 +75,9 @@ export const getWorkouts = async (req: Request<{}, {}, {}, { limit?: string, off
       const populatedUser = await UserModel.findById(userId).populate<{ workouts: IModifiedWorkout[] }>({
         path: "workouts",
         options: {
+          sort: { day: -1 },
           limit: limit,
-          skip: offset
+          skip: offset,
         },
         populate: [{
           path: "standardExercises",

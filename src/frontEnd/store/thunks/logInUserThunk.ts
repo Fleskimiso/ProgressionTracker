@@ -15,6 +15,9 @@ export const loginUserThunk = createAsyncThunk<User | void, ILoginRequest, { sta
         }
     } catch (e) {
         if( isAxiosError<IErrorResponse>(e)) {
+            if(e.response?.status === 401) {
+                return thunkApi.rejectWithValue("Incorrect email or password");
+            }
             if(e.response?.data.message) {
                 return thunkApi.rejectWithValue(e.response?.data.message);
             }else {
