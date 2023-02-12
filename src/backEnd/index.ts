@@ -5,7 +5,7 @@ import dotenv from "dotenv"
 import MongoDBConnect from "connect-mongo";
 import passport from "passport";
 import * as passportLocal from "passport-local";
-import {Authrouter} from "./routes/auth"
+import { Authrouter } from "./routes/auth"
 import { IUser, UserModel } from "./models/UserModel";
 import { isLoggedIn } from "./middleware";
 import { WorkoutRouter } from "./routes/workouts";
@@ -13,28 +13,32 @@ import cookieParser from "cookie-parser";
 import * as passportType from "./types/passport"; //do not optimize this import 
 import { exerciseRouter } from "./routes/exercise";
 import { planRouter } from "./routes/plan";
+import path from "path";
+
 //import config values in deployment
 const isDevelopment = process.env.NODE_ENV !== "production";
-if (process.env.NODE_ENV !== "production") {
+if (isDevelopment) {
   dotenv.config();
 }
 
 
 const app = express();
+app.use('/static', express.static(path.join(__dirname, '/frontDist')))
+
 //set secret
 const secret = process.env.SECRET as string;
 const dbUrl = "mongodb://127.0.0.1:27017/progressiontracker"
 //connect to db
-mongoose.connect(dbUrl, function(error) {
-  if(error){
+mongoose.connect(dbUrl, function (error) {
+  if (error) {
     console.log(error);
     console.log("There has been an error");
-  }else {
+  } else {
     console.log("succesfully connected to the database")
   }
 })
 //parse forms
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 //parse json data
 app.use(express.json());
 //parse cookie
@@ -42,13 +46,13 @@ app.use(cookieParser())
 //configure session store
 const sessionStore = MongoDBConnect.create({
   mongoUrl: dbUrl,
-  touchAfter: 5*3600, //5 days
+  touchAfter: 5 * 3600, //5 days
   crypto: {
     secret: secret
   }
 })
 //log the error
-sessionStore.on("error", (error) =>{
+sessionStore.on("error", (error) => {
   console.log(error);
   console.log("Session store error");
 })
@@ -60,12 +64,12 @@ const sessionConfig: session.SessionOptions = {
   store: sessionStore,
   resave: true, // save the session even if there are no changes
   cookie: {
-    maxAge: 1000*3600*24*7*2, // two weeks for cookie to expire
+    maxAge: 1000 * 3600 * 24 * 7 * 2, // two weeks for cookie to expire
     httpOnly: true,
-    secure: isDevelopment ? false: true,
-    sameSite: isDevelopment? "lax" : "strict",
+    secure: isDevelopment ? false : true,
+    sameSite: isDevelopment ? "lax" : "strict",
   },
- 
+
 }
 
 
@@ -76,22 +80,24 @@ app.use(passport.session());
 //login via email that is set username field to email
 passport.use(new passportLocal.Strategy({
   usernameField: "email",
-},UserModel.authenticate()));
+}, UserModel.authenticate()));
 passport.serializeUser(UserModel.serializeUser());
 passport.deserializeUser(UserModel.deserializeUser());
 
 
 app.use((req, res, next) => {
-    res.setHeader("Access-Control-Allow-Credentials","true");
+  if (isDevelopment) {
+    res.setHeader("Access-Control-Allow-Credentials", "true");
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader(
       "Access-Control-Allow-Methods",
       "OPTIONS, GET, POST, PUT, PATCH, DELETE"
     );
     res.header("Access-Control-Allow-Headers",
-   "Origin, Content-Type");
-    next();
-  });
+      "Origin, Content-Type");
+  }
+  next();
+});
 
 
 
@@ -100,12 +106,15 @@ app.use("/api", WorkoutRouter);
 app.use("/api", exerciseRouter);
 app.use("/api", planRouter);
 
-app.get("/", (req: express.Request,res) =>{
-    
-   // console.log(req.session.passport);
-    res.json({ flag: "Success"});
+app.get("/", (req: express.Request, res) => {
+  res.sendFile(__dirname + "/frontDist/index.html");
 });
 
-app.listen(3000,() =>{
-    console.log("listening on port 3000");
+//just redirect no 404 page
+app.get("*", (req,res) =>{
+    res.status(404).send("Page not found")
+})
+
+app.listen(3000, () => {
+  console.log("listening on port 3000");
 })

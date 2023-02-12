@@ -5,6 +5,7 @@ import { UserModel } from "../models/UserModel";
 import * as sessionTypes from "../types/session"; // import session type
 import { loginFormSchema, signUpFormSchema } from "../validators/auth";
 
+
 export const signup = async (req: Request<{}, {}, ISignupRequest>, res: Response<ISignUpResponse | IErrorResponse>) => {
     if (req.body.email && req.body.nick && req.body.password) { //check if they exist
         // Todo check if it's properly formatted using JOI
@@ -15,29 +16,46 @@ export const signup = async (req: Request<{}, {}, ISignupRequest>, res: Response
                     email: req.body.email,
                     nick: req.body.nick,
                 });
-                const userPlan = new PlanModel();
+                //create a new user
+                //create a new plan
+                const userPlan = new PlanModel({
+                    currentDay: 1,
+                    workouts: []
+                });
+                //save the plan to the database
+                await userPlan.save();
+                //associate the plan with the user
                 newUser.plan = userPlan._id;
+                // await newUser.save();
+                //save the user after registration
                 const registeredUser = await UserModel.register(newUser, req.body.password);
-                await req.login(registeredUser, (error) => {
-                    if (error) {
-                        res.status(500).json({ message: "Internal Server Error" });
+                await registeredUser.save();
+                req.login(registeredUser, (error) => {
+                    if (!error) {
+                        req.session.currentUser = newUser;
+                        res.status(200).json({
+                            _id: newUser._id.toString(), //might not be needed
+                            email: newUser.email,
+                            nick: newUser.nick
+                        });
+                    }  else {
+                        res.status(500).json({ message: "Internal Server Error" });       
                     }
-                })
-                await newUser.save();
-                res.status(200).json({
-                    _id: newUser._id.toString(), //might not be needed
-                    email: newUser.email, // same with email if it's succefull it should be on the frontend
-                    nick: newUser.nick
                 });
             } else {
                 res.status(409).json({
                     message: "User with this email already exists."
                 });
             }
-        } catch (error) {
+        } catch (error: any) {
             //should be catched when for example when
             //the db connections breaks during finding/saving user
-            res.status(500).json({ message: "Internal Server Error" });
+            if(error?.message)  {
+            res.status(500).json({ message: error?.message });
+                
+            }else {
+                res.status(500).json({ message: "Internal Server Error" });
+            }
         }
 
     }
@@ -60,6 +78,8 @@ export const login = async (req: Request<{}, {}, ILoginRequest>, res: Response<I
                         res.status(500).json({ message: "Internal Server Error" });
                     }
                 })
+            } else {
+                res.status(404).json({ message: "User not found" });
             }
         } catch (error) {
             res.status(500).json({ message: "Internal Server Error" });

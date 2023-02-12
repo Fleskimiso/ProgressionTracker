@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import passportLocalMongoose from "passport-local-mongoose";
 
-export interface IUser extends Express.User {
+export interface IUser extends mongoose.Document {
     email: string
     nick: string
     workouts: mongoose.Types.ObjectId[]

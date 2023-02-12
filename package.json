@@ -7,6 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start:frontEndDevelopment": "webpack-dev-server --config webpack.config.js",
     "start:backEndDevelopment": "nodemon --exec ts-node --project src/backEnd/tsconfig.json  src/backEnd/index.ts",
+    "build:FrontEnd": "webpack --config webpack.prod.js",
     "start": "concurrently npm:start:*"
   },
   "repository": {

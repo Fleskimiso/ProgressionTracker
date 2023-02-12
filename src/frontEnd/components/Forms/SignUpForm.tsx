@@ -70,8 +70,8 @@ export const SignUpForm = () => {
             </div>
             <div className="singleFormItem">
                 <label htmlFor="passwordRetyped">Re-enter your password: </label>
-                <input className="planInput" value={passwordRetyped} onChange={onpasswordRetypedChange}
-                    type="passwordRetyped" name="passwordRetyped" id="passwordRetyped" />
+                <input className="planInput" value={passwordRetyped}  onChange={onpasswordRetypedChange}
+                    type="password" name="passwordRetyped" id="passwordRetyped" />
             </div>
             <div className="singleFormItem">
             <button className="planButton" type="button" onClick={onFormSubmit}>

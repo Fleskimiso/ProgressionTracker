@@ -12,7 +12,6 @@ export const InformationTable = () => {
     }
     const hideError = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
-        console.log("I was ckucjed");
         dispatch(workoutFormSlice.actions.setError(""));
     }
 
