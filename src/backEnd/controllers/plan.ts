@@ -32,7 +32,6 @@ export const putPlan = async (req: Request<{}, {}, IPutPlanRequest>, res: Respon
             const user = await UserModel.findById(req.session.currentUser?._id)
             if (user) {
                 const userPlan = await PlanModel.findById(user.plan);
-                console.log(userPlan);
                 if (userPlan) {
                     userPlan.currentDay = req.body.plan.currentDay;
                     userPlan.workouts = req.body.plan.workouts;

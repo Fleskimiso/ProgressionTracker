@@ -41,7 +41,6 @@ const putPlan = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             const user = yield UserModel_1.UserModel.findById((_b = req.session.currentUser) === null || _b === void 0 ? void 0 : _b._id);
             if (user) {
                 const userPlan = yield PlanModel_1.PlanModel.findById(user.plan);
-                console.log(userPlan);
                 if (userPlan) {
                     userPlan.currentDay = req.body.plan.currentDay;
                     userPlan.workouts = req.body.plan.workouts;

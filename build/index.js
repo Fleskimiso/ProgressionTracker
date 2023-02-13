@@ -89,7 +89,7 @@ const sessionConfig = {
     cookie: {
         maxAge: 1000 * 3600 * 24 * 7 * 2,
         httpOnly: true,
-        secure: isDevelopment ? false : true,
+        secure: isDevelopment ? false : false,
         sameSite: isDevelopment ? "lax" : "none",
     },
 };

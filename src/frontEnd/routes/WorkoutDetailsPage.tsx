@@ -57,7 +57,7 @@ return <div className="mainContainer">
     <div className="singleContentItem">
         Was {workout?.duration} hours long...
     </div>
-    <ExerciseList izometricExercises={workout.izometricExercises} standardExercises={workout.standardExercises} />
+    <ExerciseList showDeleteButton={false} izometricExercises={workout.izometricExercises} standardExercises={workout.standardExercises} />
     <div className="buttonsContainer">
         <button className="planButton" onClick={deleteWorkout}>DELETE WORKOUT</button>
     </div>

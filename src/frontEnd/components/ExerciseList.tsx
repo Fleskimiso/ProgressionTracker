@@ -5,10 +5,11 @@ import { workoutFormSlice } from "../store/slices/WorkoutFormSlice"
 //TODO STYLING
 type exerciseListType = {
     izometricExercises: IModifiedIzometricExercise[],
-    standardExercises: IModifiedStandardExercise[]
+    standardExercises: IModifiedStandardExercise[],
+    showDeleteButton: boolean
 }
 
-export const ExerciseList = ({ izometricExercises, standardExercises }: exerciseListType) => {
+export const ExerciseList = ({ izometricExercises, standardExercises,showDeleteButton }: exerciseListType) => {
 
 
     const dispatch = useAppDispatch();
@@ -41,10 +42,11 @@ export const ExerciseList = ({ izometricExercises, standardExercises }: exercise
                 {izometricExercises.map((exercise, index) => {
                     return <div className="exerciseContainer" key={index}>
                         {/* commment from the future there should be different naming convention */}
-                        <div className="exerciseName"> {exercise.exerciseName} <button
+                        <div className="exerciseName"> {exercise.exerciseName} {showDeleteButton &&
+                        <button
                         onClick={deleteExercise}
                         value={`izometric:${index}`}
-                        className="planButton">X</button> </div>
+                        className="planButton">X</button>} </div>
                         <div className="setsContainer">
                             {/* display exercise name map over each exercise set */}
                         {exercise.sets.map((set, setIndex) => {
@@ -75,10 +77,12 @@ export const ExerciseList = ({ izometricExercises, standardExercises }: exercise
                 {
                     standardExercises.map((exercise, index) => {
                         return <div className="exerciseContainer" key={index}>
-                            <div className="exerciseName"> {exercise.exerciseName} <button 
-                            onClick={deleteExercise}
-                            value={`standard:${index}`}
-                            className="planButton">X</button></div>
+                            <div className="exerciseName"> {exercise.exerciseName} {
+                                showDeleteButton && <button 
+                                onClick={deleteExercise}
+                                value={`standard:${index}`}
+                                className="planButton">X</button>
+                            }</div>
                             <div className="setsContainer">
                             {
                                 exercise.sets.map((set, setIndex) => {
