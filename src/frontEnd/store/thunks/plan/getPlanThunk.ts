@@ -8,7 +8,7 @@ import { RootState } from "../../store";
 export const getPlanThunk = createAsyncThunk<IPlan | void, void, { state: RootState, rejectValue: string }>("getPlan", async (arg, thunkApi) => {
     try {
         //try geting the user data
-        const response = await axios.get<IGetPlanResponse>("/api/plans")
+        const response = await axios.get<IGetPlanResponse>("/api/plans");
         if (response.status === 200) {
             return response.data.plan;
         }

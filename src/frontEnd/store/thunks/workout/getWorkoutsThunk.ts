@@ -15,7 +15,7 @@ type args = { limit: number, offset: number }
 export const getWorkoutsThunk = createAsyncThunk<resp,args, { state: RootState, rejectValue: string }>("getWorkouts",
     async (arg = { limit: 10, offset: 0 }, thunkApi) => {
         try { // post login request
-            const response = await axios.get<IWorkoutResponse>(`/api/workouts?limit${arg.limit}&offset=${arg.offset}`);
+            const response = await axios.get<IWorkoutResponse>(`/api/workouts?limit${arg.limit}&offset=${arg.offset}`  );
             return {
                 workouts: response.data.workouts,
                 limit: arg.limit,

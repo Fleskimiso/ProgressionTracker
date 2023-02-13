@@ -30,6 +30,7 @@ const express_1 = __importDefault(require("express"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const express_session_1 = __importDefault(require("express-session"));
 const dotenv_1 = __importDefault(require("dotenv"));
+const helmet_1 = __importDefault(require("helmet"));
 const connect_mongo_1 = __importDefault(require("connect-mongo"));
 const passport_1 = __importDefault(require("passport"));
 const passportLocal = __importStar(require("passport-local"));
@@ -49,7 +50,7 @@ const app = (0, express_1.default)();
 app.use('/static', express_1.default.static(path_1.default.join(__dirname, '/frontDist')));
 //set secret
 const secret = process.env.SECRET;
-const dbUrl = "mongodb://127.0.0.1:27017/progressiontracker";
+const dbUrl = isDevelopment ? "mongodb://127.0.0.1:27017/progressiontracker" : process.env.MONGODB_URI;
 //connect to db
 mongoose_1.default.connect(dbUrl, function (error) {
     if (error) {
@@ -89,7 +90,7 @@ const sessionConfig = {
         maxAge: 1000 * 3600 * 24 * 7 * 2,
         httpOnly: true,
         secure: isDevelopment ? false : true,
-        sameSite: isDevelopment ? "lax" : "strict",
+        sameSite: isDevelopment ? "lax" : "none",
     },
 };
 app.use((0, express_session_1.default)(sessionConfig));
@@ -102,6 +103,24 @@ passport_1.default.use(new passportLocal.Strategy({
 }, UserModel_1.UserModel.authenticate()));
 passport_1.default.serializeUser(UserModel_1.UserModel.serializeUser());
 passport_1.default.deserializeUser(UserModel_1.UserModel.deserializeUser());
+if (!isDevelopment) {
+    //set the headers for security
+    app.use((0, helmet_1.default)({
+        contentSecurityPolicy: {
+            directives: {
+                defaultSrc: [],
+                connectSrc: ["'self'"],
+                scriptSrc: ["'unsafe-inline'", "'self'"],
+                styleSrc: ["'self'", "'unsafe-inline'"],
+                workerSrc: ["'self'", "blob:"],
+                childSrc: ["blob:"],
+                objectSrc: [],
+                manifestSrc: ["'self'"]
+            }
+        },
+        crossOriginEmbedderPolicy: false,
+    }));
+}
 app.use((req, res, next) => {
     if (isDevelopment) {
         res.setHeader("Access-Control-Allow-Credentials", "true");
@@ -123,9 +142,11 @@ app.get("/", (req, res) => {
 });
 //just redirect no 404 page
 app.get("*", (req, res) => {
-    res.status(404).send("Page not found");
+    // res.status(404).send("Page not found")
+    res.redirect("/");
 });
-app.listen(3000, () => {
-    console.log("listening on port 3000");
+const port = process.env.PORT ? process.env.PORT : 3000;
+app.listen(port, () => {
+    console.log("listening on port: ", port);
 });
 //# sourceMappingURL=index.js.map

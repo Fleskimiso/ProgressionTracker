@@ -1,13 +1,13 @@
 import express from "express";
 import mongoose from "mongoose";
 import session from "express-session";
-import dotenv from "dotenv"
+import dotenv from "dotenv";
+import helmet from "helmet";
 import MongoDBConnect from "connect-mongo";
 import passport from "passport";
 import * as passportLocal from "passport-local";
 import { Authrouter } from "./routes/auth"
-import { IUser, UserModel } from "./models/UserModel";
-import { isLoggedIn } from "./middleware";
+import { UserModel } from "./models/UserModel";
 import { WorkoutRouter } from "./routes/workouts";
 import cookieParser from "cookie-parser";
 import * as passportType from "./types/passport"; //do not optimize this import 
@@ -27,7 +27,8 @@ app.use('/static', express.static(path.join(__dirname, '/frontDist')))
 
 //set secret
 const secret = process.env.SECRET as string;
-const dbUrl = "mongodb://127.0.0.1:27017/progressiontracker"
+const dbUrl = isDevelopment ? "mongodb://127.0.0.1:27017/progressiontracker" : process.env.MONGODB_URI as string;
+
 //connect to db
 mongoose.connect(dbUrl, function (error) {
   if (error) {
@@ -67,7 +68,7 @@ const sessionConfig: session.SessionOptions = {
     maxAge: 1000 * 3600 * 24 * 7 * 2, // two weeks for cookie to expire
     httpOnly: true,
     secure: isDevelopment ? false : true,
-    sameSite: isDevelopment ? "lax" : "strict",
+    sameSite: isDevelopment ? "lax" : "none",
   },
 
 }
@@ -85,6 +86,26 @@ passport.serializeUser(UserModel.serializeUser());
 passport.deserializeUser(UserModel.deserializeUser());
 
 
+if (!isDevelopment) {
+  //set the headers for security
+  app.use(helmet(
+    {
+      contentSecurityPolicy: {
+        directives: {
+          defaultSrc: [],
+          connectSrc: ["'self'"],
+          scriptSrc: ["'unsafe-inline'", "'self'"], //unsafe inline for onClick scripts and so on
+          styleSrc: ["'self'", "'unsafe-inline'"],
+          workerSrc: ["'self'", "blob:"],
+          childSrc: ["blob:"],
+          objectSrc: [],
+          manifestSrc: ["'self'"]
+        }
+      },
+      crossOriginEmbedderPolicy: false,
+    }
+  ));
+}
 app.use((req, res, next) => {
   if (isDevelopment) {
     res.setHeader("Access-Control-Allow-Credentials", "true");
@@ -106,7 +127,7 @@ app.use("/api", WorkoutRouter);
 app.use("/api", exerciseRouter);
 app.use("/api", planRouter);
 
-app.get("/sw.js", (req,res) =>{
+app.get("/sw.js", (req, res) => {
   res.sendFile(__dirname + "/frontDist/sw.js");
 });
 
@@ -115,10 +136,12 @@ app.get("/", (req: express.Request, res) => {
 });
 
 //just redirect no 404 page
-app.get("*", (req,res) =>{
-    res.status(404).send("Page not found")
+app.get("*", (req, res) => {
+  // res.status(404).send("Page not found")
+  res.redirect("/");
 })
 
-app.listen(3000, () => {
-  console.log("listening on port 3000");
+const port = process.env.PORT ? process.env.PORT : 3000;
+app.listen(port, () => {
+  console.log("listening on port: ", port);
 })

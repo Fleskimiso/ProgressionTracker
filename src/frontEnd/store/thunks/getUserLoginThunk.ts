@@ -7,7 +7,11 @@ import { RootState } from "../store";
 export const getUserLoginThunk = createAsyncThunk<User | void, void, { state: RootState,rejectValue: string }>("getlogin", async (arg, thunkApi) => {
     try{ 
         //try geting the user data
-        const response = await axios.get<ILoginResponse>("/api/login")
+        /**  'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, HEAD, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type, Accept, Authorization', */
+        const response = await axios.get<ILoginResponse>("/api/login");
         if(response.status === 200) {
             return response.data;
         }
