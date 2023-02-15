@@ -58,9 +58,8 @@ export const StandardExerciseInput = (props: { exerciseType: "standard" }) => {
     const downWeight = (e: React.MouseEvent<HTMLButtonElement>) => { 
         e.preventDefault();
         e.stopPropagation();
-        if(weight > 1){
         setWeight(weight-1)
-        }
+        //allow for negative weight
     }
 
     return <div className="exerciseInput">

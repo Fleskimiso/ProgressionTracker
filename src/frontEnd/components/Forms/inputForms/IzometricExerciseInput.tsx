@@ -12,7 +12,7 @@ export const IzometricExerciseInput = (props: { exerciseType: "izometric" }) => 
     //izometric exercises sets
     const sets = useSelector((state: RootState) => { return state.workoutForm.currentIzometricExercise.sets })
     // just a hold in seconds
-    const [holdTime, setholdTime] = useState(0);
+    const [holdTime, setholdTime] = useState(1);
     // array of holds
     const [holdsTime, setHoldsTime] = useState<number[]>([]);
     // handle hold time change
@@ -76,9 +76,8 @@ export const IzometricExerciseInput = (props: { exerciseType: "izometric" }) => 
     const downWeight = (e: React.MouseEvent<HTMLButtonElement>) => { 
         e.preventDefault();
         e.stopPropagation();
-        if(weight > 1){
-        setWeight(weight-1)
-        }
+        //allow for negative weight 
+        setWeight(weight-1);
     }
 
     return <div className="exerciseInput">
