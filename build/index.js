@@ -89,8 +89,8 @@ const sessionConfig = {
     cookie: {
         maxAge: 1000 * 3600 * 24 * 7 * 2,
         httpOnly: true,
-        secure: isDevelopment ? false : true,
-        sameSite: isDevelopment ? "lax" : "none",
+        secure: isDevelopment === false ? false : true,
+        sameSite: isDevelopment === false ? "lax" : "none",
     },
 };
 app.use((0, express_session_1.default)(sessionConfig));

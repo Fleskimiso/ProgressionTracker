@@ -67,8 +67,8 @@ const sessionConfig: session.SessionOptions = {
   cookie: {
     maxAge: 1000 * 3600 * 24 * 7 * 2, // two weeks for cookie to expire
     httpOnly: true,
-    secure: isDevelopment ? false : true,
-    sameSite: isDevelopment ? "lax" : "none",
+    secure: isDevelopment===false ? false : true,
+    sameSite: isDevelopment===false ? "lax" : "none",
   },
 
 }
