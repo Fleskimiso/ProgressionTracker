@@ -89,7 +89,7 @@ const sessionConfig = {
     cookie: {
         maxAge: 1000 * 3600 * 24 * 7 * 2,
         httpOnly: true,
-        secure: isDevelopment ? false : false,
+        secure: isDevelopment ? false : true,
         sameSite: isDevelopment ? "lax" : "none",
     },
 };
@@ -110,7 +110,7 @@ if (!isDevelopment) {
             directives: {
                 defaultSrc: [],
                 connectSrc: ["'self'"],
-                scriptSrc: ["'unsafe-inline'", "'self'"],
+                scriptSrc: ["'unsafe-inline'", "'self'", "'unsafe-eval'"],
                 styleSrc: ["'self'", "'unsafe-inline'"],
                 workerSrc: ["'self'", "blob:"],
                 childSrc: ["blob:"],

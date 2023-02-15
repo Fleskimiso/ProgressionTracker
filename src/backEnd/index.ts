@@ -94,7 +94,7 @@ if (!isDevelopment) {
         directives: {
           defaultSrc: [],
           connectSrc: ["'self'"],
-          scriptSrc: ["'unsafe-inline'", "'self'"], //unsafe inline for onClick scripts and so on
+          scriptSrc: ["'unsafe-inline'", "'self'", "'unsafe-eval'"], //unsafe inline for onClick scripts and so on
           styleSrc: ["'self'", "'unsafe-inline'"],
           workerSrc: ["'self'", "blob:"],
           childSrc: ["blob:"],
