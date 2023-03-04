@@ -31,6 +31,7 @@ export const App = (): JSX.Element =>{
         <BrowserRouter>
         <Navbar/>
             <div className="mainContent">
+            <InformationTable/>
             <Routes>
                 <Route  path="/" element={<HomePage/>} />
                 <Route path="/login" element={<LoginPage/>}/>
@@ -41,7 +42,7 @@ export const App = (): JSX.Element =>{
                 <Route path="/workouts/:id" element={<WorkoutDetailsPage/>} />
                 <Route path="/exercises" element={<ExercisePage/>} />
             </Routes>
-            <InformationTable/>
+            
             </div>
         </BrowserRouter>
         </Provider>

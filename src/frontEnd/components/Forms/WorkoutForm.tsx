@@ -42,22 +42,29 @@ export const WorkoutForm = () => {
         }
     }
     //day of the workout
-    const day = workout.day;
+    const [day,setDay] = useState(workout.day);
 
     //update day on change
     const ondayChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         // console.log(e.target.value);
-        dispatch(workoutFormSlice.actions.changeDay(new Date(e.target.value).getTime()));
+        const dateToSet = new Date(e.target.value).getTime();
+        console.log(setDayValueForInput(dateToSet));
+        setDay(dateToSet);
+        dispatch(workoutFormSlice.actions.changeDay(dateToSet));
     }
     //set formatted date for input 
-    const setDayValueForInput = () => {
-        let x = new Date(day); // uses day from outer scope
+    const setDayValueForInput = (dayToFormat: number) => {
+        let x = new Date(dayToFormat); // uses day from outer scope
         let y = (x.getMonth() + 1)
         let month = "01";
         if (y < 10) {
-            month = "0" + String(y)
+            month = "0" + String(y);
         }
-        return (x.getFullYear() + "-" + month + "-" + x.getDate());
+        let day: string|number = x.getDate();
+        if(day < 10) {
+            day = '0' + String(day);
+        }
+        return (x.getFullYear() + "-" + month + "-" + day);
     }
     // which input type show on display? 
     const [inputType, setinputType] = useState("")
@@ -121,7 +128,7 @@ export const WorkoutForm = () => {
             <div className="timeFormContent">
                 <div className="singleContentItem" id="dateInputGroup">
                     <label htmlFor="day">Workout Day:</label>
-                    <input onChange={ondayChange} value={setDayValueForInput()} type="date" name="day" id="day" />
+                    <input onChange={ondayChange} value={setDayValueForInput(day)} type="date" name="day" id="day" />
                 </div>
                 <div className="singleContentItem" id="formTimeGroup">
                     <div className="formSimpleInput">
